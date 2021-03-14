@@ -1,0 +1,7 @@
+.content-container{
+    display:flex;
+
+    &.-center{
+        justify-content:center;
+    }
+}

@@ -1,0 +1,23 @@
+﻿@charset 'UTF-8';
+@import '_variables';
+
+//Import Bootstrap from npm
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+//Import FontAwesome from npm
+@import '../../../node_modules/@fortawesome/fontawesome-pro/scss/fontawesome.scss';
+@import '../../../node_modules/@fortawesome/fontawesome-pro/scss/duotone.scss';
+@import '../../../node_modules/@fortawesome/fontawesome-pro/scss/light.scss';
+@import '../../../node_modules/@fortawesome/fontawesome-pro/scss/regular.scss';
+@import '../../../node_modules/@fortawesome/fontawesome-pro/scss/solid.scss';
+
+//Import .scss files here
+@import '_fonts';
+@import '_mixins';
+@import '_common';
+
+// Import components here
+//@import 'components/_sample-component.scss';
+@import 'components/_content-container.scss';
+@import 'components/_register-form.scss';
+@import 'components/_error-panel.scss';

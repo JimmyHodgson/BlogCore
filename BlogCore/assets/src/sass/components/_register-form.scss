@@ -1,0 +1,11 @@
+﻿.register-form {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 10px 10px;
+    width:100%;
+
+    @media(min-width:$screen-md-min){
+        width:30%;
+    }
+}
