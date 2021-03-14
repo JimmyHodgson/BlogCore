@@ -12,16 +12,18 @@ namespace BlogCore.Common
         private const short BCPatch = 0;
 
         public static readonly string BCVersion = $"{BCMajor}.{BCMinor}.{BCPatch}";
-        public struct Env
+
+        public static readonly string BlogCoreConfigPrefix = "BC_";
+        public struct Configuration
         {
-            public const string SqlSecret = "JHMSSQLSECRET";
-            public const string MailServer = "JHMAILSERVER";
-            public const string MailPort = "JHMAILPORT";
-            public const string MailSenderAccount = "JHMAILSENDERACCOUNT";
-            public const string MailSenderName = "JHMAILSENDERNAME";
-            public const string MailAccount = "JHMAILACCOUNT";
-            public const string MailSecret = "JHMAILSECRET";
-            public const string MailTLS = "JHMAILTLS";
+            public const string DatabaseSecret = "database:secret";
+            public const string MailServer = "mail:server";
+            public const string MailPort = "mail:port";
+            public const string MailSenderAccount = "mail:senderaccount";
+            public const string MailSenderName = "mail:sendername";
+            public const string MailAccount = "mail:account";
+            public const string MailSecret = "mail:secret";
+            public const string MailTLS = "mail:tls";
         }
 
         public struct EmailValues

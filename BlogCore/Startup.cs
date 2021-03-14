@@ -35,14 +35,23 @@ namespace BlogCore
         public void ConfigureServices(IServiceCollection services)
         {
             //Configuration variable declaration
-            string emailAccount,
-                emailPassword,
-                emailSenderAccount,
-                emailSenderName,
-                emailServer,
-                databasePassword;
-            short emailPort;
-            bool emailTLS;
+            string mailAccount,
+                mailPassword,
+                mailSenderAccount,
+                mailSenderName,
+                mailServer,
+                databaseSecret;
+            short mailPort;
+            bool mailTLS;
+
+            mailAccount = Configuration[Constants.Configuration.MailAccount];
+            mailPassword = Configuration[Constants.Configuration.MailSecret];
+            mailPort = Convert.ToInt16(Configuration[Constants.Configuration.MailPort]);
+            mailTLS = Convert.ToBoolean(Configuration[Constants.Configuration.MailTLS]);
+            mailSenderAccount = Configuration[Constants.Configuration.MailSenderAccount];
+            mailSenderName = Configuration[Constants.Configuration.MailSenderName];
+            mailServer = Configuration[Constants.Configuration.MailServer];
+            databaseSecret = Configuration[Constants.Configuration.DatabaseSecret];
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -51,34 +60,10 @@ namespace BlogCore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            if (_env.IsDevelopment())
-            {
-                emailAccount = Configuration["mail:account"];
-                emailPassword = Configuration["mail:secret"];
-                emailPort = Convert.ToInt16(Configuration["mail:port"]);
-                emailTLS = Convert.ToBoolean(Configuration["mail:tls"]);
-                emailSenderAccount = Configuration["mail:senderaccount"];
-                emailSenderName = Configuration["mail:sendername"];
-                emailServer = Configuration["mail:server"];
-                databasePassword = Configuration["database:password"];
-            }
-            else
-            {
-                emailAccount = Environment.GetEnvironmentVariable(Constants.Env.MailAccount);
-                emailPassword = Environment.GetEnvironmentVariable(Constants.Env.MailSecret);
-                emailPort = Convert.ToInt16(Environment.GetEnvironmentVariable(Constants.Env.MailPort));
-                emailTLS = Convert.ToBoolean(Environment.GetEnvironmentVariable(Constants.Env.MailTLS));
-                emailSenderAccount = Environment.GetEnvironmentVariable(Constants.Env.MailSenderAccount);
-                emailSenderName = Environment.GetEnvironmentVariable(Constants.Env.MailSenderName);
-                emailServer = Environment.GetEnvironmentVariable(Constants.Env.MailServer);
-                databasePassword = Environment.GetEnvironmentVariable(Constants.Env.SqlSecret);
-            }
-
             var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("default"))
             {
-                Password = databasePassword
+                Password = databaseSecret
             };
-
 
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.ConnectionString));
 
@@ -121,13 +106,13 @@ namespace BlogCore
             {
                 optionBuilder.UseMailKit(new MailKitOptions()
                 {
-                    Server = emailServer,
-                    Port = emailPort,
-                    SenderName = emailSenderName,
-                    SenderEmail = emailSenderAccount,
-                    Account = emailAccount,
-                    Password = emailPassword,
-                    Security = emailTLS
+                    Server = mailServer,
+                    Port = mailPort,
+                    SenderName = mailSenderName,
+                    SenderEmail = mailSenderAccount,
+                    Account = mailAccount,
+                    Password = mailPassword,
+                    Security = mailTLS
                 });
             });
             
