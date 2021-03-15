@@ -115,7 +115,7 @@ namespace BlogCore.Controllers
 
                 _emailService.Send(user.Email, "Confirm your email", message, true);
 
-                //await _userManager.AddToRoleAsync(user, "Visitor");
+                await _userManager.AddToRoleAsync(user, "Visitor");
                 return RedirectToAction(nameof(SuccessRegistration));
 
 
@@ -136,7 +136,13 @@ namespace BlogCore.Controllers
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
 
-            return View(result.Succeeded?nameof(ConfirmEmail):"Error");
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Administrator");
+                return View(nameof(ConfirmEmail));
+            }
+
+            return View("Error");
         }
         [HttpGet]
         [AllowAnonymous]
@@ -146,6 +152,7 @@ namespace BlogCore.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Error()
         {
             return View();

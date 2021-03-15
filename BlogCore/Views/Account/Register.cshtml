@@ -8,38 +8,43 @@
 </script>
 <section class="content-container -center">
     @if (Model.RegisterEnabled) {
-        <div class="register-form">
+        <div id="registration-form" class="register-form" v-cloak>
             <div class="header">
                 <h2>Register</h2>
             </div>
             <div class="body">
-                <form method="post">
+                <form method="post" v-on:submit="checkForm">
                     <div class="mb-3">
                         <label asp-for="FirstName"></label>
-                        <input asp-for="FirstName" class="form-control form-input" maxlength="15" required />
+                        <input asp-for="FirstName" class="form-control form-input" maxlength="15" v-model="firstName" autocomplete="off" required />
+                        <small class="text-danger">{{errors[0]}}</small>
                     </div>
                     <div class="mb-3">
                         <label asp-for="LastName"></label>
-                        <input asp-for="LastName" class="form-control form-input" maxlength="15" required />
+                        <input asp-for="LastName" class="form-control form-input" maxlength="15" v-model="lastName" autocomplete="off" required />
+                        <small class="text-danger">{{errors[1]}}</small>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Email"></label>
-                        <input asp-for="Email" class="form-control form-input" maxlength="25" required />
+                        <input asp-for="Email" class="form-control form-input" maxlength="25" v-model="email" autocomplete="off" required />
+                        <small class="text-danger">{{errors[2]}}</small>
                     </div>
                     <div class="mb-3">
                         <label asp-for="Password"></label>
-                        <input asp-for="Password" class="form-control form-input" maxlength="25" required />
+                        <input asp-for="Password" class="form-control form-input" maxlength="25" v-model="password" required />
+                        <small class="text-danger">{{errors[3]}}</small>
                     </div>
                     <div class="mb-3">
                         <label asp-for="ConfirmPassword"></label>
-                        <input asp-for="ConfirmPassword" class="form-control form-input" maxlength="25" required />
+                        <input asp-for="ConfirmPassword" class="form-control form-input" maxlength="25" v-model="confirm" required />
+                        <small class="text-danger">{{errors[4]}}</small>
                     </div>
                     
                     <div class="mb-3 text-danger">
                         @Html.ValidationSummary()
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-primary" title="Register">Register</button>
+                        <button type="submit" class="btn btn-primary" title="Register">Register</button>
                     </div>
                 </form>
             </div>

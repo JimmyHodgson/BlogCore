@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BlogCore.Models.Catalogues;
+using BlogCore.Common;
 
 namespace BlogCore.Models.Common
 {
@@ -21,6 +22,7 @@ namespace BlogCore.Models.Common
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new RoleConfiguration());
         }
         public DbSet<AchievementModel> Achievements { get; set; }
         public DbSet<EducationModel> Education { get; set; }
