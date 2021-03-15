@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogCore.Controllers
 {
+    [Authorize]
     public class JobController : Controller
     {
         private readonly DatabaseContext _context;

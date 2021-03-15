@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogCore.Models.Common;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogCore.Controllers
 {
+    [Authorize]
     public class LinkController : Controller
     {
         private readonly DatabaseContext _context;

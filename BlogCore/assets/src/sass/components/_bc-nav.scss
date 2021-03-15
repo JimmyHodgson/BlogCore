@@ -1,0 +1,11 @@
+﻿.bc-nav {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    >.item, .item a {
+        color: $white;
+    }
+}

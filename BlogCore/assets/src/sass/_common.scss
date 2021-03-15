@@ -5,8 +5,12 @@ html,body {
     height: 100%;
 }
 
-body{
-    background-color: $bgcolor;
+body {
+    background-color: $white;
+
+    @media(min-width:$screen-md-min){
+        background-color:$bgcolor
+    }
 }
 
 *, *:before, *:after {

@@ -42,7 +42,13 @@ namespace BlogCore.Controllers
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             ViewData["error"] = new ErrorViewModel();
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            LoginViewModel model = new LoginViewModel();
+            User admin = _context.Users.FirstOrDefault();
+            if (admin == null)
+            {
+                model.RegisterEnabled = true;
+            }
+            return View(model);
         }
 
         [HttpPost]

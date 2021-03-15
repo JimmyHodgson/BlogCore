@@ -9,7 +9,7 @@ namespace BlogCore.Models
     public class LoginViewModel
     {
         [Required]
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -17,5 +17,6 @@ namespace BlogCore.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+        public bool RegisterEnabled { get; set; } = false;
     }
 }
