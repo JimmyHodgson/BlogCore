@@ -42,8 +42,8 @@ namespace BlogCore.Models.Common
         [Display(Name ="Phone number")]
         public override string PhoneNumber { get => base.UserName; set => base.UserName = value; }
         [DataMember]
-        [Display(Name = "Username")]
-        [Required(AllowEmptyStrings = false)]
-        public override string UserName { get => base.UserName; set => base.UserName = value; }
+        [Required]
+        [EmailAddress]
+        public override string Email { get => base.Email; set => base.Email = value; }
     }
 }

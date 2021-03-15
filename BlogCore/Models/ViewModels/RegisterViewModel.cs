@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlogCore.Models
+namespace BlogCore.Models.ViewModels
 {
     public class RegisterViewModel
     {
@@ -14,6 +14,7 @@ namespace BlogCore.Models
         [Required]
         public string LastName { get; set; }
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]

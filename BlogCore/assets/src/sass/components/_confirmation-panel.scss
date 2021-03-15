@@ -1,0 +1,16 @@
+﻿.confirmation-panel{
+    display:flex;
+    flex-direction:column;
+    >.header{
+        align-items:center;
+        display:inherit;
+        flex-direction:inherit;
+    }
+    >.body{
+        padding: 20px;
+        text-align: center;
+    }
+    
+    @extend %form-base;
+
+}

@@ -31,12 +31,14 @@ namespace BlogCore.Common
             public const string Name = "{{name}}";
             public const string HelpEmail = "{{helpemail}}";
             public const string ConfirmationLink = "{{confirmationlink}}";
+            public const string PasswordResetLink = "{{passwordresetlink}}";
         }
 
         public struct EmailTemplates
         {
             public const string WelcomeTemplate = "Welcome.html";
             public const string ConfirmationLinkTemplate = "Confirmation.html";
+            public const string PasswordResetTemplate = "PasswordReset.html";
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using BlogCore.Common;
-using BlogCore.Models;
+using BlogCore.Models.ViewModels;
 using BlogCore.Models.Common;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -114,9 +114,11 @@ namespace BlogCore.Controllers
                 var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
 
                 //send email
-                var variables = new List<KeyValuePair<string, string>>();
-                variables.Add(new KeyValuePair<string, string>(Constants.EmailValues.Name, $"{user.FirstName} {user.LastName}"));
-                variables.Add(new KeyValuePair<string, string>(Constants.EmailValues.ConfirmationLink, confirmationLink));
+                var variables = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>(Constants.EmailValues.Name, $"{user.FirstName} {user.LastName}"),
+                    new KeyValuePair<string, string>(Constants.EmailValues.ConfirmationLink, confirmationLink)
+                };
                 var message = TemplateReader.GetTemplate(Constants.EmailTemplates.ConfirmationLinkTemplate, variables);
 
                 _emailService.Send(user.Email, "Confirm your email", message, true);
@@ -160,6 +162,83 @@ namespace BlogCore.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Error()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null) return RedirectToAction(nameof(ForgotPasswordConfirmation));
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var link = Url.Action(nameof(ResetPassword), "Account", new { token, email = user.Email }, Request.Scheme);
+
+            var variables = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>(Constants.EmailValues.Name, $"{user.FirstName} {user.LastName}"),
+                new KeyValuePair<string, string>(Constants.EmailValues.PasswordResetLink, link)
+            };
+            var message = TemplateReader.GetTemplate(Constants.EmailTemplates.PasswordResetTemplate, variables);
+
+            _emailService.Send(user.Email, "BlogCore Password Reset", message, true);
+
+            return RedirectToAction(nameof(ForgotPasswordConfirmation));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new PasswordResetViewModel { Token = token, Email = email };
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(PasswordResetViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if(user==null) return RedirectToAction(nameof(ResetPasswordConfirmation));
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach(var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return View();
+            }
+
+            return RedirectToAction(nameof(ResetPasswordConfirmation));
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPasswordConfirmation()
         {
             return View();
         }

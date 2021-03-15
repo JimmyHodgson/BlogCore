@@ -1,6 +1,5 @@
 using System;
-
-namespace BlogCore.Models
+namespace BlogCore.Models.ViewModels
 {
     public class ErrorViewModel
     {

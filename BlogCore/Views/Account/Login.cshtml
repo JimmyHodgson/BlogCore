@@ -3,6 +3,7 @@
 @inject SignInManager<User> SignInManager
 @{
     Layout = "_AccountLayout";
+    ViewData["Title"] = "Sign in";
 }
 
 <section class="login-form">
@@ -13,17 +14,22 @@
         <form method="post">
             <div class="mb-3">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control form-input" maxlength="25" autocomplete="off" required />
+                <input asp-for="Email" class="form-control form-input" maxlength="25" autocomplete="off" placeholder="example@blogcore.com" required />
             </div>
             <div class="mb-3">
                 <label asp-for="Password"></label>
                 <input asp-for="Password" class="form-control form-input" maxlength="25" required />
             </div>
             <div class="mb-3">
-                <label asp-for="RememberMe">
-                    <input asp-for="RememberMe" />
-                    @Html.DisplayNameFor(m => m.RememberMe)
-                </label>
+                <div class="options">
+                    <label asp-for="RememberMe">
+                        <input asp-for="RememberMe" />
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                    <div>
+                        <a asp-action="ForgotPassword">Forgot Password?</a>
+                    </div>
+                </div>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary bc-button" title="Register">Sign in</button>
