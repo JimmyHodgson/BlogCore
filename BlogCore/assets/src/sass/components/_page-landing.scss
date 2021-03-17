@@ -1,0 +1,25 @@
+﻿.page-landing {
+    align-content: center;
+    align-items: center;
+    background-image: url(/assets/dist/images/coding.jpg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+
+    > .title {
+        color: $white;
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    > .subtitle {
+        color: $primary;
+        font-size: 1.5rem;
+        font-weight:bold;
+        text-transform:uppercase;
+    }
+}

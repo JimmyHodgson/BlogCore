@@ -34,13 +34,13 @@ namespace BlogCore.Models.Common
         [Display(Name = "Last name")]
         [DataMember]
         public string LastName { get; set; }
-        public LinkModel Link { get; set; }
+        public string Link { get; set; }
         [DataMember]
         public string Bio { get; set; }
         //overrides
         [DataMember]
         [Display(Name ="Phone number")]
-        public override string PhoneNumber { get => base.UserName; set => base.UserName = value; }
+        public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
         [DataMember]
         [Required]
         [EmailAddress]

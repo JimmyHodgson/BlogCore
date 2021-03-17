@@ -1,11 +1,127 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 <nav class="bc-nav">
-    <div class="item">
-        <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
-    </div>
-    <div class="item">
-        <a asp-area="" asp-controller="Account" asp-action="Login" class="link"><i class="fad fa-sign-in fa-fw"></i></a>
+    <div class="content">
+        <div class="item">
+            <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
+        </div>
+
+        <div class="item">
+            <a asp-area="" asp-controller="Account" asp-action="Login" class="link"><i class="fad fa-sign-in fa-fw"></i></a>
+        </div>
     </div>
 </nav>
+<section class="page-landing">
+    <h1 class="title">
+        Jimmy Hodgson
+    </h1>
+    <div class="subtitle">
+        Software Developer
+    </div>
+</section>
+<section class="about-me">
+    <div class="bc-header">
+        <h2 class="title">About Me</h2>
+        <div class="underline"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h5>Name:</h5>
+                <p><i class="fa fa-user-circle fa-fw"></i> @Model.User.FirstName @Model.User.LastName</p>
+                <h5>Phone:</h5>
+                <p><i class="fa fa-phone fa-fw"></i> @Model.User.PhoneNumber</p>
+                <h5>Email:</h5>
+                <p><i class="fa fa-envelope fa-fw"></i> @Model.User.Email</p>
+            </div>
+            <div class="col">
+                <h5>Bio</h5>
+                <p>@Model.User.Bio</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="my-skills">
+    <div class="container-fluid">
+        <div class="bc-header">
+            <h2 class="title">Skills</h2>
+            <div class="underline"></div>
+        </div>
+    </div>
+</section>
+<section class="my-education">
+    <div class="container-fluid">
+        <div class="bc-header">
+            <h2 class="title">Education</h2>
+            <div class="underline"></div>
+        </div>
+    </div>
+</section>
+<section class="my-experience">
+    <div class="container-fluid">
+        <div class="bc-header">
+            <h2 class="title">Experience</h2>
+            <div class="underline"></div>
+        </div>
+    </div>
+</section>
+<section class="contact-me">
+    <div class="bc-header">
+        <h2 class="title">Contact me</h2>
+        <div class="underline"></div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="content-panel">
+                    <i class="fad fa-download fa-4x"></i>
+                    <h3>Download my full CV</h3>
+                    <p>Click Here</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="contact-form">
+                    <form method="post" class="body">
+                        <div class="mb-3">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control form-input" maxlength="25" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control form-input" maxlength="35" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Message"></label>
+                            <textarea asp-for="Message" class="form-control form-input"> </textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary bc-button" title="Submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="page-footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <p>
+                    <i class="fal fa-copyright fa-fw"></i> Jimmy Hodgson @DateTime.Now.Year
+                </p>
+
+            </div>
+            <div class="col">
+                <p class="text-right">
+                    Made with <i class="fas fa-heart fa-fw"></i> in Nicaragua
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
