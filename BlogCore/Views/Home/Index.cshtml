@@ -15,10 +15,10 @@
 </nav>
 <section class="page-landing">
     <h1 class="title">
-        Jimmy Hodgson
+        @Model.User.FirstName @Model.User.LastName
     </h1>
     <div class="subtitle">
-        Software Developer
+        @Model.User.Title
     </div>
 </section>
 <section class="about-me">
@@ -31,40 +31,85 @@
             <div class="col">
                 <h5>Name:</h5>
                 <p><i class="fa fa-user-circle fa-fw"></i> @Model.User.FirstName @Model.User.LastName</p>
-                <h5>Phone:</h5>
-                <p><i class="fa fa-phone fa-fw"></i> @Model.User.PhoneNumber</p>
+                @if (!String.IsNullOrEmpty(Model.User.PhoneNumber))
+                {
+                    <h5>Phone:</h5>
+                    <p><i class="fa fa-phone fa-fw"></i> @Model.User.PhoneNumber</p>
+                }
                 <h5>Email:</h5>
                 <p><i class="fa fa-envelope fa-fw"></i> @Model.User.Email</p>
             </div>
-            <div class="col">
-                <h5>Bio</h5>
-                <p>@Model.User.Bio</p>
-            </div>
+            @if (!String.IsNullOrEmpty(Model.User.Bio))
+            {
+                <div class="col">
+                    <h5>Bio</h5>
+                    <p>@Model.User.Bio</p>
+                </div>
+            }
         </div>
     </div>
 </section>
 <section class="my-skills">
+    <div class="bc-header">
+        <h2 class="title">Skills</h2>
+        <div class="underline"></div>
+    </div>
     <div class="container-fluid">
-        <div class="bc-header">
-            <h2 class="title">Skills</h2>
-            <div class="underline"></div>
-        </div>
+        @foreach (SkillModel item in Model.Skills)
+        {
+            <div class="skill-panel">
+                <div class="title">
+                    @item.Name
+                </div>
+                <div class="content">
+                    @item.Proficiency
+                </div>
+            </div>
+        }
     </div>
 </section>
 <section class="my-education">
+    <div class="bc-header">
+        <h2 class="title">Education</h2>
+        <div class="underline"></div>
+    </div>
     <div class="container-fluid">
-        <div class="bc-header">
-            <h2 class="title">Education</h2>
-            <div class="underline"></div>
-        </div>
+        @foreach (EducationModel item in Model.Education)
+        {
+            <div class="education-panel">
+                <a href="@item.Link" target="_blank">
+                    <div class="school-img">
+                        <img src="@item.ImageUrl" />
+                    </div>
+                    <div class="body">
+                        <h3>@item.School</h3>
+                        <h4>@item.Title</h4>
+                        <h4>@item.Year</h4>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
 </section>
 <section class="my-experience">
+    <div class="bc-header">
+        <h2 class="title">Experience</h2>
+        <div class="underline"></div>
+    </div>
     <div class="container-fluid">
-        <div class="bc-header">
-            <h2 class="title">Experience</h2>
-            <div class="underline"></div>
-        </div>
+        @foreach (JobModel item in Model.Jobs)
+        {
+            <div class="job-panel">
+                <div class="company">
+                    <h3>@item.Company</h3>
+                    <span>@item.JobStart - @item.JobEnd</span>
+                </div>
+                <div class="position">
+                    <h3>@item.Title</h3>
+                    <p>@item.Description</p>
+                </div>
+            </div>
+        }
     </div>
 </section>
 <section class="contact-me">
@@ -117,8 +162,8 @@
                 </p>
 
             </div>
-            <div class="col">
-                <p class="text-right">
+            <div class="col d-none d-sm-block">
+                <p class="text-right ">
                     Made with <i class="fas fa-heart fa-fw"></i> in Nicaragua
                 </p>
             </div>

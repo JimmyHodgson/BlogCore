@@ -1,13 +1,6 @@
 ﻿.error-panel {
-    background-color:$danger;
-    border-radius:5px;
-    color:$white;
-    font-weight:bold;
-    margin-top:20px;
-    padding:20px;
-    width:100%;
-
-    @media(min-width:$screen-md-min) {
-        width: 30%;
+    >.header{
+        background-color:$danger;
     }
+    @extend %result-panel;
 }

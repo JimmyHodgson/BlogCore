@@ -1,0 +1,24 @@
+﻿%result-panel {
+    display: flex;
+    flex-direction: column;
+
+    > .header {
+        align-items: center;
+        display: inherit;
+        color: $white;
+        flex-direction: inherit;
+        padding: 20px;
+    }
+
+    > .body {
+        background-color: $almost-white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    @media(min-width:$screen-md-min) {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        margin: 20px auto;
+        width: 600px;
+    }
+}

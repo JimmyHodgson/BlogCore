@@ -37,6 +37,8 @@ namespace BlogCore.Models.Common
         public string Link { get; set; }
         [DataMember]
         public string Bio { get; set; }
+        [DataMember]
+        public string Title { get; set; }
         //overrides
         [DataMember]
         [Display(Name ="Phone number")]
