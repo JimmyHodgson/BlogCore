@@ -1,0 +1,22 @@
+﻿.side-bar {
+    background-color: $primary;
+    flex-direction: column;
+    display: none;
+
+    > .menu-link {
+        color: $white;
+        padding: 15px 30px;
+
+        &:hover {
+            background-color: $white;
+            border-right:1px solid #ccc;
+            color: $primary;
+        }
+    }
+
+    @media(min-width:$screen-md-min) {
+        display: flex;
+        min-width: 240px;
+        width: 240px;
+    }
+}

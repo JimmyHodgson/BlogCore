@@ -1,0 +1,15 @@
+﻿.main-layout {
+    display: flex;
+    height: 100%;
+
+    > .body {
+        display: flex;
+        padding: 20px;
+        width: 100%;
+
+        > .panel {
+            padding:20px;
+            width: 100%;
+        }
+    }
+}

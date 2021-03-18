@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BlogCore.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class SkillController : Controller
     {
         private readonly DatabaseContext _context;

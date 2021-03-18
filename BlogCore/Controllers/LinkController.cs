@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BlogCore.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class LinkController : Controller
     {
         private readonly DatabaseContext _context;

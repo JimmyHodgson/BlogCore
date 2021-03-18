@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace BlogCore.Controllers
 {
-    [Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
@@ -34,8 +33,6 @@ namespace BlogCore.Controllers
             return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             // Clear the existing external cookie to ensure a clean login process
@@ -48,19 +45,39 @@ namespace BlogCore.Controllers
             {
                 model.RegisterEnabled = true;
             }
+
             return View(model);
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
+                    {
+                        var roles = await _userManager.GetRolesAsync(user);
+
+                        if (roles.Contains("Administrator"))
+                        {
+                            return RedirectToLocal(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction(nameof(EmailVerificationRequired));
+                        }
+                    }
+                }
+            }
             return View(model);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
@@ -73,7 +90,6 @@ namespace BlogCore.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -89,8 +105,6 @@ namespace BlogCore.Controllers
                 {
                     return View(model);
                 }
-
-
 
                 var user = new User
                 {
@@ -132,8 +146,6 @@ namespace BlogCore.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -152,29 +164,22 @@ namespace BlogCore.Controllers
 
             return View("Error");
         }
-        [HttpGet]
-        [AllowAnonymous]
         public IActionResult SuccessRegistration()
         {
             return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         public IActionResult Error()
         {
             return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
@@ -198,15 +203,11 @@ namespace BlogCore.Controllers
             return RedirectToAction(nameof(ForgotPasswordConfirmation));
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         public IActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         public IActionResult ResetPassword(string token, string email)
         {
             var model = new PasswordResetViewModel { Token = token, Email = email };
@@ -214,7 +215,6 @@ namespace BlogCore.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(PasswordResetViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -236,11 +236,26 @@ namespace BlogCore.Controllers
             return RedirectToAction(nameof(ResetPasswordConfirmation));
         }
 
-        [HttpGet]
-        [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()
         {
             return View();
+        }
+
+        public IActionResult EmailVerificationRequired()
+        {
+            return View();
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(ManageController.Index), "Manage");
+            }
         }
     }
 }

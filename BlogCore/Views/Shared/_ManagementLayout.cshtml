@@ -1,6 +1,18 @@
-﻿@{ 
+﻿@{
     Layout = "_Layout";
 }
+<nav class="navbar bg-secondary navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore</a>
+    </div>
+</nav>
 <section class="main-layout">
-    @RenderBody()
+    <div class="side-bar">
+        @await Html.PartialAsync("_MenuPartial")
+    </div>
+    <div class="body">
+        <div class="panel">
+            @RenderBody()
+        </div>
+    </div>
 </section>
