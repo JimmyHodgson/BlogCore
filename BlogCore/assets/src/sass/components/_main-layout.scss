@@ -4,8 +4,12 @@
 
     > .body {
         display: flex;
-        padding: 20px;
+        flex-direction:column;
         width: 100%;
+
+        >.navbar{
+            box-shadow: 0 4px 5px -5px #ccc;
+        }
 
         > .panel {
             padding:20px;

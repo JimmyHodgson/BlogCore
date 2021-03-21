@@ -78,6 +78,14 @@ namespace BlogCore.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();

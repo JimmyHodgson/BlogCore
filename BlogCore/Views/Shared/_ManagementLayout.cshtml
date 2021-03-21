@@ -1,18 +1,27 @@
 ﻿@{
     Layout = "_Layout";
 }
-<nav class="navbar bg-secondary navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/"><img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore</a>
-    </div>
-</nav>
+
 <section class="main-layout">
     <div class="side-bar">
+        <a class="header" href="/">
+            <div>
+                <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
+            </div>
+        </a>
         @await Html.PartialAsync("_MenuPartial")
     </div>
     <div class="body">
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+                <div class="navbar-brand">
+                    <i class="@ViewData["Icon"]"></i> @ViewData["Title"]
+                </div>
+            </div>
+        </nav>
         <div class="panel">
             @RenderBody()
         </div>
     </div>
 </section>
+@RenderSection("Scripts", required: false)

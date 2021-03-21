@@ -1,17 +1,16 @@
 ﻿.side-bar {
-    background-color: $primary;
+    background-color: $primaryVariant;
     flex-direction: column;
     display: none;
 
-    > .menu-link {
-        color: $white;
-        padding: 15px 30px;
-
-        &:hover {
-            background-color: $white;
-            border-right:1px solid #ccc;
-            color: $primary;
-        }
+    > .header {
+        color: #fff;
+        display: flex;
+        font-size: 20px;
+        font-size: 1.25rem;
+        line-height: inherit;
+        padding: 15px 20px;
+        white-space: nowrap;
     }
 
     @media(min-width:$screen-md-min) {

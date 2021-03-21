@@ -8,9 +8,26 @@
             <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
         </div>
 
-        <div class="item">
-            <a asp-area="" asp-controller="Account" asp-action="Login" class="link"><i class="fad fa-sign-in fa-fw"></i></a>
-        </div>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="item">
+                <a asp-area="" asp-controller="Account" asp-action="Login" class="link" title="Sign in"><i class="fad fa-sign-in fa-fw"></i></a>
+            </div>
+        }
+        else
+        { <div class="d-flex">
+                <div class="item">
+                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="link" title="Home"><i class="fad fa-home fa-fw"></i></a>
+                </div>
+                <div class="item">
+                    <form method="post" asp-action="Logout" asp-controller="Account">
+                        <button class="bc-nav-button" title="Sign out">
+                            <i class="fad fa-sign-out fa-fw"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
     </div>
 </nav>
 <section class="page-landing">
