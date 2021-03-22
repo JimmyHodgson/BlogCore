@@ -6,10 +6,11 @@ html, body {
 }
 
 body {
-    background-color: $white;
+    background-color: $surface;
+    font-family: 'Raleway', sans-serif;
 
     @media(min-width:$screen-md-min) {
-        background-color: $bgcolor
+        background-color: $background;
     }
 }
 

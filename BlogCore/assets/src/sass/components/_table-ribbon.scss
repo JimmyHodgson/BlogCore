@@ -1,0 +1,15 @@
+﻿.table-ribbon{
+    background-color:$primaryVariant;
+
+    >.item{
+        color:$white;
+        padding:0.5rem;
+        cursor:pointer;
+        max-width:40px;
+        text-align:center;
+        &:hover{
+            background-color:$white;
+            color:$primary;
+        }
+    }
+}

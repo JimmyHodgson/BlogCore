@@ -17,6 +17,13 @@
                 <div class="navbar-brand">
                     <i class="@ViewData["Icon"]"></i> @ViewData["Title"]
                 </div>
+                <div class="d-flex">
+                    <form method="post" asp-action="Logout" asp-controller="Account">
+                        <button class="bc-nav-button" title="Sign out">
+                            <i class="fad fa-sign-out fa-fw"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </nav>
         <div class="panel">

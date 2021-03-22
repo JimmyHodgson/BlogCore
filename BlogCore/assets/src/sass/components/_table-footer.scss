@@ -1,0 +1,10 @@
+﻿.table-footer{
+    background-color:$primary;
+    color:$white;
+    display:flex;
+    justify-content:space-between;
+
+    >.item{
+        padding:0.5rem;
+    }
+}

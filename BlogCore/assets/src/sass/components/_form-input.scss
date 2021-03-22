@@ -1,3 +1,9 @@
 ﻿.form-input {
-    border-radius:0;
+    background-color:$background;
+    border:none;
+    font-size:1.2rem;
+
+    &:focus{
+        background-color: $background;
+    }
 }

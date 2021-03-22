@@ -1,0 +1,12 @@
+﻿.bc-table{
+    margin-bottom:0;
+
+    >.header{
+        background-color:$primary;
+        color:$white;
+
+        th{
+            border:none;
+        }
+    }
+}

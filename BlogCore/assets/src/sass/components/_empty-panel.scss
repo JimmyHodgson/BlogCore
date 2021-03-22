@@ -1,0 +1,14 @@
+﻿.empty-panel{
+    background-color:$white;
+    padding:2rem;
+    display:flex;
+    flex-direction:column;
+
+    >.header{
+        text-align:center;
+    }
+
+    >.body{
+        text-align:center;
+    }
+}
