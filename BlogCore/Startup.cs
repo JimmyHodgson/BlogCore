@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlogCore.Common;
 using BlogCore.Models.Common;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -101,6 +102,7 @@ namespace BlogCore
                 opt.TokenLifespan = TimeSpan.FromDays(3));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddOData();
 
             services.AddMailKit(optionBuilder =>
             {
@@ -142,6 +144,8 @@ namespace BlogCore
 
             app.UseMvc(routes =>
             {
+                routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
+                routes.EnableDependencyInjection();
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
