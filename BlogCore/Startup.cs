@@ -5,7 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogCore.Common;
+using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
+using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -142,10 +144,13 @@ namespace BlogCore
             app.UseAuthentication();
             app.UseCookiePolicy();
 
+            var builder = new ODataConventionModelBuilder(app.ApplicationServices);
+            builder.EntitySet<EducationModel>("Education");
+
             app.UseMvc(routes =>
             {
                 routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
-                routes.EnableDependencyInjection();
+                routes.MapODataServiceRoute("ODataRoute", "api", builder.GetEdmModel());
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

@@ -1,12 +1,18 @@
-﻿.bc-table{
-    margin-bottom:0;
+﻿.bc-table {
+    margin-bottom: 0;
 
-    >.header{
-        background-color:$primary;
-        color:$white;
+    > .header {
+        background-color: $primary;
+        color: $white;
 
-        th{
-            border:none;
+        th {
+            border: none;
+        }
+    }
+
+    > .body {
+        td {
+            background-color: $white;
         }
     }
 }

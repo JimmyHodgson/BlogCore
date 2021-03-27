@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BlogCore.Controllers
 {
     [Authorize(Roles = "Administrator")]
+    [Route("[controller]/[action]")]
     public class JobController : Controller
     {
         private readonly DatabaseContext _context;

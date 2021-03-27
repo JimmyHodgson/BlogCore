@@ -1,0 +1,28 @@
+﻿.management-header {
+    > .header {
+        background-color: $secondaryVariant;
+        color: $white;
+        margin-bottom: 0;
+        padding: 20px 0;
+    }
+
+    > .underline {
+        display: none;
+    }
+
+    @media(min-width:$screen-md-min) {
+        > .header {
+            background-color: transparent;
+            color: $primary;
+        }
+
+        > .underline {
+            background-color: $secondaryVariant;
+            display: block;
+            height: 6px;
+            margin-bottom: 40px;
+            margin-top: -20px;
+            width: 50px;
+        }
+    }
+}

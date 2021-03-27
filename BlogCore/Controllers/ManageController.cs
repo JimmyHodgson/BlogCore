@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BlogCore.Controllers
 {
     [Authorize (Roles = "Administrator")]
+    [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
         public IActionResult Index()

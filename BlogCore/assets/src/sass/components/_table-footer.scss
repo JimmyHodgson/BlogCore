@@ -1,10 +1,27 @@
-﻿.table-footer{
-    background-color:$primary;
-    color:$white;
-    display:flex;
-    justify-content:space-between;
+﻿.table-footer {
+    background-color: $primary;
+    color: $white;
+    display: flex;
+    justify-content: space-between;
 
-    >.item{
-        padding:0.5rem;
+    .item {
+        min-width: 40px;
+        padding: 0.5rem;
+        text-align:center;
+    }
+
+    .button {
+
+        &:hover {
+            background-color: $white;
+            color: $primary;
+        }
+        &.-disabled {
+            color: #e9ecef;
+            cursor:not-allowed;
+        }
+        &.-disabled:hover{
+            background-color:inherit;
+        }
     }
 }

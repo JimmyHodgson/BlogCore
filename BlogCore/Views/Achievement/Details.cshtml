@@ -2,7 +2,9 @@
 
 @{
     Layout = "_ManagementLayout";
-    ViewData["Title"] = "Details";
+    ViewData["Controller"] = "Achievements";
+    ViewData["Action"] = "Details";
+    ViewData["Title"] = $"{ViewData["Controller"]} - {ViewData["Action"]}";
     ViewData["Icon"] = "fas fa-trophy fa-fw";
 }
 

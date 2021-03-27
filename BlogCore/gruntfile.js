@@ -23,7 +23,8 @@ module.exports = function(grunt){
             dist: {
                 files: {
                     '<%= dist.path %>/js/project.js': '<%= dist.path %>/js/project.combined.js',
-                    '<%= dist.path %>/js/common.js': '<%= src.path %>/js/common.js'
+                    '<%= dist.path %>/js/common.js': '<%= src.path %>/js/common.js',
+                    '<%= dist.path %>/js/components.js': '<%= dist.path %>/js/components.combined.js'
                 }
             }
         },
@@ -66,9 +67,13 @@ module.exports = function(grunt){
             }
         },
         concat: {
-            dist: {
-                src: ['<%= src.path %>/js/**/*.js','!<%= src.path %>/js/common.js'],
-                dest: '<%= dist.path %>/js/project.combined.js',
+            main: {
+                src: ['<%= src.path %>/js/**/*.js','!<%= src.path %>/js/common.js','!<%= src.path %>/js/components/**/*'],
+                dest: '<%= dist.path %>/js/project.combined.js'
+            },
+            components: {
+                src: ['<%= src.path %>/js/components/**/*.js'],
+                dest: '<%= dist.path %>/js/components.combined.js'
             }
         },
         concurrent: {
@@ -140,7 +145,8 @@ module.exports = function(grunt){
             dist: {
                 files: {
                     '<%= dist.path %>/js/project.min.js' : '<%= dist.path %>/js/project.js',
-                    '<%= dist.path %>/js/common.min.js': '<%= dist.path %>/js/common.js'
+                    '<%= dist.path %>/js/common.min.js': '<%= dist.path %>/js/common.js',
+                    '<%= dist.path %>/js/components.min.js': '<%= dist.path %>/js/components.js'
                 }
             }
         },

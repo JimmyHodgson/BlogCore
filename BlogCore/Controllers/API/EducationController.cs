@@ -7,13 +7,12 @@ using BlogCore.Models.Common;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogCore.Controllers.API
 {
     [Authorize]
-    [Route("api/[controller]")]
-    public class EducationController : Controller
+    public class EducationController : ODataController
     {
         private readonly DatabaseContext _context;
         public EducationController(DatabaseContext context)
@@ -23,9 +22,16 @@ namespace BlogCore.Controllers.API
         // GET: api/<controller>
         [HttpGet]
         [EnableQuery]
-        public IEnumerable<EducationModel> Get()
+        public async Task<ActionResult<IEnumerable<EducationModel>>> Get()
         {
-            return _context.Education;
+            return await _context.Education.ToListAsync();
+        }
+
+        [HttpGet]
+        [Route("GetPage")]
+        public async Task<ActionResult<IEnumerable<EducationModel>>> GetPage(int Page,int PageSize)
+        {
+            return await _context.Education.Skip((Page - 1) * PageSize).Take(PageSize).ToListAsync();
         }
 
         // GET api/<controller>/5

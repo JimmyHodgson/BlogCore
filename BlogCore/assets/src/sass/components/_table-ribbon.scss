@@ -3,10 +3,12 @@
 
     >.item{
         color:$white;
+        display:block;
         padding:0.5rem;
         cursor:pointer;
         max-width:40px;
         text-align:center;
+        transition: all .2s ease-in-out;
         &:hover{
             background-color:$white;
             color:$primary;

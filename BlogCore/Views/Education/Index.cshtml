@@ -2,96 +2,16 @@
 
 @{
     Layout = "_ManagementLayout";
-    ViewData["Title"] = "Education";
+    ViewData["Controller"] = "Education";
+    ViewData["Title"] = $"{ViewData["Controller"]}";
     ViewData["Icon"] = "fas fa-university fa-fw";
 }
-
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div id="education-table">
-    <div v-if="success">
-
-        <div class="table-ribbon">
-            <div class="item">
-                <i class="far fa-plus fa-fw"></i>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table bc-table">
-                <thead class="header">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.School)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Link)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Title)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ImageUrl)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Year)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-        <div v-if="isEmpty()" class="empty-panel">
-            <div class="header">
-                <i class="far fa-info-circle fa-fw fa-2x"></i>
-            </div>
-            <div class="body">
-                There is no data to show.
-            </div>
-        </div>
-        <div class="table-footer">
-            <div class="item">
-                <i class="far fa-clock fa-fw"></i>
-            </div>
-            <div class="item">
-                <i class="far fa-chevron-left fa-fw"></i>
-                <i class="far fa-chevron-right fa-fw"></i>
-            </div>
-        </div>
-    </div>
-    <div v-else class="loading-panel">
-        <i class="fas fa-sync fa-spin fa-fw fa-2x"></i>
-    </div>
+<div class="management-header">
+    <h2 class="header">
+        Education Management
+    </h2>
+    <div class="underline"></div>
 </div>
-@*<table class="table bc-table">
-
-        <tbody class="body">
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.School)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Link)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImageUrl)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Year)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>*@
+<div id="education-table">
+    <table-component v-bind:url="endpoint" v-bind:ribbon="ribbon" :schema="schema"></table-component>
+</div>

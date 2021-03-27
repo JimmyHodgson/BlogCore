@@ -5,10 +5,10 @@
     }
 
     > .underline {
-        width: 50px;
-        height: 6px;
         background-color: $secondaryVariant;
+        height: 6px;
         margin-bottom: 40px;
         margin-top: -10px;
+        width: 50px;
     }
 }

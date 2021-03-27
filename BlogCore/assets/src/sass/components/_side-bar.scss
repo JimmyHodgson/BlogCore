@@ -2,6 +2,8 @@
     background-color: $primaryVariant;
     flex-direction: column;
     display: none;
+    position:relative;
+    transition:all .2s ease-in-out;
 
     > .header {
         color: #fff;
@@ -11,6 +13,20 @@
         line-height: inherit;
         padding: 15px 20px;
         white-space: nowrap;
+    }
+
+    >.footer{
+        color:$primary;
+        bottom:0;
+        font-weight:bold;
+        padding:.5rem;
+        position:absolute;
+        text-align:center;
+        width:100%;
+    }
+
+    &.-closed{
+        margin-left:-240px;
     }
 
     @media(min-width:$screen-md-min) {

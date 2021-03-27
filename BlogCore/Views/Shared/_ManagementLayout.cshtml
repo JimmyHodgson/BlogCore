@@ -1,22 +1,35 @@
-﻿@{
+﻿@using BlogCore.Common
+@{
     Layout = "_Layout";
 }
 
 <section class="main-layout">
-    <div class="side-bar">
+    <div id="side-bar" class="side-bar">
         <a class="header" href="/">
             <div>
                 <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
             </div>
         </a>
         @await Html.PartialAsync("_MenuPartial")
+        <footer class="footer">
+            <span>@($"v{@Constants.BCVersion}")</span>
+        </footer>
     </div>
     <div class="body">
         <nav class="navbar bg-light">
             <div class="container-fluid">
-                <div class="navbar-brand">
-                    <i class="@ViewData["Icon"]"></i> @ViewData["Title"]
-                </div>
+                    <i id="sidebar-toggle-widget" class="fal fa-bars fa-fw d-none d-lg-block clickable" v-on:click="toggleSideBar"></i>
+                <ul class="bread-crumb">
+                    <li class="item">
+                        <i class="@ViewData["Icon"]"></i> @ViewData["Controller"]
+                    </li>
+                    @if (ViewData["Action"] != null)
+                    {
+                        <li class="item">
+                            @ViewData["action"]
+                        </li>
+                    }
+                </ul>
                 <div class="d-flex">
                     <form method="post" asp-action="Logout" asp-controller="Account">
                         <button class="bc-nav-button" title="Sign out">
