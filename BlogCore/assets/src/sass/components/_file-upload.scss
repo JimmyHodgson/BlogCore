@@ -1,0 +1,15 @@
+﻿.file-upload {
+    display: flex;
+
+    > .placeholder {
+        align-items: center;
+        background: #ecf0f1;
+        cursor: pointer;
+        border: 5px dashed #2c3e50;
+        display: flex;
+        flex-direction: column;
+        height: 250px;
+        justify-content: center;
+        width: 100%;
+    }
+}

@@ -1,0 +1,13 @@
+﻿.medialink-form {
+    > .body {
+        padding: 0;
+
+        &:last-child {
+            padding-bottom: 10px;
+        }
+
+        .-pad {
+            padding: 0 15px;
+        }
+    }
+}

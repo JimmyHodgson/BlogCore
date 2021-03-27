@@ -175,4 +175,4 @@
         `
 });
 
-window.testComponent = tableComponent;
+window.tableComponent = tableComponent;

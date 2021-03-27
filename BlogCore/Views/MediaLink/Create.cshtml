@@ -1,0 +1,37 @@
+﻿@model MediaLinkModel
+@{
+    Layout = "_ManagementLayout";
+    ViewData["Controller"] = "Media";
+    ViewData["Action"] = "Create";
+    ViewData["Title"] = $"{ViewData["Controller"]} - {ViewData["Action"]}";
+    ViewData["Icon"] = "fas fa-images fa-fw";
+}
+
+<section id="medialink-create-form" class="form-component medialink-form">
+    <div class="header">
+        <h2><i class="fas fa-image fa-fw"></i> Media</h2>
+    </div>
+    <div class="body">
+        <form>
+            <div class="mb-3">
+                <upload-component v-model="file"></upload-component>
+            </div>
+            <div class="mb-3 -pad">
+                <label asp-for="Name" class="control-label"></label>
+                <input v-model="name" asp-for="Name" class="form-control" />
+            </div>
+            <div class="mb-3 -pad">
+                <label asp-for="Bucket" class="control-label"></label>
+                <select v-model="bucket" asp-for="Bucket" class="form-control">
+                    <option selected="selected" value="default">Default</option>
+                    <option value="schools">Schools</option>
+                    <option value="jobs">Jobs</option>
+                </select>
+            </div>
+            <div class="mb-3 -pad">
+                <button type="submit" class="btn btn-primary bc-button" title="Submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</section>
+

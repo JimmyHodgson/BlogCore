@@ -1,0 +1,18 @@
+﻿.file-info-box {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    > .header {
+        background-color: $primary;
+        color: $white;
+        text-align:center;
+        width: 100%;
+    }
+
+    > .body {
+        border-bottom:20px solid $primary;
+        width: 100%;
+    }
+}
