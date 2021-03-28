@@ -28,8 +28,8 @@
                 <span v-if="errors.name" class="text-danger">{{errors.name}}</span>
             </div>
             <div class="mb-3 -pad">
-                <label asp-for="Bucket" class="control-label"></label>
-                <select v-model="bucket" asp-for="Bucket" class="form-control">
+                <label asp-for="Group" class="control-label"></label>
+                <select v-model="bucket" asp-for="Group" class="form-control">
                     <option selected="selected" value="default">Default</option>
                     <option value="schools">Schools</option>
                     <option value="jobs">Jobs</option>

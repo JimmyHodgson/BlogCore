@@ -1,0 +1,45 @@
+﻿.modal-component {
+    background-color: $surface;
+    left: 0;
+    position: absolute;
+    text-align:center;
+    top: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+
+    > .header {
+        background-color: $primary;
+        color: $white;
+        padding: 10px;
+    }
+
+    > .body {
+        border-right: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        padding-top: 20px;
+    }
+
+    > .footer {
+        border: 1px solid #ccc;
+        border-top: none;
+        padding: 20px;
+        padding-top:10px;
+        text-align:right;
+    }
+
+    @media(min-width:$screen-md-min) {
+        width: 400px;
+    }
+}
+
+
+.modal-fade-enter,
+.modal-fade-leave-to {
+    opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+    transition: opacity .5s ease;
+}

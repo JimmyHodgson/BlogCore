@@ -16,7 +16,7 @@
                 loading:false,
                 name: '',
                 nameRegex: /^[A-Za-z0-9_]*$/,
-                url:'/api/MediaLink'
+                url: '/api/MediaLink',
             };
         },
         methods: {
@@ -65,9 +65,7 @@
                     this.errors.file = null;
                 }
                 return true;
-            },
-            
-            
+            }
         },
         mounted() {
 

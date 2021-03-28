@@ -30,6 +30,7 @@ namespace BlogCore.Models.Common
         public DbSet<SkillModel> Skills { get; set; }
         public DbSet<LinkModel> Links { get; set; }
         public DbSet<MediaLinkModel> MediaLinks { get; set; }
+        public DbSet<MediaGroupModel> MediaGroups { get; set; }
 
     }
 }

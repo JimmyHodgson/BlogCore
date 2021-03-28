@@ -12,8 +12,10 @@
         }
 
         > .panel {
+            height:100%;
             padding: 0;
-            overflow-y: scroll;
+            position:relative;
+            overflow-y: auto;
             width: 100%;
         }
     }

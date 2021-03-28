@@ -20,5 +20,10 @@ namespace BlogCore.Controllers
         {
             return View();
         }
+
+        public IActionResult CreateGroup()
+        {
+            return View();
+        }
     }
 }

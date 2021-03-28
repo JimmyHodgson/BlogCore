@@ -1,4 +1,6 @@
-﻿using BlogCore.Models.Catalogues;
+﻿using Amazon.S3;
+using Amazon.S3.Model;
+using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
 using BlogCore.Models.ViewModels;
 using Microsoft.AspNet.OData;
@@ -17,9 +19,11 @@ namespace BlogCore.Controllers.API
     public class MediaLinkController : ODataController
     {
         private readonly DatabaseContext _context;
-        public MediaLinkController(DatabaseContext context)
+        private readonly IAmazonS3 _s3Client;
+        public MediaLinkController(DatabaseContext context, IAmazonS3 s3Client)
         {
             _context = context;
+            _s3Client = s3Client;
         }
 
         [HttpGet]
@@ -33,6 +37,8 @@ namespace BlogCore.Controllers.API
         public async Task<ActionResult<MediaLinkModel>> Post([FromForm]CreateMediaLinkViewModel model)
         {
             //TODO
+            PutObjectRequest request = new PutObjectRequest();
+            //_s3Client.PutObjectAsync()
             return Ok();
         }
     }

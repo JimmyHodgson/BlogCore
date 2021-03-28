@@ -1,4 +1,13 @@
 ﻿const common = {
+    delete: (url) => {
+        return new Promise((resolve, reject) => {
+            fetch(url, {
+                method: 'DELETE'
+            })
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        });
+    },
     get: (url) => {
         return new Promise((resolve, reject) => {
             fetch(url)
@@ -15,7 +24,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: data
+                body: JSON.stringify(data)
             })
                 .then(response => resolve(response))
                 .catch(error => reject(error));
@@ -25,7 +34,6 @@
         return new Promise((resolve, reject) => {
             fetch(url, {
                 method: 'POST',
-                
                 body: data
             })
                 .then(response => resolve(response))

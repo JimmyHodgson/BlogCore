@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace BlogCore.Models.Catalogues
 {
-    public class MediaLinkModel
+    public class MediaGroupModel
     {
         [Key]
         public Guid Id { get; set; } = new Guid();
         public string Name { get; set; }
-        public MediaGroupModel Group { get; set; }
-        public string Url { get; set; }
-        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public string NormalizedName { get; set; }
     }
 }

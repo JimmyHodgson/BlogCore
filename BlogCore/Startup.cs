@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.S3;
 using BlogCore.Common;
 using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
@@ -119,7 +120,10 @@ namespace BlogCore
                     Security = mailTLS
                 });
             });
-            
+
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
+            services.AddSingleton(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -147,14 +151,15 @@ namespace BlogCore
             var builder = new ODataConventionModelBuilder(app.ApplicationServices);
             builder.EntitySet<EducationModel>("Education");
             builder.EntitySet<MediaLinkModel>("MediaLink");
+            builder.EntitySet<MediaGroupModel>("MediaGroup");
 
             app.UseMvc(routes =>
             {
                 routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
-                routes.MapODataServiceRoute("ODataRoute", "api", builder.GetEdmModel());
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapODataServiceRoute("ODataRoute", "api", builder.GetEdmModel());
             });
         }
     }
