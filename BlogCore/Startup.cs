@@ -146,6 +146,7 @@ namespace BlogCore
 
             var builder = new ODataConventionModelBuilder(app.ApplicationServices);
             builder.EntitySet<EducationModel>("Education");
+            builder.EntitySet<MediaLinkModel>("MediaLink");
 
             app.UseMvc(routes =>
             {

@@ -14,5 +14,9 @@
     > .body {
         border-bottom:20px solid $primary;
         width: 100%;
+
+        td:first-child{
+            word-break:break-all;
+        }
     }
 }
