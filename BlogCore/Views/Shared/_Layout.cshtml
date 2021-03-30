@@ -7,7 +7,7 @@
 
     @* Font Import *@
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
 
     <environment include="Development">
         <link rel="stylesheet" href="~/assets/dist/css/main.css" asp-append-version="true" />
@@ -21,8 +21,8 @@
     <script src="~/assets/dist/lib/jquery.min.js"></script>
 </head>
 <body>
-     @RenderBody()
-
+    @RenderBody()
+    @RenderSection("Scripts", required: false)
     <environment include="Development">
         <script src="~/assets/dist/lib/vue.js"></script>
         <script src="~/assets/dist/js/common.js" asp-append-version="true"></script>

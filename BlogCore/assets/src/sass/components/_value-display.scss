@@ -1,0 +1,24 @@
+﻿.value-display {
+    background: $primary;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    margin-bottom:20px;
+
+    > .body {
+        align-items: center;
+        display: flex;
+        flex-grow: 2;
+        font-size: 5rem;
+        justify-content: center;
+        padding:20px
+    }
+
+    > .title {
+        align-items: center;
+        display:flex;
+        flex-grow: 1;
+        justify-content: center;
+        padding:20px;
+    }
+}

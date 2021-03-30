@@ -1,4 +1,4 @@
-﻿let uploadComponent = Vue.component('upload-component', {
+﻿const uploadComponent = Vue.component('upload-component', {
     data: function () {
         return {
             url: null,
@@ -74,5 +74,3 @@
         </label>
     `
 });
-
-window.uploadComponent = uploadComponent;

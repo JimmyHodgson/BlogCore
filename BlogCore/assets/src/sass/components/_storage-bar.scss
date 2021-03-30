@@ -1,0 +1,36 @@
+﻿.storage-bar {
+    background-color: $disabled;
+    border: 2px solid $primary;
+    display: flex;
+    font-weight:bold;
+    height:1.5rem;
+    text-align:right;
+
+    > .used {
+        color: $white;
+        transition:width .5s;
+
+        &.-good {
+            background-color: $success;
+        }
+
+        &.-ok {
+            background-color: $info;
+        }
+
+        &.-warning {
+            background-color: $warning
+        }
+    }
+
+    >.available{
+       color: $black;
+       flex-grow:1;
+       position:relative;
+
+       >.text{
+           position:absolute;
+           right:0;
+       }
+    }
+}

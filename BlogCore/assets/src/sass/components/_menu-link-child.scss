@@ -1,0 +1,17 @@
+﻿.menu-link-child {
+    color: $white;
+
+    &:hover {
+        background-color: $white;
+        border-right: 1px solid #ccc;
+        color: $primary;
+    }
+
+    > .item {
+        padding: 15px 60px;
+
+        &.active {
+            border-right: 5px solid $secondary;
+        }
+    }
+}

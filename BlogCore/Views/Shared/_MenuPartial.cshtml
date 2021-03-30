@@ -24,8 +24,18 @@
         <i class="icon fas fa-sparkles fa-fw"></i> Skills
     </div>
 </a>
-<a asp-area="" asp-controller="MediaLink" asp-action="Index" class="menu-link">
+<a asp-area="" asp-controller="Media" asp-action="Index" class="menu-link">
+    <div is-active-route asp-controller="Media" class="nav-item item">
+        <i class="icon fas fa-box-full fa-fw"></i> Media
+    </div>
+</a>
+<a asp-area="" asp-controller="MediaGroup" asp-action="Index" class="menu-link-child">
+    <div is-active-route asp-controller="MediaGroup" class="nav-item item">
+        <i class="icon fas fa-folder fa-fw"></i> Groups
+    </div>
+</a>
+<a asp-area="" asp-controller="MediaLink" asp-action="Index" class="menu-link-child">
     <div is-active-route asp-controller="MediaLink" class="nav-item item">
-        <i class="icon fas fa-images fa-fw"></i> Media
+        <i class="icon fas fa-images fa-fw"></i> Images
     </div>
 </a>

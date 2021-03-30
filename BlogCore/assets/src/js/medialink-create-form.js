@@ -2,7 +2,7 @@
     new Vue({
         el: "#medialink-create-form",
         components: {
-            uploadComponent: window.uploadComponent
+            uploadComponent
         },
         data: function () {
             return {

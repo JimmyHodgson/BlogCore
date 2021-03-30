@@ -35,3 +35,8 @@ a {
 .bg-primaryVariant {
     background-color: $primaryVariant;
 }
+
+.apexcharts-tooltip {
+    background: $primaryVariant;
+    color: $white;
+}

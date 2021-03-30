@@ -9,14 +9,9 @@ namespace BlogCore.Controllers
 {
     [Authorize(Roles = "Administrator")]
     [Route("[controller]/[action]")]
-    public class MediaLinkController : Controller
+    public class MediaController : Controller
     {
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Create()
         {
             return View();
         }

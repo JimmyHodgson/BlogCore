@@ -2,8 +2,9 @@
 @{
     Layout = "_ManagementLayout";
     ViewData["Controller"] = "Media";
-    ViewData["Title"] = $"{ViewData["Controller"]}";
-    ViewData["Icon"] = "fas fa-images fa-fw";
+    ViewData["Child"] = "Images";
+    ViewData["Title"] = $"{ViewData["Controller"]} - {ViewData["Child"]}";
+    ViewData["Icon"] = "fas fa-box-full fa-fw";
 }
 
 <div class="management-header">
@@ -16,6 +17,4 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<p>
-    <a asp-action="CreateGroup">Create New MediaGroup</a>
-</p>
+

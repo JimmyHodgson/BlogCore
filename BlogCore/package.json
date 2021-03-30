@@ -32,10 +32,12 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^5.15.2",
+    "apexcharts": "3.26.0",
     "bootstrap": "~4.6.0",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-apexcharts": "1.6.0"
   },
   "browserslist": [
     "defaults"

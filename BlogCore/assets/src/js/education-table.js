@@ -2,7 +2,7 @@
     new Vue({
         el: '#education-table',
         components: {
-            tableComponent: window.tableComponent
+            tableComponent
         },
         data: function () {
             return {

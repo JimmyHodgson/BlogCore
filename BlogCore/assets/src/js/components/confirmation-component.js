@@ -1,4 +1,4 @@
-﻿let confirmationComponent = Vue.component('confirmation-component', {
+﻿const confirmationComponent = Vue.component('confirmation-component', {
     methods: {
         cancel() {
             this.$emit('cancel');
@@ -40,5 +40,3 @@
             </transition>
         `
 });
-
-window.confirmationComponent = confirmationComponent;

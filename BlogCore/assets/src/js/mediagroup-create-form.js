@@ -2,7 +2,7 @@
     new Vue({
         el: "#mediagroup-create-form",
         components: {
-            confirmationComponent: window.confirmationComponent
+            confirmationComponent
         },
         data: function () {
             return {

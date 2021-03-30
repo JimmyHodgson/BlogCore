@@ -1,0 +1,16 @@
+﻿.storage-bar-container{
+    margin-bottom:20px;
+    >.values{
+        display:flex;
+        >.item{
+            flex-grow:1;
+
+            &.-right{
+                text-align:right;
+            }
+        }
+    }
+    >.info{
+        text-align:right;
+    }
+}

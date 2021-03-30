@@ -18,24 +18,24 @@
     <div class="body">
         <nav class="navbar bg-light">
             <div class="container-fluid">
-                    <i id="sidebar-toggle-widget" class="fal fa-bars fa-fw d-none d-lg-block clickable" v-on:click="toggleSideBar"></i>
-                    <ul class="bread-crumb">
+                <i id="sidebar-toggle-widget" class="fal fa-bars fa-fw d-none d-lg-block clickable" v-on:click="toggleSideBar"></i>
+                <ul class="bread-crumb">
+                    <li class="item">
+                        <i class="@ViewData["Icon"]"></i> @ViewData["Controller"]
+                    </li>
+                    @if (ViewData["Child"] != null)
+                    {
                         <li class="item">
-                            <i class="@ViewData["Icon"]"></i> @ViewData["Controller"]
+                            @ViewData["Child"]
                         </li>
-                        @if (ViewData["Action"] != null)
-                        {
-                            <li class="item">
-                                @ViewData["Action"]
-                            </li>
-                        }
-                        @if (ViewData["Model"] != null)
-                        {
-                            <li class="item">
-                                @ViewData["Model"]
-                            </li>
-                        }
-                    </ul>
+                    }
+                    @if (ViewData["Action"] != null)
+                    {
+                        <li class="item">
+                            @ViewData["Action"]
+                        </li>
+                    }
+                </ul>
                 <div class="d-flex">
                     <form method="post" asp-action="Logout" asp-controller="Account">
                         <button class="bc-nav-button" title="Sign out">
@@ -50,4 +50,6 @@
         </div>
     </div>
 </section>
-@RenderSection("Scripts", required: false)
+@section Scripts{
+    @RenderSection("PageScripts", required: false)
+}

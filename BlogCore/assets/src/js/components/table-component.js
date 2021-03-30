@@ -1,4 +1,4 @@
-﻿let tableComponent = Vue.component('table-component', {
+﻿const tableComponent = Vue.component('table-component', {
     data: function () {
         return {
             count: 0,
@@ -174,5 +174,3 @@
 
         `
 });
-
-window.tableComponent = tableComponent;

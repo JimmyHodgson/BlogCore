@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = "_ManagementLayout";
+    ViewData["Controller"] = "Media";
+    ViewData["Title"] = $"{ViewData["Controller"]}";
+    ViewData["Icon"] = "fas fa-box-full fa-fw";
+}
+
+<div class="management-header">
+    <h2 class="header">
+        Media Management
+    </h2>
+    <div class="underline"></div>
+</div>
+
+<section id="media-index-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <storage-bar-component v-bind:max="max" v-bind:used="used"></storage-bar-component>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="value-display">
+                    <div class="body">
+                        {{imagesCount}}
+                    </div>
+                    <div class="title">
+                        <h2>Images</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="value-display">
+                    <div class="body">
+                        {{groupsCount}}
+                    </div>
+                    <div class="title">
+                        <h2>Groups</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <apex-bar-chart v-bind:xaxis="categories" v-bind:yaxis="series" v-bind:title="chartTitle"></apex-bar-chart>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section PageScripts{
+    <script src="~/assets/dist/lib/apexcharts.min.js"></script>
+    <script src="~/assets/dist/lib/vue-apexcharts.js"></script>
+}
