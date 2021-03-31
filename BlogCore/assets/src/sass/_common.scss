@@ -3,15 +3,16 @@ html, body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow-x:hidden;
 }
 
 body {
-    background-color: $surface;
+    background-color: $background;
     font-family: 'Raleway', sans-serif;
 
-    @media(min-width:$screen-md-min) {
+    /*@media(min-width:$screen-md-min) {
         background-color: $background;
-    }
+    }*/
 }
 
 *, *:before, *:after {

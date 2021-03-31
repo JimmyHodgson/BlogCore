@@ -4,6 +4,7 @@ using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
 using BlogCore.Models.ViewModels;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 namespace BlogCore.Controllers.API
 {
     [Authorize]
+    [ODataRoutePrefix("MediaLink")]
     public class MediaLinkController : ODataController
     {
         private readonly DatabaseContext _context;
@@ -31,6 +33,19 @@ namespace BlogCore.Controllers.API
         public async Task<ActionResult<IEnumerable<MediaLinkModel>>> Get()
         {
             return await _context.MediaLinks.ToListAsync();
+        }
+
+        [HttpGet]
+        [EnableQuery]
+        [ODataRoute("({Id})")]
+        public async Task<ActionResult<MediaLinkModel>> Get(Guid id)
+        {
+            var model = await _context.MediaLinks.FirstOrDefaultAsync(x => x.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return model;
         }
 
         [HttpPost]

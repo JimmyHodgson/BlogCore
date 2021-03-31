@@ -2,6 +2,7 @@
 using BlogCore.Models.Common;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace BlogCore.Controllers.API
 {
+    [Authorize]
+    [ODataRoutePrefix("MediaGroup")]
     public class MediaGroupController : ODataController
     {
         public readonly DatabaseContext _context;
@@ -27,7 +30,7 @@ namespace BlogCore.Controllers.API
 
         [HttpGet]
         [EnableQuery]
-        [ODataRoute("MediaGroup({Id})")]
+        [ODataRoute("({Id})")]
         public async Task<ActionResult<MediaGroupModel>> Get(Guid id)
         {
             MediaGroupModel model = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == id);
@@ -62,7 +65,7 @@ namespace BlogCore.Controllers.API
         }
 
         [HttpDelete]
-        [ODataRoute("MediaGroup({Id})")]
+        [ODataRoute("({Id})")]
         public async Task<ActionResult> Delete([FromODataUri]Guid id)
         {
             MediaGroupModel model = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == id);

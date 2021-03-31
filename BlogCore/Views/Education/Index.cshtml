@@ -6,12 +6,25 @@
     ViewData["Title"] = $"{ViewData["Controller"]}";
     ViewData["Icon"] = "fas fa-university fa-fw";
 }
-<div class="management-header">
-    <h2 class="header">
-        Education Management
-    </h2>
-    <div class="underline"></div>
-</div>
-<div id="education-table">
-    <table-component v-bind:url="endpoint" v-bind:ribbon="ribbon" :schema="schema"></table-component>
-</div>
+
+<section id="education-management">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="management-header">
+                    <h2 class="header">
+                        Education Management
+                    </h2>
+                    <div class="underline"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="education-table">
+                    <table-component v-bind:url="endpoint" v-bind:ribbon="ribbon" :schema="schema"></table-component>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

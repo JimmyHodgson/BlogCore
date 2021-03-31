@@ -6,15 +6,20 @@
     ViewData["Icon"] = "fas fa-box-full fa-fw";
 }
 
-<div class="management-header">
-    <h2 class="header">
-        Media Management
-    </h2>
-    <div class="underline"></div>
-</div>
+
 
 <section id="media-index-page">
-    <div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="management-header">
+                    <h2 class="header">
+                        Media Management
+                    </h2>
+                    <div class="underline"></div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <storage-bar-component v-bind:max="max" v-bind:used="used"></storage-bar-component>

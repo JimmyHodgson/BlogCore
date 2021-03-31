@@ -1,14 +1,14 @@
 ﻿const apexBarChart = Vue.component('apex-bar-chart', {
     components: {
-        apexchart:VueApexCharts
+        apexchart: window.VueApexCharts
     },
-    data: function(){
+    data: function () {
         return {
             options: {
                 chart: {
                     foreColor: '#fff',
                     toolbar: {
-                        show:false
+                        show: false
                     }
                 },
                 colors: ["#e67e22"],
@@ -28,19 +28,19 @@
                     enabled: false
                 },
                 xaxis: {
-                    categories:[]
+                    categories: []
                 }
             },
             series: [
                 {
                     name: '',
-                    data:[]
+                    data: []
                 }
             ]
         };
     },
     methods: {
-       
+
     },
     props: {
         title: {
@@ -48,7 +48,7 @@
             type: String
         },
         xaxis: {
-            required:true,
+            required: true,
             type: Array
         },
         yaxis: {

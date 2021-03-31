@@ -16,6 +16,17 @@
         </footer>
     </div>
     <div class="body">
+        <nav class="navbar bg-primary mobile-nav">
+            <div class="navbar-brand">
+                <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="far fa-bars fa-fw"></i>
+            </button>
+            <div class="menu-component collapse" id="navbar">
+                @await Html.PartialAsync("_MenuPartial")
+            </div>
+        </nav>
         <nav class="navbar bg-light">
             <div class="container-fluid">
                 <i id="sidebar-toggle-widget" class="fal fa-bars fa-fw d-none d-lg-block clickable" v-on:click="toggleSideBar"></i>

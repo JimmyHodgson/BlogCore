@@ -4,15 +4,28 @@
             count: 0,
             data: [],
             page: 0,
-            pageSize: 10,
             headers: [],
             performance: "0 ms",
-            success: false
+            success: false,
+            table_options: {
+                dataset: {
+                    showKey: true,
+                    actions: {
+                        edit: { enabled: false, url: '' },
+                        details: { enabled: false, url: '' },
+                        remove: { enabled: false, url: '' }
+                    }
+                },
+                endpoint: null,
+                key: '',
+                pageSize: 10,
+                ribbon: []//format {icon:'fas fa-plus', url:'http://domain.com/action'}
+            }
         };
     },
     computed: {
         totalPages: function () {
-            return parseInt(Math.ceil(this.count / this.pageSize));
+            return parseInt(Math.ceil(this.count / this.options.pageSize));
         },
         hasNextPage: function () {
             return this.page < this.totalPages;
@@ -22,8 +35,36 @@
         }
     },
     methods: {
+        expand(base, value) {
+            let obj = {};
+            for (const key in base) {
+                if (value[key] !== undefined) {
+                    if (typeof value[key] === "object" && !Array.isArray(value[key])) {
+                        obj[key] = this.expand(base[key], value[key]);
+                    }
+                    else {
+                        obj[key] = value[key];
+                    }
+                } else {
+                    obj[key] = base[key];
+                }
+            }
+
+            return obj;
+        },
         nextPage() {
 
+        },
+        pageEnd() {
+            let brutePageEnd = this.table_options.pageSize * this.page;
+            return brutePageEnd > this.data.length ? this.data.length : brutePageEnd;
+        },
+        pageStart() {
+            let brutePageStart = (this.page - 1) * this.table_options.pageSize + 1;
+            return this.data.length < brutePageStart ? this.data.length : brutePageStart;
+        },
+        parseOptions() {
+            this.table_options = this.expand(this.table_options, this.options);
         },
         prevPage() {
 
@@ -55,16 +96,19 @@
             let headers = [];
             if (this.data.length > 0) {
                 for (let key in this.data[0]) {
-                    headers.push(key);
+                    if (key !== this.table_options.key || this.table_options.dataset.showKey) {
+                        headers.push(key);
+                    }
                 }
             }
             this.headers = headers;
         }
     },
-    mounted: function () {
+    created() {
+        this.parseOptions();
         let start = performance.now();
         let end;
-        common.get(`${this.url}?$count=true&$top=${this.pageSize}`)
+        common.get(`${this.url}?$count=true&$top=${this.table_options.pageSize}`)
             .then(data => {
                 end = performance.now();
                 this.performance = `${(end - start).toFixed(0)} ms`;
@@ -82,25 +126,13 @@
             });
     },
     props: {
-        details: {
-            required: false,
-            type: String
-        },
-        schema: {
+        options: {
             required: true,
-            type: Array
-        },
-        remove: {
-            required: false,
-            type: String
+            type: Object
         },
         ribbon: {
             required: false,
             type: Array
-        },
-        update: {
-            required: false,
-            type: String
         },
         url: {
             required: true,
@@ -122,26 +154,26 @@
                                 <th v-for="header in headers">
                                     {{header}}
                                 </th>
-                                <th v-if="update"></th>
-                                <th v-if="details"></th>
-                                <th v-if="remove"></th>
+                                <th v-if="table_options.dataset.actions.edit.enabled"></th>
+                                <th v-if="table_options.dataset.actions.details.enabled"></th>
+                                <th v-if="table_options.dataset.actions.remove.enabled"></th>
                             </tr>
                         </thead>
                         <tbody class="body">
                             <tr v-for="row in data">
-                                <td v-for="(value,name) in row">{{value}}</td>
-                                <td v-if="update" class="button">
-                                    <a href="">
+                                <td v-if="name!==table_options.key || table_options.dataset.showKey" v-for="(value,name) in row">{{value}}</td>
+                                <td v-if="table_options.dataset.actions.edit.enabled" class="button">
+                                    <a :href="table_options.dataset.actions.edit.url+'/'+row[table_options.key]">
                                         <i class="fas fa-edit fa-fw"></i>
                                     </a>
                                 </td>
-                                <td v-if="details" class="button">
-                                    <a href="">
+                                <td v-if="table_options.dataset.actions.details.enabled" class="button">
+                                    <a :href="table_options.dataset.actions.details.url+'/'+row[table_options.key]">
                                         <i class="fas fa-file-alt fa-fw"></i>
                                     </a>
                                 </td>
-                                <td v-if="remove" class="button">
-                                    <a href="">
+                                <td v-if="table_options.dataset.actions.remove.enabled" class="button">
+                                    <a :href="table_options.dataset.actions.remove.url+'/'+row[table_options.key]">
                                         <i class="fas fa-trash-alt fa-fw"></i>
                                     </a>
                                 </td>
@@ -157,11 +189,14 @@
                         There is no data to show.
                     </div>
                 </div>
-                <div class="table-footer">
-                    <div>
-                        <i class="far fa-clock fa-fw item"></i> {{performance}}
+                <div class="table-footer monofont">
+                    <div class="table-info-controls">
+                        <div class="item">
+                            {{pageStart()}} - {{pageEnd()}} of {{data.length}}
+                            <small><i class="far fa-clock fa-fw item"></i> {{performance}}</small>
+                        </div>
                     </div>
-                    <div>
+                    <div class="pagination-controls">
                         <i class="far fa-chevron-left fa-fw item button" v-on:click="prevPage" v-bind:class="hasPrevPage?'clickable':'-disabled'"></i>
                         {{page}}
                         <i class="far fa-chevron-right fa-fw item button" v-on:click="nextPage" v-bind:class="hasNextPage?'clickable':'-disabled'"></i>

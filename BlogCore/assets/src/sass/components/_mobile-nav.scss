@@ -1,0 +1,25 @@
+﻿.mobile-nav {
+    color: $white;
+    padding: 0;
+
+    > .navbar-brand {
+        padding: 8px 16px;
+        padding: 0.5rem 1rem;
+    }
+
+    >.navbar-toggler{
+        color:$white;
+    }
+
+    .menu-link,.menu-link-child{
+        display:block;
+
+        &:hover{
+            border:none;
+        }
+    }
+
+    @media(min-width:$screen-md-min){
+        display:none;
+    }
+}

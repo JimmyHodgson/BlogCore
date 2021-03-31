@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BlogCore.Controllers.API
 {
     [Authorize]
+    [ODataRoutePrefix("Education")]
     public class EducationController : ODataController
     {
         private readonly DatabaseContext _context;
@@ -27,16 +29,10 @@ namespace BlogCore.Controllers.API
             return await _context.Education.ToListAsync();
         }
 
+        // GET api/<controller>(5)
         [HttpGet]
-        [Route("GetPage")]
-        public async Task<ActionResult<IEnumerable<EducationModel>>> GetPage(int Page,int PageSize)
-        {
-            return await _context.Education.Skip((Page - 1) * PageSize).Take(PageSize).ToListAsync();
-        }
-
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
         [EnableQuery]
+        [ODataRoute("({Id})")]
         public async Task<ActionResult<EducationModel>> Get(Guid id)
         {
             EducationModel model = await _context.Education.FindAsync(id);

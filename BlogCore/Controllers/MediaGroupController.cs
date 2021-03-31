@@ -29,6 +29,7 @@ namespace BlogCore.Controllers
         }
 
         // GET: MediaGroup/Details/5
+        [HttpGet("{id}")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -70,6 +71,7 @@ namespace BlogCore.Controllers
         }
 
         // GET: MediaGroup/Edit/5
+        [HttpGet("{id}")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -121,6 +123,7 @@ namespace BlogCore.Controllers
         }
 
         // GET: MediaGroup/Delete/5
+        [HttpGet("{id}")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
