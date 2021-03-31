@@ -1,5 +1,8 @@
 ﻿%form-base {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width:100%;
 
     > .header {
         background-color: $primary;
@@ -9,12 +12,18 @@
 
     > .body {
         background-color: $surface;
+        flex-grow: 1;
         padding: 10px 15px;
     }
 
     @media(min-width:$screen-md-min) {
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        flex-grow: 0;
         margin: 20px auto;
         max-width: 600px;
+
+        > .body {
+            flex-grow: 0;
+        }
     }
 }

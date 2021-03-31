@@ -36,7 +36,7 @@ namespace BlogCore.Controllers.API
             MediaGroupModel model = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == id);
             if (model == null)
             {
-                return NotFound();
+                return NotFound($"Media Group with id '${id}' not found.");
             }
 
             return model;
@@ -48,14 +48,14 @@ namespace BlogCore.Controllers.API
             MediaGroupModel exist = await _context.MediaGroups.FirstOrDefaultAsync(x => x.NormalizedName == model.NormalizedName);
             if (exist != null)
             {
-                return BadRequest("Media group name already exists.");
+                return BadRequest($"Media group '{model.Name}' already exists.");
             }
 
             await _context.MediaGroups.AddAsync(model);
             try
             {
                 await _context.SaveChangesAsync();
-                return Ok();
+                return Ok(model);
             }
             catch (Exception ex)
             {
@@ -71,7 +71,7 @@ namespace BlogCore.Controllers.API
             MediaGroupModel model = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == id);
             if (model == null)
             {
-                return NotFound();
+                return NotFound($"Media Group with id '${id}' not found.");
             }
 
             _context.MediaGroups.Remove(model);
@@ -79,7 +79,7 @@ namespace BlogCore.Controllers.API
             try
             {
                 await _context.SaveChangesAsync();
-                return Ok();
+                return Ok(model);
 
             }
             catch (Exception ex)
@@ -94,14 +94,14 @@ namespace BlogCore.Controllers.API
             MediaGroupModel original = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == model.Id);
             if (original == null)
             {
-                return NotFound();
+                return NotFound($"Media Group with Name '${model.Name}' not found.");
             }
 
             try
             {
                 _context.MediaGroups.Update(model);
                 await _context.SaveChangesAsync();
-                return Ok();
+                return Ok(model);
 
             }
             catch (Exception ex)

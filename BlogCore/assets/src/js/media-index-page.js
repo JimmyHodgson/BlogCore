@@ -8,7 +8,6 @@
         data: function () {
             return {
                 categories: [],
-                chartTitle:"Images per group",
                 imagesCount:0,
                 groupsCount:0,
                 max: 0,

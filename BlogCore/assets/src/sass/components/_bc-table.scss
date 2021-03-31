@@ -1,5 +1,6 @@
 ﻿.bc-table {
     margin-bottom: 0;
+    white-space: nowrap;
 
     > .header {
         background-color: $primary;
@@ -7,6 +8,11 @@
 
         th {
             border: none;
+            transition: background-color .2s ease-in-out;
+
+            &.clickable:hover{
+                background-color:rgba($white,0.1);
+            }
         }
     }
 

@@ -12,7 +12,9 @@
         }
 
         > .panel {
+            display:flex;
             height:100%;
+            flex-direction:column;
             padding: 0;
             position:relative;
             overflow-y: auto;

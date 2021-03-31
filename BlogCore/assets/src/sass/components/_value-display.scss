@@ -1,6 +1,7 @@
 ﻿.value-display {
-    background: $primary;
-    color: $white;
+    background: $surface;
+    box-shadow:0 0 5px $border;
+    color: $primary;
     display: flex;
     flex-direction: column;
     margin-bottom:20px;

@@ -7,38 +7,23 @@
         data: function () {
             return {
                 errors: {
-                    name:null
+                    name: null,
+                    result:null
                 },
                 invalidRegex: /[^a-zA-Z0-9]/g,
                 name: '',
                 nameRegex: /^[A-Za-z0-9_]*$/,
                 normalizedName:'',
-                url: '/api/MediaGroup',
-                visible: false,
-                modal: {
-                    header: 'Are you sure?',
-                    body: 'This action cannot be reversed.'
-                }
+                url: '/api/MediaGroup'
             };
         },
         methods: {
             submit() {
                 if (this.validateName()) {
-                    //ToDo
-                    //common.post(this.url, { Name: this.name, NormalizedName: this.normalizedName })
-                    //    .then(response => response.json().then(data=>console.log(data)))
-                    //    .catch(error => console.error(error));
-
-                    this.visible = true;
+                    common.post(this.url, { Name: this.name, NormalizedName: this.normalizedName })
+                        .then(() => window.location.href = "Index")
+                        .catch(response => { console.log(response); this.errors.result = response.error.message; });
                 }
-            },
-            confirm() {
-                console.log("confirmed!");
-                this.visible = false;
-            },
-            cancel() {
-                console.log('cancelled!');
-                this.visible = false;
             },
             normalize() {
                 this.normalizedName = this.name.toLowerCase().replace(this.invalidRegex, '');

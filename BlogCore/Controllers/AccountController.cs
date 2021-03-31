@@ -156,6 +156,10 @@ namespace BlogCore.Controllers
 
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
+            if (email == null)
+            {
+                return View("Error");
+            }
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {

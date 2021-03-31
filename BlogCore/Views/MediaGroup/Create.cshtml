@@ -1,36 +1,35 @@
-﻿@model BlogCore.Models.Catalogues.MediaGroupModel
-
+﻿
 @{
-    ViewData["Title"] = "Create";
     Layout = "_ManagementLayout";
+    ViewData["Controller"] = "Media";
+    ViewData["Child"] = "Group";
+    ViewData["Action"] = "Create";
+    ViewData["Title"] = $"{ViewData["Child"]} - {ViewData["Action"]}";
 }
-
-<h2>Create</h2>
-
-<h4>MediaGroupModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<section id="mediagroup-create-form" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-box-full fa-fw"></i> Media Group</h2>
+    </div>
+    <div class="body">
+        <form method="post" v-on:submit.prevent="submit">
+            <div class="mb-3">
+                <label for="name">Name</label>
+                <input id="name" type="text" class="form-control" v-model="name" autocomplete="off" required />
+                <span v-if="errors.name" class="text-danger">{{errors.name}}</span>
             </div>
-            <div class="form-group">
-                <label asp-for="NormalizedName" class="control-label"></label>
-                <input asp-for="NormalizedName" class="form-control" />
-                <span asp-validation-for="NormalizedName" class="text-danger"></span>
+            <div class="mb-3">
+                <label for="name">Normalized Name</label>
+                <input id="name" type="text" class="form-control" v-model="normalizedName" disabled required />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary bc-button" title="Submit">
+                    Submit
+                </button>
+            </div>
+            <div v-if="errors.result" class="mb-3 alert alert-danger">
+                <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</section>
 

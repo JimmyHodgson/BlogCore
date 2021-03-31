@@ -1,6 +1,7 @@
 ﻿%result-panel {
     display: flex;
     flex-direction: column;
+    flex-grow:1;
 
     > .header {
         align-items: center;
@@ -12,13 +13,19 @@
 
     > .body {
         background-color: $surface;
+        flex-grow:1;
         padding: 20px;
         text-align: center;
     }
 
     @media(min-width:$screen-md-min) {
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        flex-grow:0;
         margin: 20px auto;
         width: 600px;
+
+        >.body{
+            flex-grow:0;
+        }
     }
 }

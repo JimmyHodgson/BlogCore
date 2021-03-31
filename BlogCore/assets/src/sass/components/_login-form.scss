@@ -1,23 +1,7 @@
 ﻿.login-form {
-    display:flex;
-    flex-direction:column;
-    flex-grow:1;
-
     .options {
         display:flex;
         justify-content:space-between;
-    }
-
-    >.body{
-        flex-grow:1;
-    }
-
-    @media(min-width:$screen-md-min){
-        flex-grow:0;
-
-        >.body{
-            flex-grow:0;
-        }
     }
 
     @extend %form-base;

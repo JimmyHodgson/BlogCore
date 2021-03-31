@@ -1,0 +1,30 @@
+﻿.blogcore-link {
+    position: relative;
+    white-space:nowrap;
+
+    > .link {
+        color: $secondaryVariant;
+        font-weight: bold;
+    }
+
+    > .underline {
+        background-color: $secondaryVariant;
+        bottom: 0;
+        height: 3px;
+        left: 0;
+        margin-bottom:-3px;
+        position: absolute;
+        transition:width .2s linear;
+        width: 0;
+    }
+
+    &:hover {
+        > .link {
+            color: $secondaryVariant;
+        }
+
+        > .underline {
+            width:100%;
+        }
+    }
+}

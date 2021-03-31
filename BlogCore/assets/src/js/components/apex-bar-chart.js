@@ -6,7 +6,7 @@
         return {
             options: {
                 chart: {
-                    foreColor: '#fff',
+                    foreColor: '#2c3e50',
                     toolbar: {
                         show: false
                     }
@@ -44,7 +44,7 @@
     },
     props: {
         title: {
-            required: true,
+            required: false,
             type: String
         },
         xaxis: {
@@ -59,7 +59,7 @@
     template:
         `   
             <div class="chart-component">
-                <div class="chart-header">
+                <div v-if="title" class="chart-header">
                     <h2 class="title">{{title}}</h2>
                 </div>
                 <div>

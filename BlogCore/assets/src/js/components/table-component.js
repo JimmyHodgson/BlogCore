@@ -5,6 +5,7 @@
             data: [],
             page: 0,
             headers: [],
+            order: null,
             performance: "0 ms",
             success: false,
             table_options: {
@@ -18,6 +19,7 @@
                 },
                 endpoint: null,
                 key: '',
+                order: null,
                 pageSize: 10,
                 ribbon: []//format {icon:'fas fa-plus', url:'http://domain.com/action'}
             }
@@ -25,7 +27,7 @@
     },
     computed: {
         totalPages: function () {
-            return parseInt(Math.ceil(this.count / this.options.pageSize));
+            return parseInt(Math.ceil(this.count / this.table_options.pageSize));
         },
         hasNextPage: function () {
             return this.page < this.totalPages;
@@ -52,45 +54,30 @@
 
             return obj;
         },
-        nextPage() {
-
-        },
-        pageEnd() {
-            let brutePageEnd = this.table_options.pageSize * this.page;
-            return brutePageEnd > this.data.length ? this.data.length : brutePageEnd;
-        },
-        pageStart() {
-            let brutePageStart = (this.page - 1) * this.table_options.pageSize + 1;
-            return this.data.length < brutePageStart ? this.data.length : brutePageStart;
-        },
-        parseOptions() {
-            this.table_options = this.expand(this.table_options, this.options);
-        },
-        prevPage() {
-
-        },
         format(data) {
-            //let res = [];
-            //for (row in data) {
-            //    let current = [];
-            //    for (key in row) {
-            //        if (format[key]) {
-            //            switch (format[key].type) {
-            //                case 'url':
-            //                    current.push(`<img src="${row[key]}"/>`);
-            //                    break;
-            //                default:
-            //                    current.push(row[key]);
-            //                    break;
-            //            }
-            //        } else {
-            //            current.push(row[key]);
-            //        }
-            //    }
-            //    res.push(current);
-            //}
-            //return res;
+            //TODO 
+            /*
+             * This function is to possibly be able to format data based on
+             * a schema provided in the options property
+             * For example:
+             * 1. Image links could be displayed as images.
+             * 2. Text could be displayed as a badge.
+             * 3. Possible conditional formatting.
+             */
             return data;
+        },
+        getData() {
+            let start = performance.now();
+            let end;
+            common.get(`${this.table_options.endpoint}?$top=${this.table_options.pageSize}&$skip=${(this.page - 1) * this.table_options.pageSize}${this.getOrderString()}`)
+                .then(data => {
+                    end = performance.now();
+                    this.performance = `${(end - start).toFixed(0)} ms`;
+                    this.data = this.format(data.value);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         },
         getHeaders() {
             let headers = [];
@@ -102,17 +89,67 @@
                 }
             }
             this.headers = headers;
+        },
+        getHeaderPercentage() {
+            return 100 / this.headers.length;
+        },
+        getOrderString() {
+            if (this.order) {
+                if (this.order.direction === 1) {
+                    return `&$orderby=${this.order.header}`;
+                }
+                else {
+                    return `&$orderby=${this.order.header} desc`;
+                }
+            }
+            return '';
+        },
+        nextPage() {
+            this.page += 1;
+            this.getData();
+        },
+        pageEnd() {
+            let brutePageEnd = this.table_options.pageSize * this.page;
+            return brutePageEnd > this.count ? this.count : brutePageEnd;
+        },
+        pageStart() {
+            let brutePageStart = (this.page - 1) * this.table_options.pageSize + 1;
+            return this.count < brutePageStart ? this.count : brutePageStart;
+        },
+        parseOptions() {
+            this.table_options = this.expand(this.table_options, this.options);
+        },
+        prevPage() {
+            this.page -= 1;
+            this.getData();
+        },
+        updateOrder(value) {
+            if (this.order && this.order.header === value) {
+                if (this.order.direction + 1 > 2) {
+                    this.order = null;
+                }
+                else {
+                    this.order.direction += 1;
+                }
+            }
+            else {
+                this.order = {
+                    header: value,
+                    direction: 1
+                };
+            }
+
+            this.getData();
         }
     },
     created() {
         this.parseOptions();
         let start = performance.now();
         let end;
-        common.get(`${this.url}?$count=true&$top=${this.table_options.pageSize}`)
+        common.get(`${this.table_options.endpoint}?$count=true&$top=${this.table_options.pageSize}${this.getOrderString()}`)
             .then(data => {
                 end = performance.now();
                 this.performance = `${(end - start).toFixed(0)} ms`;
-                console.log(data);
                 this.count = data['@odata.count'];
                 if (data.value.length > 0) {
                     this.page = 1;
@@ -129,21 +166,13 @@
         options: {
             required: true,
             type: Object
-        },
-        ribbon: {
-            required: false,
-            type: Array
-        },
-        url: {
-            required: true,
-            type: String
         }
     },
     template:
         `
-            <div v-if="success">
+            <div v-if="success" class="table-component">
                 <div class="table-ribbon">
-                    <a v-for="action in ribbon" v-bind:href="action.url" class="item">
+                    <a v-for="action in table_options.ribbon" v-bind:href="action.url" class="item">
                         <i class="fa-fw" v-bind:class="action.icon"></i>
                     </a>
                 </div>
@@ -151,8 +180,9 @@
                     <table class="table bc-table">
                         <thead class="header">
                             <tr>
-                                <th v-for="header in headers">
-                                    {{header}}
+                                <th v-for="header in headers" class="clickable" v-on:click="updateOrder(header)" v-bind:style="{width:getHeaderPercentage()+'%'}">
+                                    {{header}} 
+                                    <i v-if="order && order.header === header" class="fas fa-fw" :class="order.direction===1?'fa-caret-up':'fa-caret-down'"></i>
                                 </th>
                                 <th v-if="table_options.dataset.actions.edit.enabled"></th>
                                 <th v-if="table_options.dataset.actions.details.enabled"></th>
@@ -190,16 +220,18 @@
                     </div>
                 </div>
                 <div class="table-footer monofont">
-                    <div class="table-info-controls">
+                    <div class="table-info-controls d-none d-sm-block">
                         <div class="item">
-                            {{pageStart()}} - {{pageEnd()}} of {{data.length}}
+                            {{pageStart()}} - {{pageEnd()}} of {{count}} items
                             <small><i class="far fa-clock fa-fw item"></i> {{performance}}</small>
                         </div>
                     </div>
                     <div class="pagination-controls">
-                        <i class="far fa-chevron-left fa-fw item button" v-on:click="prevPage" v-bind:class="hasPrevPage?'clickable':'-disabled'"></i>
-                        {{page}}
-                        <i class="far fa-chevron-right fa-fw item button" v-on:click="nextPage" v-bind:class="hasNextPage?'clickable':'-disabled'"></i>
+                        <i class="far fa-chevron-left fa-fw item button clickable" v-if="hasPrevPage" v-on:click="prevPage"></i>
+                        <i class="far fa-genderless fa-fw item" v-else></i>
+                        <span class="info">{{page}} <span v-if="totalPages>0">of {{totalPages}}</span></span>
+                        <i class="far fa-chevron-right fa-fw item button clickable" v-if="hasNextPage" v-on:click="nextPage"></i>
+                        <i class="far fa-genderless fa-fw item" v-else></i>
                     </div>
                 </div>
             </div>
