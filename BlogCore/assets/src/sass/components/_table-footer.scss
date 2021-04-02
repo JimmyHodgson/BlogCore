@@ -1,6 +1,7 @@
 ﻿.table-footer {
     align-items:center;
     background-color: $primary;
+    border-top:4px solid $secondary;
     color: $white;
     display: flex;
 }

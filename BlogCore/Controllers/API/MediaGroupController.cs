@@ -73,6 +73,9 @@ namespace BlogCore.Controllers.API
             {
                 return NotFound($"Media Group with id '${id}' not found.");
             }
+            //TODO
+            //Remove all images in this mediagroup
+
 
             _context.MediaGroups.Remove(model);
 
@@ -89,16 +92,24 @@ namespace BlogCore.Controllers.API
         }
 
         [HttpPut]
-        public async Task<ActionResult> Put([FromBody]MediaGroupModel model)
+        [ODataRoute("({Id})")]
+        public async Task<ActionResult> Put([FromODataUri]Guid id,[FromBody]MediaGroupModel model)
         {
-            MediaGroupModel original = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == model.Id);
+            MediaGroupModel original = await _context.MediaGroups.AsNoTracking().FirstOrDefaultAsync(x => x.Id == model.Id);
             if (original == null)
             {
-                return NotFound($"Media Group with Name '${model.Name}' not found.");
+                return NotFound($"Media Group with Name '{model.Name}' not found.");
             }
 
             try
             {
+                var exists = await _context.MediaGroups.FirstOrDefaultAsync(x => x.NormalizedName == model.NormalizedName && x.Id != model.Id);
+                if (exists != null)
+                {
+                    return BadRequest($"Media Group with Name {model.Name} already exists.");
+                }
+                //TODO
+                //Move all the images to the updated mediagroup
                 _context.MediaGroups.Update(model);
                 await _context.SaveChangesAsync();
                 return Ok(model);

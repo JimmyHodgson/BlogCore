@@ -7,18 +7,24 @@
                     name: null,
                     result: null
                 },
-                invalidRegex: /[^a-zA-Z0-9]/g,
+                id: '',
                 name: '',
-                nameRegex: /^[A-Za-z0-9_]*$/,
                 normalizedName: '',
+                invalidRegex: /[^a-zA-Z0-9]/g,
+                nameRegex: /^[A-Za-z0-9_]*$/,
                 url: '/api/MediaGroup'
             };
+        },
+        beforeMount() {
+            this.id = this.$el.querySelector('#Id').value;
+            this.name = this.$el.querySelector('#Name').value;
+            this.normalizedName = this.$el.querySelector('#NormalizedName').value;
         },
         methods: {
             submit() {
                 if (this.validateName()) {
-                    common.put(this.url, { Name: this.name, NormalizedName: this.normalizedName })
-                        .then(() => window.location.href = "Index")
+                    common.put(`${this.url}(${this.id})`, { Id: this.id, Name: this.name, NormalizedName: this.normalizedName })
+                        .then(() => window.location.href = "/Mediagroup/Index")
                         .catch(response => { this.errors.result = response.error.message; });
                 }
             },

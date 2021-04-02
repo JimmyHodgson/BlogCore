@@ -6,16 +6,18 @@
                 errors: {
                     result: null
                 },
+                id: null,
                 url: '/api/MediaGroup'
             };
         },
+        beforeMount() {
+            this.id = this.$el.querySelector('#Id').value;
+        },
         methods: {
             submit() {
-                if (this.validateName()) {
-                    common.delete(this.url)
-                        .then(() => window.location.href = "Index")
-                        .catch(response => { this.errors.result = response.error.message; });
-                }
+                common.delete(`${this.url}(${this.id})`)
+                    .then(() => window.location.href = "/Mediagroup/Index")
+                    .catch(response => { this.errors.result = response.error.message; });
             }
         }
     });

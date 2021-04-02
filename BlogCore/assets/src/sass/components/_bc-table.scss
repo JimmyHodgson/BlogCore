@@ -4,21 +4,26 @@
 
     > .header {
         background-color: $primary;
+        border-bottom: 4px solid $secondary;
         color: $white;
 
         th {
             border: none;
             transition: background-color .2s ease-in-out;
 
-            &.clickable:hover{
-                background-color:rgba($white,0.1);
+            &.clickable:hover {
+                background-color: rgba($white,0.1);
             }
         }
     }
 
     > .body {
-        td {
+        tr {
             background-color: $white;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba($white,0.2);
         }
     }
 }

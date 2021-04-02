@@ -34,6 +34,7 @@ namespace BlogCore.Controllers
         {
             if (id == null)
             {
+                ModelState.TryAddModelError("ServerError", $"Media Group Id is required.");
                 return NotFound();
             }
 
@@ -41,6 +42,7 @@ namespace BlogCore.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (mediaGroupModel == null)
             {
+                ModelState.TryAddModelError("ServerError", $"Media Group with Id {id} not found.");
                 return NotFound();
             }
 
@@ -76,13 +78,15 @@ namespace BlogCore.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                ModelState.TryAddModelError("ServerError", $"Media Group Id is invalid.");
+                return View();
             }
 
             var mediaGroupModel = await _context.MediaGroups.FindAsync(id);
             if (mediaGroupModel == null)
             {
-                return NotFound();
+                ModelState.TryAddModelError("ServerError", $"Media Group with Id {id} not found.");
+                return View();
             }
             return View(mediaGroupModel);
         }
@@ -94,6 +98,10 @@ namespace BlogCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,NormalizedName")] MediaGroupModel mediaGroupModel)
         {
+            //TODO
+            // 1. Make sure the flow works the same way as the odata endpoint.
+            // 2. Change all error returns to return the view with the error in the model state.
+            // 3. Test
             if (id != mediaGroupModel.Id)
             {
                 return NotFound();
@@ -103,6 +111,9 @@ namespace BlogCore.Controllers
             {
                 try
                 {
+
+
+
                     _context.Update(mediaGroupModel);
                     await _context.SaveChangesAsync();
                 }

@@ -1,35 +1,45 @@
 ﻿@model BlogCore.Models.Catalogues.MediaGroupModel
 
 @{
-    ViewData["Title"] = "Edit";
     Layout = "_ManagementLayout";
+    ViewData["Controller"] = "Media";
+    ViewData["Child"] = "Group";
+    ViewData["Action"] = "Edit";
+    ViewData["Title"] = $"{ViewData["Child"]} - {ViewData["Action"]}";
 }
 
-<h2>Edit</h2>
-
-<h4>MediaGroupModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<section id="mediagroup-edit-form" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-folder fa-fw"></i> Edit</h2>
+    </div>
+    <div class="body">
+        <form v-on:submit.prevent="submit">
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" v-model="name" class="form-control"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="NormalizedName" class="control-label"></label>
-                <input asp-for="NormalizedName" class="form-control" />
+                <input asp-for="NormalizedName" v-model="normalizedName" class="form-control" disabled />
                 <span asp-validation-for="NormalizedName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="mb-3">
+                @if (ViewData.ModelState["ServerError"] != null)
+                {
+                    <div class="alert alert-danger">
+                        <i class="far fa-exclamation-triangle fa-fw"></i> @Html.ValidationMessage("ServerError")
+                    </div>
+                }
+                <div v-if="errors.result" class="mb-3 alert alert-danger">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                </div>
+                <input type="submit" value="Save" class="btn btn-primary bc-button" />
             </div>
         </form>
     </div>
-</div>
+</section>
 
 <div>
     <a asp-action="Index">Back to List</a>

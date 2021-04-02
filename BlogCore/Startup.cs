@@ -140,6 +140,18 @@ namespace BlogCore
             }
 
             app.UseHttpsRedirection();
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if(context.Response.StatusCode == 404 && !context.Request.Path.Value.Contains("/api/"))
+                {
+                    context.Request.Path = "/Home/ContentNotFound";
+                    await next();
+                }
+            });
+
+
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"assets")),
