@@ -1,0 +1,18 @@
+﻿.gallery-component {
+    box-shadow: 0 0 5px $border;
+    display: flex;
+    flex-direction: column;
+    margin-bottom:20px;
+
+    > .body {
+        flex-grow: 0;
+    }
+
+    @media(min-width:$screen-md-min) {
+        flex-direction: row-reverse;
+
+        > .body {
+            flex-grow: 1;
+        }
+    }
+}

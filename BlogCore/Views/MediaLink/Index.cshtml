@@ -6,15 +6,23 @@
     ViewData["Title"] = $"{ViewData["Controller"]} - {ViewData["Child"]}";
     ViewData["Icon"] = "fas fa-box-full fa-fw";
 }
-
-<div class="management-header">
-    <h2 class="header">
-        Media Management
-    </h2>
-    <div class="underline"></div>
-</div>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<section id="medialink-management">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="management-header">
+                    <h2 class="header">
+                        Media Management
+                    </h2>
+                    <div class="underline"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <gallery-component :options="options"></gallery-component>
+            </div>
+        </div>
+    </div>
+</section>
 

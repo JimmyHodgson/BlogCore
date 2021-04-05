@@ -34,7 +34,7 @@
                 });
 
                 this.categories = categories;
-                this.series.data = data;
+                this.series = [{ name: 'Groups', data: seriesData }];
             }
         },
         mounted() {

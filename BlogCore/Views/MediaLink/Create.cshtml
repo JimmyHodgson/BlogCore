@@ -1,4 +1,4 @@
-﻿@model MediaLinkModel
+﻿@model CreateMediaLinkViewModel
 @{
     Layout = "_ManagementLayout";
     ViewData["Controller"] = "Media";
@@ -7,42 +7,46 @@
     ViewData["Title"] = $"{ViewData["Controller"]} - {ViewData["Action"]}";
     ViewData["Icon"] = "fas fa-images fa-fw";
 }
-
-<section id="medialink-create-form" class="form-component medialink-form">
-    <div class="header">
-        <h2><i class="fas fa-image fa-fw"></i> Media</h2>
-    </div>
-    <div class="body">
-        <form method="post" v-on:submit.prevent="submit">
-            <div class="mb-3">
-                <upload-component v-model="file"></upload-component>
-                <span v-if="errors.file" class="text-danger -pad">{{errors.file}}</span>
-            </div>
-            <div class="mb-3 -pad">
-                <label asp-for="Name" class="control-label"></label>
-                <div class="input-group">
-                    <input v-model="name" asp-for="Name" class="form-control" v-on:change="validateName" v-bind:disabled="!file" />
-                    <div v-if="file" class="input-group-append">
-                        <span class="input-group-text">{{getType(file.type)}}</span>
-                    </div>
+<section id="medialink-create-form">
+    <div class="form-component medialink-form">
+        <div class="header">
+            <h2><i class="fas fa-image fa-fw"></i> Media</h2>
+        </div>
+        <div class="body">
+            <form method="post" v-on:submit.prevent="submit">
+                <div class="mb-3">
+                    <upload-component v-model="file"></upload-component>
+                    <span v-if="errors.file" class="text-danger -pad">{{errors.file}}</span>
                 </div>
-                <span v-if="errors.name" class="text-danger">{{errors.name}}</span>
-            </div>
-            <div class="mb-3 -pad">
-                <label asp-for="Group" class="control-label"></label>
-                <select v-model="bucket" asp-for="Group" class="form-control">
-                    <option selected="selected" value="default">Default</option>
-                    <option value="schools">Schools</option>
-                    <option value="jobs">Jobs</option>
-                </select>
-            </div>
-            <div class="mb-3 -pad">
-                <button type="submit" class="btn btn-primary bc-button" title="Submit" v-bind:disabled="loading">
-                    Submit
-                </button>
-                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
-            </div>
-        </form>
+                <div class="mb-3 -pad">
+                    <label asp-for="Name" class="control-label"></label>
+                    <div class="input-group">
+                        <input v-model="name" asp-for="Name" class="form-control" v-on:change="validateName" v-bind:disabled="!file" autocomplete="off" />
+                        <div v-if="file" class="input-group-append">
+                            <span class="input-group-text">{{getType(file.type)}}</span>
+                        </div>
+                    </div>
+                    <span v-if="errors.name" class="text-danger">{{errors.name}}</span>
+                </div>
+                <div class="mb-3 -pad">
+                    <label asp-for="Group" class="control-label"></label>
+                    <select v-model="selected" asp-for="Group" class="form-control">
+                        <option v-for="group in groups" :value="group.Id">{{group.Name}}</option>
+                    </select>
+                    <span v-if="errors.group" class="text-danger">{{errors.group}}</span>
+                </div>
+                <div class="mb-3 -pad">
+                    <button type="submit" class="btn btn-primary bc-button" title="Submit" v-bind:disabled="loading">
+                        Submit
+                    </button>
+                    <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
+                </div>
+                <div v-if="errors.result" class="mb-3 alert alert-danger -mar">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                </div>
+            </form>
+        </div>
     </div>
 </section>
+
 

@@ -6,15 +6,6 @@
         },
         data: function () {
             return {
-                endpoint: 'https://localhost:44396/api/MediaGroup',
-                data: [],
-                ribbon: [{
-                    url: 'Create',
-                    icon: 'far fa-plus'
-                }],
-                schema: [],
-                success: true,
-                test: [{}],
                 options: {
                     endpoint: 'https://localhost:44396/api/MediaGroup',
                     dataset: {
@@ -32,11 +23,6 @@
                         }]
                 }
             };
-        },
-        mounted: function () {
-        },
-        methods: {
-
         }
     });
 }
