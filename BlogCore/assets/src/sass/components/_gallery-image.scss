@@ -41,6 +41,11 @@
         }
     }
 
+    &.-primary{
+        background-color:$primary;
+        color:$white;
+    }
+
     @media(min-width:$screen-md-min) {
         max-width: calc(100%/5);
     }

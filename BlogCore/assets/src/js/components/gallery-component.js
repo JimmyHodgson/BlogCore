@@ -129,8 +129,8 @@
                 </div>
                 <div class="body">
                     <div v-if="selected != null" class="gallery-container" >
-                        <div class="gallery-image">
-                            <div class="button clickable" v-on:click="clearSelection">
+                        <div class="gallery-image clickable -primary" v-on:click="clearSelection">
+                            <div class="button" >
                                 <div><i class="far fa-arrow-up fa-fw fa-3x"></i></div>
                             </div>
                         </div>
@@ -165,13 +165,15 @@
                 <transition name="modal-fade">
                     <div v-if="selectedImage" class="overlay" v-bind:class="{'d-none':!open}">
                         <div class="image-container">
-                            <div class="header">
-                                {{selectedImage.Name}}
-                                <i class="far fa-times fa-fw clickable" v-on:click="close"></i>
-                            </div>
-                            <div class="body">
-                                <i v-if="loading" class="fas fa-spinner fa-pulse fa-2x"></i>
-                                <img v-bind:src="selectedImage.Url"/>
+                            <div class="inner">                         
+                                <div class="header">
+                                    {{selectedImage.Name}}
+                                    <i class="far fa-times fa-fw clickable" v-on:click="close"></i>
+                                </div>
+                                <div class="body">
+                                    <i v-if="loading" class="fas fa-spinner fa-pulse fa-2x"></i>
+                                    <img v-bind:src="selectedImage.Url"/>
+                                </div>
                             </div>
                         </div>
                     </div>

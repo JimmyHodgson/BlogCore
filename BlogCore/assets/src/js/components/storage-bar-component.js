@@ -62,7 +62,7 @@
                     <div class="available"></div>
                 </div>
                 <div class="info monofont">
-                    {{formatNumber(getPercentage())+'%'}} of storage used
+                    <span class="text-secondary"><strong>{{formatNumber(getPercentage())+'%'}}</strong></span> of storage used
                 </div>
             </div>
         `

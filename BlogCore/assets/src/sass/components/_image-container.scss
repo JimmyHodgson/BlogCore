@@ -13,7 +13,7 @@
     transition: all .2s ease-in-out;
     width:100%;
 
-    >.header{
+    .header{
         align-items:center;
         background-color:$surface;
         color:$primary;
@@ -22,11 +22,19 @@
         padding:20px;
     }
 
-    >.body{
+    .body{
         align-items:center;
         background-color:$surface;
         display:flex;
         justify-content:center;
         min-height:200px;
+
+        >img{
+            max-height:100%;
+        }
+    }
+
+    >.inner{
+        max-height:100%;
     }
 }
