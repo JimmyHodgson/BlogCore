@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using NETCore.MailKit.Extensions;
 using NETCore.MailKit.Infrastructure.Internal;
+using SixLabors.ImageSharp.Memory;
 
 namespace BlogCore
 {
@@ -124,6 +125,7 @@ namespace BlogCore
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
             services.AddSingleton(Configuration);
+            SixLabors.ImageSharp.Configuration.Default.MemoryAllocator = ArrayPoolMemoryAllocator.CreateWithModeratePooling();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

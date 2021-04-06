@@ -56,13 +56,31 @@
                 key: '',
                 ribbon: []//format {icon:'fas fa-plus', url:'http://domain.com/action'}
             },
+            loading: false,
+            open: false,
             selected: null,
+            selectedImage: null,
             success: false
         };
     },
     methods: {
         clearSelection() {
             this.selected = null;
+        },
+        close() {
+            this.selectedImage = null;
+            this.open = false;
+        },
+        display(val) {
+            this.loading = true;
+            let image = new Image();
+
+            this.selectedImage = val;
+            image.src = val.Url;
+            image.onload = () => {
+                this.loading = false;
+            };
+            this.open = true;
         },
         expand(base, value) {
             let obj = {};
@@ -116,8 +134,12 @@
                                 <div><i class="far fa-arrow-up fa-fw fa-3x"></i></div>
                             </div>
                         </div>
-                        <div v-for="image in data[selected].data" class="gallery-image clickable">
-                            <div class="child" v-bind:style="{backgroundImage:'url('+image.Url+')'}">
+                        <div v-for="image in data[selected].data" class="gallery-image clickable" >
+                            <a :href="'delete/'+image.Id" class="fa-stack clickable remove">
+                              <i class="fas fa-square fa-stack-2x"></i>
+                              <i class="fas fa-trash-alt fa-stack-1x fa-inverse"></i>
+                            </a>
+                            <div class="child" v-bind:style="{backgroundImage:'url('+image.Thumbnail+')'}" v-on:click="display(image)">
                             </div>
                         </div>
                     </div>
@@ -140,6 +162,20 @@
                         </div>
                     </div>
                 </div>
+                <transition name="modal-fade">
+                    <div v-if="selectedImage" class="overlay" v-bind:class="{'d-none':!open}">
+                        <div class="image-container">
+                            <div class="header">
+                                {{selectedImage.Name}}
+                                <i class="far fa-times fa-fw clickable" v-on:click="close"></i>
+                            </div>
+                            <div class="body">
+                                <i v-if="loading" class="fas fa-spinner fa-pulse fa-2x"></i>
+                                <img v-bind:src="selectedImage.Url"/>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
         </div>
         <div v-else class="loading-panel">
             <i class="fas fa-sync fa-spin fa-fw fa-2x"></i>

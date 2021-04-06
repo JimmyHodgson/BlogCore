@@ -5,10 +5,12 @@
     height: 200px;
     justify-content: center;
     overflow: hidden;
+    position: relative;
     width: 100%;
 
     > .child {
         background-size: cover;
+        background-position: center;
         height: 100%;
         transition: all .2s ease-in-out;
         width: 100%;
@@ -18,14 +20,28 @@
         }
     }
 
-    >.button{
-        transition:all .2s ease-in-out;
-        &:hover{
-            color:$secondary;
+    > .button {
+        transition: all .2s ease-in-out;
+
+        &:hover {
+            color: $secondary;
+        }
+    }
+
+    > .remove {
+        bottom: .5rem;
+        color: rgba($danger,0.2);
+        position: absolute;
+        right: .5rem;
+        transition: all .2s ease-in-out;
+        z-index: 10;
+
+        &:hover {
+            color: $danger;
         }
     }
 
     @media(min-width:$screen-md-min) {
-        max-width: calc(100%/3);
+        max-width: calc(100%/5);
     }
 }

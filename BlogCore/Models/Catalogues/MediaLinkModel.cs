@@ -14,6 +14,7 @@ namespace BlogCore.Models.Catalogues
         public string Name { get; set; }
         public MediaGroupModel Group { get; set; }
         public string Url { get; set; }
+        public string Thumbnail { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
     }
 }

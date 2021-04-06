@@ -30,5 +30,23 @@ namespace BlogCore.Controllers
         {
             return View();
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Delete(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var model = await _context.MediaLinks.Include(x=>x.Group)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
     }
 }
