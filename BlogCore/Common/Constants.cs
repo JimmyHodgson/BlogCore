@@ -14,6 +14,8 @@ namespace BlogCore.Common
         public static readonly string BCVersion = $"{BCMajor}.{BCMinor}.{BCPatch}";
 
         public static readonly string BlogCoreConfigPrefix = "BC_";
+
+        public static readonly string ThumbnailGroup = "__thumbnails";
         public struct Configuration
         {
             public const string DatabaseSecret = "database:secret";

@@ -7,6 +7,7 @@
                     result: null
                 },
                 id: null,
+                loading:false,
                 url: '/api/MediaGroup'
             };
         },
@@ -15,9 +16,11 @@
         },
         methods: {
             submit() {
+                this.loading = true;
                 common.delete(`${this.url}(${this.id})`)
                     .then(() => window.location.href = "/Mediagroup/Index")
-                    .catch(response => { this.errors.result = response.error.message; });
+                    .catch(response => { this.errors.result = response.error.message; })
+                    .finally(() => this.loading = false);
             }
         }
     });

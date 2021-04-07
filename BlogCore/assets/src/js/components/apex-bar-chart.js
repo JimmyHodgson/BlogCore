@@ -76,7 +76,6 @@
             });
         },
         yaxis: function (newVal) {
-            console.log('trigger');
             this.series = newVal;
         }
     }

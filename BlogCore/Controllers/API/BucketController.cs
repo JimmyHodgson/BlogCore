@@ -39,6 +39,7 @@ namespace BlogCore.Controllers.API
         public async Task<ActionResult<StorageInfoModel>> GetStorageInfo()
         {
             List<string> prefixes = _context.MediaGroups.Select(x => $"{x.NormalizedName}/").ToList();
+            prefixes.Add($"{Constants.ThumbnailGroup}/");
             List<GroupInfoModel> result = new List<GroupInfoModel>();
             string bucketMaxSize = _config["blogcore:bucketsize"];
             string bucket = _config["aws:bucket"];

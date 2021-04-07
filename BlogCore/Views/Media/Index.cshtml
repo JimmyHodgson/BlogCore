@@ -26,6 +26,15 @@
             </div>
         </div>
         <div class="row">
+            <div class="col">
+                <input name="show_hidden" type="checkbox" v-model="showHidden" />
+                <label for="show_hidden">Show Hidden</label>
+            </div>
+            <div class="col text-right">
+                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md">
                 <div class="value-display">
                     <div class="body">

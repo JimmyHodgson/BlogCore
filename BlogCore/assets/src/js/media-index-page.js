@@ -8,10 +8,13 @@
         data: function () {
             return {
                 categories: [],
-                imagesCount:0,
-                groupsCount:0,
+                groupsCount: 0,
+                hiddenData: [],
+                imagesCount: 0,
+                loading:false,
                 max: 0,
-                series: [{name:'Groups',data:[]}],
+                series: [{ name: 'Groups', data: [] }],
+                showHidden: false,
                 used: 0,
                 url: '/api/Bucket/GetStorageInfo'
             };
@@ -35,16 +38,29 @@
 
                 this.categories = categories;
                 this.series = [{ name: 'Groups', data: seriesData }];
+            },
+            load() {
+                this.loading = true;
+                common.get(this.url)
+                    .then(data => {
+                        if (!this.showHidden) {
+                            data.groups = data.groups.filter(group => group.name !== "__thumbnails/");
+                        }
+                        this.fillStorageBar(data);
+                        this.fillDisplay(data);
+                        this.fillChart(data);
+                    })
+                    .catch(error => console.error(error))
+                    .finally(() => this.loading = false);
             }
         },
         mounted() {
-            common.get(this.url)
-                .then(data => {
-                    this.fillStorageBar(data);
-                    this.fillDisplay(data);
-                    this.fillChart(data);
-                })
-                .catch(error => console.error(error));
+            this.load();
+        },
+        watch: {
+            showHidden: function () {
+                this.load();
+            }
         }
     });
 }

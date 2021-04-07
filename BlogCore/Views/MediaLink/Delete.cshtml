@@ -7,7 +7,7 @@
     ViewData["Title"] = $"{ViewData["Controller"]} - {ViewData["Action"]}";
     ViewData["Icon"] = "fas fa-images fa-fw";
 }
-<section id="mediagroup-delete-form" class="form-component">
+<section id="medialink-delete-form" class="form-component">
     <div class="header">
         <h2><i class="fas fa-folder fa-fw"></i> Delete</h2>
     </div>
@@ -16,30 +16,42 @@
             <i class="far fa-exclamation-triangle fa-fw"></i>
             Are you sure you want to delete this image?
         </div>
-        <img src="@Html.DisplayFor(model=>model.Url)" />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Group)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Group.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.CreateDate)
-            </dd>
-        </dl>
+        <div class="mb-3">
+            <img src="@Html.DisplayFor(model=>model.Url)" />
+        </div>
+        <div class="mb-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Group)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Group.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreateDate)
+                </dd>
+            </dl>
+        </div>
         <form v-on:submit.prevent="submit">
             <input type="hidden" asp-for="Id" />
-            <input type="submit" value="Delete" class="btn btn-danger" />
+            <div class="mb-3">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
+            </div>
+            <div class="mb-3">
+                <div v-if="errors.result" class="mb-3 alert alert-danger -mar">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                </div>
+            </div>
         </form>
     </div>
 </section>

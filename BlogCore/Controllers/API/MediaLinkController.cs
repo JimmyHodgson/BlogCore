@@ -1,5 +1,6 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
+using BlogCore.Common;
 using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
 using BlogCore.Models.ViewModels;
@@ -14,6 +15,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Processing;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,9 +46,43 @@ namespace BlogCore.Controllers.API
         [HttpGet]
         [EnableQuery]
         [ODataRoute("({Id})")]
-        public SingleResult<MediaLinkModel> Get(Guid id)
+        public SingleResult<MediaLinkModel> Get(Guid Id)
         {
-            return SingleResult.Create(_context.MediaLinks.Where(x => x.Id == id));
+            return SingleResult.Create(_context.MediaLinks.Where(x => x.Id == Id));
+        }
+
+        [HttpDelete]
+        [ODataRoute("({Id})")]
+        public async Task<ActionResult<MediaLinkModel>> Delete(Guid Id)
+        {
+            MediaLinkModel model = await _context.MediaLinks.Include(x=>x.Group).FirstOrDefaultAsync(x => x.Id == Id);
+            if(model == null)
+            {
+                return NotFound($"Image with Id {Id} not found.");
+            }
+
+            string modelKey = $"{model.Group.NormalizedName}/{model.Name}";
+            string thumbnailKey = $"{Constants.ThumbnailGroup}/{modelKey}";
+
+            DeleteObjectsRequest request = new DeleteObjectsRequest
+            {
+                BucketName = _config["aws:bucket"],
+                Objects = new List<KeyVersion>() { new KeyVersion() { Key = modelKey }, new KeyVersion() { Key = thumbnailKey } }
+            };
+
+            try
+            {
+                await _s3Client.DeleteObjectsAsync(request);
+                _context.MediaLinks.Remove(model);
+                await _context.SaveChangesAsync();
+
+                return Ok(model);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpPost]
@@ -69,7 +105,7 @@ namespace BlogCore.Controllers.API
                 try
                 {
                     await PutImageAsync(memoryStream, $"{group.NormalizedName}/{model.Name}");
-                    await PutImageAsync(thumbnail, $"__thumbnails/{group.NormalizedName}/{model.Name}");
+                    await PutImageAsync(thumbnail, $"{Constants.ThumbnailGroup}/{group.NormalizedName}/{model.Name}");
                 }
                 catch (Exception ex)
                 {
@@ -83,7 +119,7 @@ namespace BlogCore.Controllers.API
                 Name = model.Name,
                 Group = group,
                 Url = $"https://{_config["aws:bucket"]}.s3.amazonaws.com/{group.NormalizedName}/{model.Name}",
-                Thumbnail = $"https://{_config["aws:bucket"]}.s3.amazonaws.com/__thumbnails/{group.NormalizedName}/{model.Name}"
+                Thumbnail = $"https://{_config["aws:bucket"]}.s3.amazonaws.com/{Constants.ThumbnailGroup}/{group.NormalizedName}/{model.Name}"
             };
 
             try

@@ -4,7 +4,14 @@
             fetch(url, {
                 method: 'DELETE'
             })
-                .then(response => resolve(response))
+                .then(response => {
+                    if (response.status === 200) {
+                        response.json().then(data => resolve(data));
+                    }
+                    else {
+                        response.json().then(data => reject(data));
+                    }
+                })
                 .catch(error => reject(error));
         });
     },

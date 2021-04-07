@@ -33,6 +33,7 @@
         <form v-on:submit.prevent="submit">
             <input type="hidden" asp-for="Id" />
             <input type="submit" value="Delete" class="btn btn-danger" />
+            <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
         </form>
     </div>
 </section>
