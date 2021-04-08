@@ -6,19 +6,6 @@
             show: false
         };
     },
-    beforeMount() {
-        common.get(this.endpoint)
-            .then(response => {
-                response.value.forEach(image => {
-                    let group = image.Group.Name;
-                    if (!this.data[group]) {
-                        this.data[group] = [];
-                    }
-                    this.data[group].push(image);
-                });
-            })
-            .catch(error => console.error(error));
-    },
     methods: {
         close() {
             this.show = false;
@@ -50,15 +37,15 @@
             this.show = !this.show;
         },
         update(val) {
-            val = val === undefined? this.$refs.galleryInput.value : val;
-            
+            val = val === undefined ? this.$refs.galleryInput.value : val;
+
             this.$emit('input', val);
         }
     },
     props: {
-        endpoint: {
-            required: false,
-            type: String
+        source: {
+            required: true,
+            type: Array
         },
         value: {
             required: true,
@@ -80,7 +67,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="gallery-picker" :class="{'-open':show}">
+                <div class="gallery-picker" :class="{'-open':show,'-hide':!show}">
                     <div v-for="(value,key) in data" class="gallery-picker-group" :class="{'-selected':selected===key}">
                         <div class="header clickable" v-on:click="selectGroup(key)">
                             {{key}}
@@ -98,6 +85,16 @@
             if (this.show === false) {
                 this.selected = null;
             }
+        },
+        source: function () {
+            this.data = {};
+            this.source.forEach(image => {
+                let group = image.Group.Name;
+                if (!this.data[group]) {
+                    this.data[group] = [];
+                }
+                this.data[group].push(image);
+            });
         }
     }
 });

@@ -46,19 +46,19 @@ namespace BlogCore.Controllers.API
         [HttpGet]
         [EnableQuery]
         [ODataRoute("({Id})")]
-        public SingleResult<MediaLinkModel> Get(Guid Id)
+        public SingleResult<MediaLinkModel> Get(Guid id)
         {
-            return SingleResult.Create(_context.MediaLinks.Where(x => x.Id == Id));
+            return SingleResult.Create(_context.MediaLinks.Where(x => x.Id == id));
         }
 
         [HttpDelete]
         [ODataRoute("({Id})")]
-        public async Task<ActionResult<MediaLinkModel>> Delete(Guid Id)
+        public async Task<ActionResult<MediaLinkModel>> Delete(Guid id)
         {
-            MediaLinkModel model = await _context.MediaLinks.Include(x=>x.Group).FirstOrDefaultAsync(x => x.Id == Id);
+            MediaLinkModel model = await _context.MediaLinks.Include(x=>x.Group).FirstOrDefaultAsync(x => x.Id == id);
             if(model == null)
             {
-                return NotFound($"Image with Id {Id} not found.");
+                return NotFound($"Image with Id {id} not found.");
             }
 
             string modelKey = $"{model.Group.NormalizedName}/{model.Name}";

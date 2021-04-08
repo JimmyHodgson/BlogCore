@@ -1,6 +1,7 @@
 ﻿using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace BlogCore.Controllers.API
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [ODataRoutePrefix("Job")]
     public class JobController : Controller
     {
         private readonly DatabaseContext _context;
@@ -23,19 +24,77 @@ namespace BlogCore.Controllers.API
         // GET: api/<controller>
         [HttpGet]
         [EnableQuery]
-        public IEnumerable<JobModel> Get()
+        public IQueryable<JobModel> Get()
         {
             return _context.Jobs;
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
+        // GET api/<controller>(5)
+        [HttpGet]
         [EnableQuery]
-        public async Task<ActionResult<JobModel>> Get(Guid id)
+        [ODataRoute("({id})")]
+        public SingleResult<JobModel> Get(Guid id)
         {
-            JobModel model = await _context.Jobs.FindAsync(id);
-            if (model == null) return NotFound();
-            return model;
+            return SingleResult.Create(_context.Jobs.Where(x => x.Id == id));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody]JobModel model)
+        {
+            try
+            {
+                await _context.Jobs.AddAsync(model);
+                await _context.SaveChangesAsync();
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [ODataRoute("({Id})")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            JobModel model = _context.Jobs.FirstOrDefault(x => x.Id == id);
+            if(model == null)
+            {
+                return NotFound($"Model with Id {id} not found.");
+            }
+
+            try
+            {
+                _context.Jobs.Remove(model);
+                await _context.SaveChangesAsync();
+                return Ok(model);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ODataRoute("({Id})")]
+        public async Task<ActionResult> Put(Guid id,[FromBody]JobModel model)
+        {
+            JobModel original = _context.Jobs.FirstOrDefault(x => x.Id == id);
+            if(original == null)
+            {
+                return NotFound($"Model with Id {id} not found.");
+            }
+
+            try
+            {
+                _context.Jobs.Update(model);
+                await _context.SaveChangesAsync();
+                return Ok(model);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

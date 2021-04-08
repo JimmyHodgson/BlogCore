@@ -20,6 +20,7 @@
     > .body {
         tr {
             background-color: $white;
+            white-space:pre-wrap;
         }
 
         tr:nth-child(even) {

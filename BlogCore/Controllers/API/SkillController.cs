@@ -1,17 +1,18 @@
 ﻿using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlogCore.Controllers.API
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [ODataRoutePrefix("Skill")]
     public class SkillController : Controller
     {
         private readonly DatabaseContext _context;
@@ -22,18 +23,79 @@ namespace BlogCore.Controllers.API
 
         [HttpGet]
         [EnableQuery]
-        public IEnumerable<SkillModel> Get()
+        public IQueryable<SkillModel> Get()
         {
             return _context.Skills;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [EnableQuery]
-        public async Task<ActionResult<SkillModel>> Get(Guid id)
+        [ODataRoute("({Id})")]
+        public SingleResult<SkillModel> Get(Guid id)
         {
-            SkillModel model = await _context.Skills.FindAsync(id);
-            if (model == null) return NotFound();
-            return model;
+            return SingleResult.Create(_context.Skills.Where(x => x.Id == id));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody]SkillModel model)
+        {
+            try
+            {
+                await _context.Skills.AddAsync(model);
+                await _context.SaveChangesAsync();
+                return Ok(model);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [ODataRoute("({Id})")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            SkillModel model = await _context.Skills.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (model == null)
+            {
+                return NotFound($"Model with Id {id} not found.");
+            }
+
+            try
+            {
+                _context.Skills.Remove(model);
+                await _context.SaveChangesAsync();
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ODataRoute("({Id})")]
+        public async Task<ActionResult> Put(Guid id, [FromBody]SkillModel model)
+        {
+            SkillModel original = await _context.Skills.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (original == null)
+            {
+                return NotFound($"Model with Id {id} not found.");
+            }
+
+            try
+            {
+                _context.Skills.Update(model);
+                await _context.SaveChangesAsync();
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

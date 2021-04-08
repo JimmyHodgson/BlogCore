@@ -32,23 +32,17 @@ namespace BlogCore.Controllers.API
 
         [HttpGet]
         [EnableQuery]
-        public async Task<ActionResult<IEnumerable<MediaGroupModel>>> Get()
+        public IQueryable<MediaGroupModel> Get()
         {
-            return await _context.MediaGroups.ToListAsync();
+            return _context.MediaGroups;
         }
 
         [HttpGet]
         [EnableQuery]
         [ODataRoute("({Id})")]
-        public async Task<ActionResult<MediaGroupModel>> Get(Guid id)
+        public SingleResult<MediaGroupModel> Get(Guid id)
         {
-            MediaGroupModel model = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == id);
-            if (model == null)
-            {
-                return NotFound($"Media Group with id '${id}' not found.");
-            }
-
-            return model;
+            return SingleResult.Create(_context.MediaGroups.Where(x => x.Id == id));
         }
 
         [HttpPost]
@@ -80,7 +74,7 @@ namespace BlogCore.Controllers.API
 
         [HttpDelete]
         [ODataRoute("({Id})")]
-        public async Task<ActionResult> Delete([FromODataUri]Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             MediaGroupModel model = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == id);
             if (model == null)
@@ -89,9 +83,9 @@ namespace BlogCore.Controllers.API
             }
 
             List<KeyVersion> keys = new List<KeyVersion>();
-            List<MediaLinkModel> images = await _context.MediaLinks.Include(x=>x.Group).Where(x => x.Group.Id == model.Id).ToListAsync();
+            List<MediaLinkModel> images = await _context.MediaLinks.Include(x => x.Group).Where(x => x.Group.Id == model.Id).ToListAsync();
 
-            foreach(MediaLinkModel image in images)
+            foreach (MediaLinkModel image in images)
             {
                 string imageKey = $"{model.NormalizedName}/{image.Name}";
 
@@ -107,7 +101,10 @@ namespace BlogCore.Controllers.API
 
             try
             {
-                await _s3Client.DeleteObjectsAsync(request);
+                if (keys.Count > 0)
+                {
+                    await _s3Client.DeleteObjectsAsync(request);
+                }
                 _context.MediaLinks.RemoveRange(images);
                 _context.MediaGroups.Remove(model);
                 await _context.SaveChangesAsync();
@@ -122,7 +119,7 @@ namespace BlogCore.Controllers.API
 
         [HttpPut]
         [ODataRoute("({Id})")]
-        public async Task<ActionResult> Put([FromODataUri]Guid id,[FromBody]MediaGroupModel model)
+        public async Task<ActionResult> Put([FromODataUri]Guid id, [FromBody]MediaGroupModel model)
         {
             MediaGroupModel original = await _context.MediaGroups.AsNoTracking().FirstOrDefaultAsync(x => x.Id == model.Id);
 
@@ -145,14 +142,14 @@ namespace BlogCore.Controllers.API
 
             try
             {
-                var exists = await _context.MediaGroups.FirstOrDefaultAsync(x => x.NormalizedName == model.NormalizedName && x.Id != model.Id);
+                MediaGroupModel exists = await _context.MediaGroups.FirstOrDefaultAsync(x => x.NormalizedName == model.NormalizedName && x.Id != model.Id);
                 if (exists != null)
                 {
                     return BadRequest($"Media Group with Name {model.Name} already exists.");
                 }
                 //TODO
                 //Move all the images to the updated mediagroup
-                
+
                 _context.MediaGroups.Update(model);
                 await _context.SaveChangesAsync();
                 return Ok(model);

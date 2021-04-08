@@ -1,4 +1,22 @@
 ﻿.table-component {
-    box-shadow:0 0 5px $border;
+    box-shadow: 0 0 5px $border;
     margin-bottom: 20px;
+
+    /*@media(min-width:$screen-xs-min) {
+        max-width: 470px;
+    }
+
+    @media(min-width:$screen-sm-min) {
+        max-width: 650px;
+    }
+
+    @media(min-width:$screen-md-min) {
+        max-width: 890px;
+    }
+
+    @media(min-width:$screen-lg-min) {
+        max-width: 1070px;
+    }*/
 }
+
+

@@ -26,13 +26,6 @@ namespace BlogCore.Controllers.API
             _config = config;
             _context = context;
         }
-        // GET: api/<controller>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<S3Bucket>>> Get()
-        {
-            ListBucketsResponse response = await _s3Client.ListBucketsAsync();
-            return response.Buckets.FindAll(x => x.BucketName.Contains("blogcore."));
-        }
 
         [HttpGet]
         [Route("GetStorageInfo")]
@@ -60,46 +53,6 @@ namespace BlogCore.Controllers.API
 
             }
             return new StorageInfoModel() { MaxValue = StringToByteParser.Parse(bucketMaxSize), Groups = result };
-        }
-
-        // GET api/<controller>/5
-        [HttpGet("{name}")]
-        public async Task<ActionResult<S3Bucket>> Get(string name)
-        {
-            ListBucketsResponse response = await _s3Client.ListBucketsAsync();
-            S3Bucket bucket = response.Buckets.Find(x => x.BucketName == name);
-            if (bucket == null)
-            {
-                return NotFound();
-            }
-            return bucket;
-        }
-
-        // POST api/<controller>
-        [HttpPost]
-        public async Task<PutBucketResponse> Post([FromBody]string name)
-        {
-            name = $"blogcore.{name}";
-            PutBucketRequest request = new PutBucketRequest
-            {
-                BucketName = name,
-            };
-
-            PutBucketResponse response = await _s3Client.PutBucketAsync(request);
-
-            return response;
-        }
-
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

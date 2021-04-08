@@ -1,13 +1,13 @@
-﻿if (document.getElementById('mediagroup-management') !== null) {
+﻿if (document.getElementById('education-management') !== null) {
     new Vue({
-        el: '#mediagroup-management',
+        el: '#education-management',
         components: {
             tableComponent
         },
         data: function () {
             return {
                 options: {
-                    endpoint: 'https://localhost:44396/api/MediaGroup',
+                    endpoint: 'https://localhost:44396/api/Education',
                     dataset: {
                         actions: {
                             details: { enabled: true, url: 'Details' },
@@ -16,13 +16,20 @@
                         },
                         showKey: false
                     },
-                    key: 'Id',
+                    key:'Id',
                     ribbon: [{
-                        icon: 'far fa-plus',
-                        url:'Create'
-                        }]
+                        url: 'Create',
+                        icon: 'far fa-plus'
+                    }]
                 }
             };
+        },
+        mounted: function () {
+        },
+        methods: {
+            isEmpty() {
+                return !this.data.length > 0;
+            }
         }
     });
 }

@@ -55,23 +55,6 @@ namespace BlogCore.Controllers
             return View();
         }
 
-        // POST: MediaGroup/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,NormalizedName")] MediaGroupModel mediaGroupModel)
-        {
-            if (ModelState.IsValid)
-            {
-                mediaGroupModel.Id = Guid.NewGuid();
-                _context.Add(mediaGroupModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(mediaGroupModel);
-        }
-
         // GET: MediaGroup/Edit/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Edit(Guid? id)
@@ -91,47 +74,6 @@ namespace BlogCore.Controllers
             return View(mediaGroupModel);
         }
 
-        // POST: MediaGroup/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,NormalizedName")] MediaGroupModel mediaGroupModel)
-        {
-            //TODO
-            // 1. Make sure the flow works the same way as the odata endpoint.
-            // 2. Change all error returns to return the view with the error in the model state.
-            // 3. Test
-            if (id != mediaGroupModel.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-
-
-
-                    _context.Update(mediaGroupModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MediaGroupModelExists(mediaGroupModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(mediaGroupModel);
-        }
 
         // GET: MediaGroup/Delete/5
         [HttpGet("{id}")]
@@ -152,20 +94,5 @@ namespace BlogCore.Controllers
             return View(mediaGroupModel);
         }
 
-        // POST: MediaGroup/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            var mediaGroupModel = await _context.MediaGroups.FindAsync(id);
-            _context.MediaGroups.Remove(mediaGroupModel);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool MediaGroupModelExists(Guid id)
-        {
-            return _context.MediaGroups.Any(e => e.Id == id);
-        }
     }
 }

@@ -163,9 +163,12 @@ namespace BlogCore
             app.UseCookiePolicy();
 
             var builder = new ODataConventionModelBuilder(app.ApplicationServices);
+            builder.EntitySet<JobModel>("Job");
+            builder.EntitySet<SkillModel>("Skill");
             builder.EntitySet<EducationModel>("Education");
             builder.EntitySet<MediaLinkModel>("MediaLink");
             builder.EntitySet<MediaGroupModel>("MediaGroup");
+            builder.EntitySet<AchievementModel>("Achievement");
 
             app.UseMvc(routes =>
             {
