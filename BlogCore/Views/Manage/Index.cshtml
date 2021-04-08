@@ -5,11 +5,30 @@
     ViewData["Icon"] = "fas fa-house fa-fw";
 }
 
-<div class="management-header">
-    <h2 class="header">
-        Home
-    </h2>
-    <div class="underline"></div>
-</div>
+<section id="home-index-page">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="management-header">
+                    <h2 class="header">
+                        Home
+                    </h2>
+                    <div class="underline"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="mb-3">
+                <gallery-picker-component :endpoint="endpoint" v-model="imageUrl"></gallery-picker-component>
+                </div>
+                <div class="mb-3">
+                <input type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 

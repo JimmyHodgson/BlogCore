@@ -1,0 +1,76 @@
+﻿.gallery-picker-group {
+    max-width: 256px;
+    width: 100%;
+
+    > .header {
+        background-color: $primary;
+        color: $white;
+        font-weight: bold;
+        padding: 5px;
+        user-select: none;
+    }
+
+    > .body {
+        background-color: $surface;
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        max-height: 384px;
+        transition: all .5s ease-in-out;
+        overflow: hidden;
+
+        > .thumbnail {
+            background-size: cover;
+            height: 128px;
+            width: 128px;
+        }
+    }
+
+    &:not(:first-child) {
+        > .header {
+            border-top: 1px solid $white;
+        }
+    }
+
+    &:first-child {
+        > .header {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+    }
+
+    &:last-child {
+        > .header {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        &.-selected {
+            > .header {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+    }
+    
+    &.-selected {
+        > .body {
+            overflow-y: auto;
+            animation: 2s delay-overflow;
+        }
+    }
+
+    @media(min-width:$screen-md-min) {
+        max-width: 384px;
+
+        > .body {
+            > .thumbnail {
+                max-width: calc(100%/3);
+            }
+        }
+    }
+
+    @keyframes delay-overflow{
+        from {overflow:hidden}
+    }
+}
