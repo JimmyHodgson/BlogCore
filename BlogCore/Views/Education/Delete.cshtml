@@ -8,48 +8,65 @@
     ViewData["Icon"] = "fas fa-university fa-fw";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>EducationModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.School)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.School)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Link)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Link)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+<section id="education-delete-form" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-university fa-fw"></i> Delete</h2>
+    </div>
+    <div class="body">
+        <div class="alert alert-danger">
+            <i class="far fa-exclamation-triangle fa-fw"></i>
+            Are you sure you want to delete this?
+        </div>
+        <div class="mb-3">
+            <div class="detail-image">
+                <img src="@Html.DisplayFor(model => model.ImageUrl)" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.School)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.School)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Link)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Link)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ImageUrl)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Year)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Year)
+                </dd>
+            </dl>
+        </div>
+        <form v-on:submit.prevent="submit">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <input type="submit" value="Delete" class="btn bc-button btn-danger" />
+            </div>
+            <div class="mb-3">
+                <div v-if="errors.result" class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<a asp-action="Index">Back to List</a>

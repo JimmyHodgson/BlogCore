@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using BlogCore.Common;
 using BlogCore.Models.Common;
 using BlogCore.Models.Catalogues;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BlogCore.Controllers.API
 {
+    [Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     public class BucketController : Controller
     {

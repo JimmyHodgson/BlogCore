@@ -17,17 +17,17 @@
             <form v-on:submit.prevent="submit">
                 <div class="mb-3">
                     <label asp-for="School" class="control-label"></label>
-                    <input asp-for="School" v-model="school" class="form-control" />
+                    <input asp-for="School" v-model="school" class="form-control" autocomplete="off" />
                     <span v-if="errors.school" class="text-danger">{{errors.school}}</span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Link" class="control-label"></label>
-                    <input asp-for="Link" v-model="link" class="form-control" />
+                    <input asp-for="Link" v-model="link" class="form-control" autocomplete="off" />
                     <span v-if="errors.link" class="text-danger">{{errors.link}}</span>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" v-model="title" class="form-control" />
+                    <input asp-for="Title" v-model="title" class="form-control" autocomplete="off" />
                     <span v-if="errors.title" class="text-danger">{{errors.title}}</span>
                 </div>
                 <div class="mb-3">
@@ -37,11 +37,14 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="Year" class="control-label"></label>
-                    <input asp-for="Year" v-model="year" class="form-control" min="1900"/>
+                    <input asp-for="Year" v-model="year" class="form-control" min="1900" />
                     <span v-if="errors.year" class="text-danger">{{errors.year}}</span>
                 </div>
                 <div class="mb-3">
                     <input type="submit" value="Create" class="btn btn-primary bc-button" />
+                </div>
+                <div v-if="errors.result" class="mb-3 alert alert-danger">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
                 </div>
             </form>
         </div>

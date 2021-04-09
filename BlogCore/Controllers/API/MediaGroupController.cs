@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace BlogCore.Controllers.API
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     [ODataRoutePrefix("MediaGroup")]
     public class MediaGroupController : ODataController
     {

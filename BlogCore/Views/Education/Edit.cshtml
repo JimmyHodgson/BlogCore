@@ -8,51 +8,54 @@
     ViewData["Icon"] = "fas fa-university fa-fw";
 }
 
-<h2>Edit</h2>
 
-<h4>EducationModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="School" class="control-label"></label>
-                <input asp-for="School" class="form-control" />
-                <span asp-validation-for="School" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Link" class="control-label"></label>
-                <input asp-for="Link" class="form-control" />
-                <span asp-validation-for="Link" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+<section id="education-edit-form">
+    <div class="form-component">
+        <div class="header">
+            <h2><i class="fas fa-university fa-fw"></i> Edit</h2>
+        </div>
+        <div class="body">
+            <form v-on:submit.prevent="submit">
+                <input type="hidden" asp-for="Id" />
+                <div class="mb-3">
+                    <label asp-for="School" class="control-label"></label>
+                    <input asp-for="School" v-model="school" class="form-control" autocomplete="off" />
+                    <span v-if="errors.school" class="text-danger">{{errors.school}}</span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Link" class="control-label"></label>
+                    <input asp-for="Link" v-model="link" class="form-control" autocomplete="off" />
+                    <span v-if="errors.link" class="text-danger">{{errors.link}}</span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" v-model="title" class="form-control" autocomplete="off" />
+                    <span v-if="errors.title" class="text-danger">{{errors.title}}</span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="control-label"></label>
+                    <input asp-for="ImageUrl" type="hidden" />
+                    <gallery-picker-component :source="source" v-model="imageUrl"></gallery-picker-component>
+                    <span v-if="errors.imageUrl" class="text-danger">{{errors.imageUrl}}</span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Year" class="control-label"></label>
+                    <input asp-for="Year" v-model="year" class="form-control" min="1900" />
+                    <span v-if="errors.year" class="text-danger">{{errors.year}}</span>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" value="Save" class="btn bc-button btn-primary" />
+                </div>
+                <div v-if="errors.result" class="mb-3 alert alert-danger">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+
+</section>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

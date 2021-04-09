@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 
 namespace BlogCore.Controllers.API
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     [ODataRoutePrefix("MediaLink")]
     public class MediaLinkController : ODataController
     {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BlogCore.Controllers.API
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     [ODataRoutePrefix("Skill")]
     public class SkillController : Controller
     {

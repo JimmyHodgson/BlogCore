@@ -8,44 +8,56 @@
     ViewData["Icon"] = "fas fa-university fa-fw";
 }
 
-<h2>Details</h2>
+<section id="education-details" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-university fa-fw"></i> Details</h2>
+    </div>
+    <div class="body">
+        <div class="mb-3">
+            <div class="detail-image">
+                <img src="@Html.DisplayFor(model => model.ImageUrl)" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.School)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.School)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Link)
+                </dt>
+                <dd>
+                    <span class="blogcore-link">
+                        <a href="@Html.DisplayFor(model => model.Link)" class="link">@Html.DisplayFor(model => model.Link)</a>
+                        <span class="underline"></span>
+                    </span>
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ImageUrl)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Year)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Year)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</section>
 
-<div>
-    <h4>EducationModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.School)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.School)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Link)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Link)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-    </dl>
-</div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

@@ -114,7 +114,7 @@
         },
         pageStart() {
             let brutePageStart = (this.page - 1) * this.table_options.pageSize + 1;
-            return this.count < brutePageStart ? this.count : brutePageStart;
+            return this.count < brutePageStart ? this.count : brutePageStart > 0 ? brutePageStart:0;
         },
         parseOptions() {
             this.table_options = this.expand(this.table_options, this.options);

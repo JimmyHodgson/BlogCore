@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogCore.Controllers.API
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     public class LinkController : Controller
     {
