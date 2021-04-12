@@ -8,44 +8,48 @@
     ViewData["Icon"] = "fas fa-briefcase fa-fw";
 }
 
-<h2>Details</h2>
+<section id="job-details" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-briefcase fa-fw"></i> Details</h2>
+    </div>
+    <div class="body">
+        <div class="mb-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Company)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Company)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.JobStart)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.JobStart)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.JobEnd)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.JobEnd)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</section>
 
-<div>
-    <h4>JobModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Company)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Company)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.JobStart)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.JobStart)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.JobEnd)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.JobEnd)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-</div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

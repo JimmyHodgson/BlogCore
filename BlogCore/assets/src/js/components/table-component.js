@@ -10,12 +10,12 @@
             success: false,
             table_options: {
                 dataset: {
-                    showKey: true,
                     actions: {
                         edit: { enabled: false, url: '' },
                         details: { enabled: false, url: '' },
                         remove: { enabled: false, url: '' }
-                    }
+                    },
+                    hide:[]
                 },
                 endpoint: null,
                 key: '',
@@ -83,7 +83,7 @@
             let headers = [];
             if (this.data.length > 0) {
                 for (let key in this.data[0]) {
-                    if (key !== this.table_options.key || this.table_options.dataset.showKey) {
+                    if (this.table_options.dataset.hide.indexOf(key) === -1) {
                         headers.push(key);
                     }
                 }
@@ -191,7 +191,7 @@
                         </thead>
                         <tbody class="body">
                             <tr v-for="row in data">
-                                <td v-if="name!==table_options.key || table_options.dataset.showKey" v-for="(value,name) in row">{{value}}</td>
+                                <td v-if="table_options.dataset.hide.indexOf(name) === -1" v-for="(value,name) in row">{{value}}</td>
                                 <td v-if="table_options.dataset.actions.edit.enabled" class="button">
                                     <a :href="table_options.dataset.actions.edit.url+'/'+row[table_options.key]">
                                         <i class="fas fa-edit fa-fw"></i>

@@ -4,8 +4,8 @@ using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +13,7 @@ namespace BlogCore.Controllers.API
 {
     [Authorize(Roles = "Administrator")]
     [ODataRoutePrefix("Job")]
-    public class JobController : Controller
+    public class JobController : ODataController
     {
         private readonly DatabaseContext _context;
         public JobController(DatabaseContext context)
@@ -32,7 +32,7 @@ namespace BlogCore.Controllers.API
         // GET api/<controller>(5)
         [HttpGet]
         [EnableQuery]
-        [ODataRoute("({id})")]
+        [ODataRoute("({Id})")]
         public SingleResult<JobModel> Get(Guid id)
         {
             return SingleResult.Create(_context.Jobs.Where(x => x.Id == id));
@@ -79,7 +79,7 @@ namespace BlogCore.Controllers.API
         [ODataRoute("({Id})")]
         public async Task<ActionResult> Put(Guid id,[FromBody]JobModel model)
         {
-            JobModel original = _context.Jobs.FirstOrDefault(x => x.Id == id);
+            JobModel original = _context.Jobs.AsNoTracking().FirstOrDefault(x => x.Id == id);
             if(original == null)
             {
                 return NotFound($"Model with Id {id} not found.");

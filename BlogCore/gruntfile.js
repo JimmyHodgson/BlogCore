@@ -94,6 +94,7 @@ module.exports = function(grunt){
                     { expand: true, src: ['node_modules/vue/dist/vue.js'], dest: 'assets/dist/lib/', flatten: true, filter: 'isFile' },
                     { expand: true, src: ['node_modules/apexcharts/dist/apexcharts.min.js'], dest: 'assets/dist/lib', flatten: true, filter: 'isFile' },
                     { expand: true, src: ['node_modules/vue-apexcharts/dist/vue-apexcharts.js'], dest: 'assets/dist/lib', flatten: true, filter: 'isFile' },
+                    {expand:true, src:['node_modules/vuejs-datepicker/dist/vuejs-datepicker.min.js'], dest:'assets/dist/lib/', flatten:true, filter:'isFile'},
                     { expand: true, cwd: 'node_modules/@fortawesome/fontawesome-pro/webfonts', src: '**', dest: 'assets/dist/fonts/fontawesome' },
                     { expand: true, cwd: 'assets/src/fonts', src: '**', dest: 'assets/dist/fonts/' }
                 ]

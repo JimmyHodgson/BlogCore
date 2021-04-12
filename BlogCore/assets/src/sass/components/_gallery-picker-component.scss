@@ -3,26 +3,10 @@
     width: 100%;
 
     .input-group-text {
-        color: $white;
         transition:all .2s ease-in-out;
 
         &.-primary {
-            background-color: $primary;
             z-index:100;
-        }
-
-        &.-danger {
-            background-color: $danger;
-        }
-
-        &:hover {
-            &.-primary {
-                background-color: $primaryVariant;
-            }
-
-            &.-danger {
-                background-color: darken($danger,10%);
-            }
         }
     }
 }

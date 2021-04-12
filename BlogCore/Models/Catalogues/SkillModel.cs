@@ -13,6 +13,5 @@ namespace BlogCore.Models.Catalogues
         public Guid Id { get; set; } = new Guid();
         public string Name { get; set; }
         public string Proficiency { get; set; }
-        public List<LinkModel> Links { get; set; }
     }
 }

@@ -14,7 +14,7 @@
                             edit: { enabled: true, url: 'Edit' },
                             remove: { enabled: true, url: 'Delete' }
                         },
-                        showKey: false
+                        hide:['Id', 'ImageUrl']
                     },
                     key:'Id',
                     ribbon: [{

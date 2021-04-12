@@ -55,15 +55,15 @@
     template:
         `   <div class="gallery-picker-component" v-click-outside="close">
                 <div class="input-group clickable" >
-                    <div v-if="value.length !== 0" class="input-group-prepend" v-on:click="removeSelection">
-                        <span class="input-group-text -danger">
-                            <i class="fas fa-times fa-fw"></i>
+                    <div class="input-group-prepend" v-on:click="toggleOpen">
+                        <span class="input-group-text -primary">
+                            <i class="fas fa-image fa-fw"></i>
                         </span>
                     </div>
                     <input type="text" ref="galleryInput" class="form-control" :value="value" v-on:input="update()" disabled/>
-                    <div class="input-group-append" v-on:click="toggleOpen">
-                        <span class="input-group-text -primary">
-                            <i class="fas fa-image fa-fw"></i>
+                    <div v-if="value.length !== 0" class="input-group-append" v-on:click="removeSelection">
+                        <span class="input-group-text -danger">
+                            <i class="fal fa-times fa-fw"></i>
                         </span>
                     </div>
                 </div>
