@@ -32,10 +32,12 @@
                         <i class="far fa-exclamation-triangle fa-fw"></i> @Html.ValidationMessage("ServerError")
                     </div>
                 }
+                <input type="submit" value="Save" class="btn btn-primary bc-button" />
+            </div>
+            <div class="mb-3">
                 <div v-if="errors.result" class="mb-3 alert alert-danger">
                     <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
                 </div>
-                <input type="submit" value="Save" class="btn btn-primary bc-button" />
             </div>
         </form>
     </div>

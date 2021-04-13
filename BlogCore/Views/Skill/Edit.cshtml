@@ -7,37 +7,40 @@
     ViewData["Title"] = $"{ViewData["Controller"]} - {ViewData["Action"]}";
     ViewData["Icon"] = "fas fa-sparkles fa-fw";
 }
-
-<h2>Edit</h2>
-
-<h4>SkillModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<section id="skill-edit-form" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-sparkles fa-fw"></i> Edit</h2>
+    </div>
+    <div class="body">
+        <form v-on:submit.prevent="submit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Name" v-model="name" class="form-control" />
+                <span v-if="errors.name" class="text-danger">{{errors.name}}</span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Proficiency" class="control-label"></label>
-                <input asp-for="Proficiency" class="form-control" />
-                <span asp-validation-for="Proficiency" class="text-danger"></span>
+                <select asp-for="Proficiency" v-model="proficiency" class="form-control">
+                    <option>Basic</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                </select>
+                <span v-if="errors.proficiency" class="text-danger">{{errors.proficiency}}</span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="mb-3">
+                <input type="submit" value="Save" class="btn btn-primary bc-button" />
+            </div>
+            <div class="mb-3">
+                <div v-if="errors.result" class="mb-3 alert alert-danger">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                </div>
             </div>
         </form>
     </div>
-</div>
+</section>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

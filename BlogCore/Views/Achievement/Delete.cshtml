@@ -7,37 +7,48 @@
     ViewData["Title"] = $"{ViewData["Controller"]} - {ViewData["Action"]}";
     ViewData["Icon"] = "fas fa-trophy fa-fw";
 }
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>AchievementModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+<section id="achievement-delete-form" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-trophy fa-fw"></i> Delete</h2>
+    </div>
+    <div class="body">
+        <div class="alert alert-danger">
+            <i class="far fa-exclamation-triangle fa-fw"></i>
+            Are you sure you want to delete this?
+        </div>
+        <div class="mb-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Year)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Year)
+                </dd>
+            </dl>
+        </div>
+        <form v-on:submit.prevent="submit">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <input type="submit" value="Delete" class="btn btn-danger bc-button" />
+            </div>
+            <div class="mb-3">
+                <div v-if="errors.result" class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<a asp-action="Index">Back to List</a>

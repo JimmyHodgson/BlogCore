@@ -14,7 +14,7 @@ namespace BlogCore.Controllers.API
 {
     [Authorize(Roles = "Administrator")]
     [ODataRoutePrefix("Achievement")]
-    public class AchievementController : Controller
+    public class AchievementController : ODataController
     {
         private readonly DatabaseContext _context;
 
@@ -32,7 +32,7 @@ namespace BlogCore.Controllers.API
 
         [HttpGet]
         [EnableQuery]
-        [ODataRoute("({id})")]
+        [ODataRoute("({Id})")]
         public SingleResult<AchievementModel> Get(Guid id)
         {
             return SingleResult.Create(_context.Achievements.Where(x => x.Id == id));

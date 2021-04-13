@@ -8,40 +8,42 @@
     ViewData["Icon"] = "fas fa-trophy fa-fw";
 }
 
-<h2>Create</h2>
-
-<h4>AchievementModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+<section id="achievement-create-form" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-trophy fa-fw"></i> Achievement</h2>
+    </div>
+    <div class="body">
+        <form v-on:submit.prevent="submit">
+            <div class="mb-3">
                 <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <input asp-for="Title" v-model="title" class="form-control" />
+                <span v-if="errors.title" class="text-danger">{{errors.title}}</span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
+                <select asp-for="Type" v-model="type" class="form-control">
+                    <option>Award</option>
+                    <option>Certification</option>
+                </select>
+                <span v-if="errors.type" class="text-danger">{{errors.type}}</span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
+                <input asp-for="Year" v-model="year" class="form-control" min="1900" />
+                <span v-if="errors.year" class="text-danger">{{errors.year}}</span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary bc-button" />
+            </div>
+            <div class="mb-3">
+                <div v-if="errors.result" class="mb-3 alert alert-danger">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                </div>
             </div>
         </form>
     </div>
-</div>
+</section>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

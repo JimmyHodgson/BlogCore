@@ -10,9 +10,9 @@
                     year: null
                 },
                 title: '',
-                type: '',
-                url: '/api/Achievment',
-                year: ''
+                type: 'Award',
+                url: '/api/Achievement',
+                year: '2000'
             };
         },
         methods: {
@@ -46,7 +46,7 @@
                 return false;
             },
             validateYear() {
-                if (this.year.length > 0) {
+                if (parseInt(this.year)) {
                     this.errors.year = null;
                     return true;
                 }

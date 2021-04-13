@@ -8,26 +8,29 @@
     ViewData["Icon"] = "fas fa-sparkles fa-fw";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>SkillModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Proficiency)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Proficiency)
-        </dd>
-    </dl>
-</div>
+<section id="skill-details" class="form-component">
+    <div class="header">
+        <h2><i class="fas fa-sparkles fa-fw"></i> Details</h2>
+    </div>
+    <div class="body">
+        <div class="mb-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Proficiency)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Proficiency)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</section>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

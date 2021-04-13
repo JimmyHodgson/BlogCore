@@ -13,7 +13,7 @@ namespace BlogCore.Controllers.API
 {
     [Authorize(Roles = "Administrator")]
     [ODataRoutePrefix("Skill")]
-    public class SkillController : Controller
+    public class SkillController : ODataController
     {
         private readonly DatabaseContext _context;
         public SkillController(DatabaseContext context)

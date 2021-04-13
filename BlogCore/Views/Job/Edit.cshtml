@@ -15,17 +15,17 @@
     <div class="body">
         <form v-on:submit.prevent="submit">
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Company" class="control-label"></label>
                 <input asp-for="Company" v-model="company" class="form-control" />
                 <span v-if="errors.company" class="text-danger">{{errors.company}}</span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span v-if="errors.title" class="text-danger">{{errors.title}}</span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="JobStart" class="control-label"></label>
                 <input asp-for="JobStart" asp-format="{0:dd\/MM\/yyyy}" type="hidden" class="form-control" />
                 <vuejs-datepicker v-model="jobStart"
@@ -37,7 +37,7 @@
                 </vuejs-datepicker>
                 <span v-if="errors.jobStart" class="text-danger">{{errors.jobStart}}</span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="JobEnd" class="control-label"></label>
                 <input asp-for="JobEnd" asp-format="{0:dd\/MM\/yyyy}" type="hidden" class="form-control" />
                 <vuejs-datepicker v-model="jobEnd"
@@ -49,12 +49,12 @@
                 </vuejs-datepicker>
                 <span v-if="errors.jobEnd" class="text-danger">{{errors.jobEnd}}</span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" v-model="description" class="form-control" rows="3"></textarea>
                 <span v-if="errors.description" class="text-danger">{{errors.description}}</span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="submit" value="Save" class="btn btn-primary bc-button" />
                 <div v-if="errors.result" class="mb-3 alert alert-danger">
                     <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
