@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlogCore.Models.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +12,15 @@ namespace BlogCore.Controllers
     [Route("[controller]/[action]")]
     public class ManageController : Controller
     {
+        private readonly DatabaseContext _context;
+        public ManageController(DatabaseContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            User user = _context.Users.FirstOrDefault();
+            return View(user);
         }
 
         public IActionResult About()

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model User
+@{
     Layout = "_ManagementLayout";
     ViewData["Controller"] = "Home";
     ViewData["Title"] = $"{ViewData["Controller"]}";
@@ -19,12 +20,105 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="mb-3">
-                <gallery-picker-component :source="imageSource" v-model="imageUrl"></gallery-picker-component>
-                </div>
-                <div class="mb-3">
-                <input type="text" class="form-control" />
-                </div>
+                <section id="user-information" class="section-component">
+                    <div class="header">
+                        <h3><i class="fal fa-user fa-fw"></i> User Information</h3>
+                    </div>
+                    <div class="body">
+                        <div class="mb-3">
+                            <div class="profile-picture-container">
+                                <div class="profile-picture" :style="{backgroundImage: 'url('+getProfilePic()+')' }"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="FirstName"></label>
+                            <input asp-for="FirstName" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="LastName"></label>
+                            <input asp-for="LastName" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Link"></label>
+                            <input asp-for="Link" type="hidden" class="form-control" />
+                            <gallery-picker-component :source="source" v-model="profile"></gallery-picker-component>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Title"></label>
+                            <input asp-for="Title" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="PhoneNumber"></label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Bio"></label>
+                            <textarea asp-for="Bio" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary bc-button">Save</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <section id="user-security" class="section-component">
+                    <div class="header">
+                        <h3><i class="fal fa-key fa-fw"></i> Security</h3>
+                    </div>
+                    <div class="body">
+                        <div class="mb-3">
+                            <label for="OldPassword">Old password</label>
+                            <input type="password" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Password">New password</label>
+                            <input type="password" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="ConfirmPassword">Confirm password</label>
+                            <input type="password" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary bc-button">Change Password</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <section id="site-configuration" class="section-component">
+                    <div class="header">
+                        <h3><i class="fal fa-browser fa-fw"></i> Site Configuration</h3>
+                    </div>
+                    <div class="body">
+                        <div class="mb-3">
+                            <label for="landing">Landing</label>
+                            <input type="hidden"/>
+                            <gallery-picker-component :source="source" v-model="landingImage"></gallery-picker-component>
+                        </div>
+                        <div class="mb-3">
+                            <label for="landing">Skills section</label>
+                            <input type="hidden" />
+                            <gallery-picker-component :source="source" v-model="skillsImage"></gallery-picker-component>
+                        </div>
+                        <div class="mb-3">
+                            <label for="landing">Contact section</label>
+                            <input type="hidden" />
+                            <gallery-picker-component :source="source" v-model="contactImage"></gallery-picker-component>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary bc-button">Save</button>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
