@@ -1,4 +1,4 @@
-﻿@model User
+﻿@model ManageViewModel
 @{
     Layout = "_ManagementLayout";
     ViewData["Controller"] = "Home";
@@ -30,38 +30,38 @@
                                 <div class="profile-picture" :style="{backgroundImage: 'url('+getProfilePic()+')' }"></div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label asp-for="FirstName"></label>
-                            <input asp-for="FirstName" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="LastName"></label>
-                            <input asp-for="LastName" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Link"></label>
-                            <input asp-for="Link" type="hidden" class="form-control" />
-                            <gallery-picker-component :source="source" v-model="profile"></gallery-picker-component>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Title"></label>
-                            <input asp-for="Title" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Email"></label>
-                            <input asp-for="Email" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="PhoneNumber"></label>
-                            <input asp-for="PhoneNumber" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Bio"></label>
-                            <textarea asp-for="Bio" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <button class="btn btn-primary bc-button">Save</button>
-                        </div>
+                        <form v-on:submit.prevent="submitUserInfo">
+                            <input asp-for="Account.Email" type="hidden" />
+                            <div class="mb-3">
+                                <label asp-for="Account.FirstName"></label>
+                                <input asp-for="Account.FirstName" v-model="firstName" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Account.LastName"></label>
+                                <input asp-for="Account.LastName" v-model="lastName" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Account.Link"></label>
+                                <input asp-for="Account.Link" type="hidden" class="form-control" />
+                                <gallery-picker-component :source="source" v-model="profile"></gallery-picker-component>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Account.Title"></label>
+                                <input asp-for="Account.Title" v-model="title" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Account.PhoneNumber"></label>
+                                <input asp-for="Account.PhoneNumber" v-model="phoneNumber" v-on:keydown.prevent="format" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Account.Bio"></label>
+                                <textarea asp-for="Account.Bio" v-model="bio" rows="5" class="form-control"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary bc-button">Save</button>
+                                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loadingUserInfo}"></i>
+                            </div>
+                        </form>
                     </div>
                 </section>
             </div>
@@ -73,21 +73,24 @@
                         <h3><i class="fal fa-key fa-fw"></i> Security</h3>
                     </div>
                     <div class="body">
-                        <div class="mb-3">
-                            <label for="OldPassword">Old password</label>
-                            <input type="password" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="Password">New password</label>
-                            <input type="password" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="ConfirmPassword">Confirm password</label>
-                            <input type="password" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <button class="btn btn-primary bc-button">Change Password</button>
-                        </div>
+                        <form v-on:submit.prevent="submitPasswordChange">
+                            <div class="mb-3">
+                                <label asp-for="Security.OldPassword"></label>
+                                <input asp-for="Security.OldPassword" v-model="oldPassword" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Security.NewPassword"></label>
+                                <input asp-for="Security.NewPassword" v-model="newPassword" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Security.ConfirmPassword"></label>
+                                <input asp-for="Security.ConfirmPassword" v-model="confirmPassword" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary bc-button">Change Password</button>
+                                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loadingPasswordChange}"></i>
+                            </div>
+                        </form>
                     </div>
                 </section>
             </div>
@@ -99,24 +102,35 @@
                         <h3><i class="fal fa-browser fa-fw"></i> Site Configuration</h3>
                     </div>
                     <div class="body">
-                        <div class="mb-3">
-                            <label for="landing">Landing</label>
-                            <input type="hidden"/>
-                            <gallery-picker-component :source="source" v-model="landingImage"></gallery-picker-component>
-                        </div>
-                        <div class="mb-3">
-                            <label for="landing">Skills section</label>
-                            <input type="hidden" />
-                            <gallery-picker-component :source="source" v-model="skillsImage"></gallery-picker-component>
-                        </div>
-                        <div class="mb-3">
-                            <label for="landing">Contact section</label>
-                            <input type="hidden" />
-                            <gallery-picker-component :source="source" v-model="contactImage"></gallery-picker-component>
-                        </div>
-                        <div class="mb-3">
-                            <button class="btn btn-primary bc-button">Save</button>
-                        </div>
+                        <form v-on:submit.prevent="submitSiteConfiguration">
+                            <div class="mb-3">
+                                <label asp-for="Configuration.LandingImage"></label>
+                                <input asp-for="Configuration.LandingImage" type="hidden" />
+                                <gallery-picker-component :source="source" v-model="landingImage"></gallery-picker-component>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Configuration.SkillImage"></label>
+                                <input asp-for="Configuration.SkillImage" type="hidden" />
+                                <gallery-picker-component :source="source" v-model="skillsImage"></gallery-picker-component>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Configuration.ContactImage"></label>
+                                <input asp-for="Configuration.ContactImage" type="hidden" />
+                                <gallery-picker-component :source="source" v-model="contactImage"></gallery-picker-component>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Configuration.GithubLink"></label>
+                                <input asp-for="Configuration.GithubLink" v-model="githubLink" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Configuration.LinkedInLink"></label>
+                                <input asp-for="Configuration.LinkedInLink" v-model="linkedInLink" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary bc-button">Save</button>
+                                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loadingSiteConfig}"></i>
+                            </div>
+                        </form>
                     </div>
                 </section>
             </div>

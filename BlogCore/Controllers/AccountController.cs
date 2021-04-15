@@ -258,6 +258,36 @@ namespace BlogCore.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ResendEmailVerification()
+        {
+            User user = _context.Users.FirstOrDefault();
+            if (user == null)
+            {
+                return View(nameof(Register));
+            }
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
+
+            //send email
+            var variables = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>(Constants.EmailValues.Name, $"{user.FirstName} {user.LastName}"),
+                    new KeyValuePair<string, string>(Constants.EmailValues.ConfirmationLink, confirmationLink)
+                };
+            var message = TemplateReader.GetTemplate(Constants.EmailTemplates.ConfirmationLinkTemplate, variables);
+
+            _emailService.Send(user.Email, "Confirm your email", message, true);
+
+            return View(nameof(EmailVerificationSent));
+        }
+
+        public IActionResult EmailVerificationSent()
+        {
+            return View();
+        }
+
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

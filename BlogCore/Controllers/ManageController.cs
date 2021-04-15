@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogCore.Models.Common;
+using BlogCore.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,8 +20,13 @@ namespace BlogCore.Controllers
         }
         public IActionResult Index()
         {
-            User user = _context.Users.FirstOrDefault();
-            return View(user);
+            ManageViewModel model = new ManageViewModel
+            {
+                Account = _context.Users.FirstOrDefault(),
+                Configuration = _context.Home.FirstOrDefault(),
+                Security = new PasswordChangeModel()
+            };
+            return View(model);
         }
 
         public IActionResult About()

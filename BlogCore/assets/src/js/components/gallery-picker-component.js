@@ -60,7 +60,7 @@
                             <i class="fas fa-image fa-fw"></i>
                         </span>
                     </div>
-                    <input type="text" ref="galleryInput" class="form-control" :value="value" v-on:input="update()" disabled/>
+                    <input type="text" ref="galleryInput" class="form-control" :value="value" v-on:input="update()"  disabled/>
                     <div v-if="value.length !== 0" class="input-group-append" v-on:click="removeSelection">
                         <span class="input-group-text -danger">
                             <i class="fal fa-times fa-fw"></i>

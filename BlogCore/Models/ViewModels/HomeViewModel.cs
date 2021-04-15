@@ -24,7 +24,7 @@ namespace BlogCore.Models.ViewModels
         [Required]
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
-        [BindProperty(Name ="g-captcha-response")]
+        [BindProperty(Name = "g-captcha-response")]
         public string CaptchaResponse { get; set; }
 
     }

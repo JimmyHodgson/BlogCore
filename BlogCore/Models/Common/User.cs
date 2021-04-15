@@ -34,6 +34,7 @@ namespace BlogCore.Models.Common
         [Display(Name = "Last name")]
         [DataMember]
         public string LastName { get; set; }
+        [DataMember]
         public string Link { get; set; }
         [DataMember]
         public string Bio { get; set; }

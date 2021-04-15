@@ -11,6 +11,7 @@
     &.-open {
         opacity: 1;
         animation: .5s delay-opacity;
+        z-index:1000;
     }
 
     &.-hide {
