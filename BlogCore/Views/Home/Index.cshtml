@@ -129,7 +129,7 @@
         }
     </div>
 </section>
-<section class="contact-me">
+<section id="contact-section" class="contact-me">
     <div class="bc-header">
         <h2 class="title">Contact me</h2>
         <div class="underline"></div>
@@ -145,24 +145,29 @@
             </div>
             <div class="col">
                 <div class="contact-form">
-                    <form method="post" class="body">
+                    <form v-on:submit.prevent="submit" class="body">
                         <div class="mb-3">
                             <label asp-for="Name"></label>
-                            <input asp-for="Name" class="form-control form-input" maxlength="25" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
+                            <input asp-for="Name" v-model="name" class="form-control form-input" maxlength="25" />
+                            <span v-if="errors.name" class="text-danger">{{errors.name}}</span>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Email"></label>
-                            <input asp-for="Email" class="form-control form-input" maxlength="35" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <input asp-for="Email" v-model="email" class="form-control form-input" maxlength="35" />
+                            <span v-if="errors.email" class="text-danger">{{errors.email}}</span>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Message"></label>
-                            <textarea asp-for="Message" class="form-control form-input"> </textarea>
-                            <span asp-validation-for="Message" class="text-danger"></span>
+                            <textarea asp-for="Message" v-model="message" class="form-control form-input"> </textarea>
+                            <span v-if="errors.message" class="text-danger">{{errors.message}}</span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey"></div>
+                            <span v-if="errors.token" class="text-danger">{{errors.token}}</span>
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary bc-button" title="Submit">Submit</button>
+                            <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
                         </div>
                     </form>
                 </div>
@@ -187,3 +192,7 @@
         </div>
     </div>
 </footer>
+
+@section HeadScripts {
+    <script src="https://www.google.com/recaptcha/enterprise.js"></script>
+}

@@ -31,6 +31,8 @@ namespace BlogCore.Common
         public struct EmailValues
         {
             public const string Name = "{{name}}";
+            public const string ReplyEmail = "{{replyemail}}";
+            public const string Message = "{{message}}";
             public const string HelpEmail = "{{helpemail}}";
             public const string ConfirmationLink = "{{confirmationlink}}";
             public const string PasswordResetLink = "{{passwordresetlink}}";
@@ -41,6 +43,12 @@ namespace BlogCore.Common
             public const string WelcomeTemplate = "Welcome.html";
             public const string ConfirmationLinkTemplate = "Confirmation.html";
             public const string PasswordResetTemplate = "PasswordReset.html";
+            public const string WebsiteMessageTemplate = "WebsiteMessage.html";
+        }
+
+        public struct CaptchaUserActions
+        {
+            public const string WebsiteMessage = "Website_Message";
         }
     }
 }

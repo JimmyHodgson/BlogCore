@@ -19,13 +19,12 @@ namespace BlogCore.Models.ViewModels
         [Required]
         public string Name { get; set; }
         [Required]
-        [DataType(DataType.Password)]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
-        [BindProperty(Name = "g-captcha-response")]
-        public string CaptchaResponse { get; set; }
+        public string CaptchaClientKey { get; set; }
 
     }
 }

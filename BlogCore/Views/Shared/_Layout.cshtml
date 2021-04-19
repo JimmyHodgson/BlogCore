@@ -19,6 +19,7 @@
 
     @*jQuery has to stay at the top for now so it's accessible by js init code that's placed within partials*@
     <script src="~/assets/dist/lib/jquery.min.js"></script>
+    @RenderSection("HeadScripts", required: false)
 </head>
 <body>
     @RenderBody()

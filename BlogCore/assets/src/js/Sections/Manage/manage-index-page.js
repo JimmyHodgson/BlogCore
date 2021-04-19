@@ -1,6 +1,6 @@
-﻿if (document.getElementById('home-index-page') !== null) {
+﻿if (document.getElementById('manage-index-page') !== null) {
     new Vue({
-        el: "#home-index-page",
+        el: "#manage-index-page",
         beforeMount() {
             common.get(this.endpoint)
                 .then(response => this.source = response.value)
@@ -66,7 +66,10 @@
             submitPasswordChange() {
                 this.loadingPasswordChange = true;
                 common.post(this.passwordChangeUrl, { OldPassword: this.oldPassword, NewPassword: this.newPassword })
-                    .then(response => console.log(response))
+                    .then(response => {
+                        console.log(response);
+                        this.clearPasswordForm();
+                    })
                     .catch(response => console.error(response))
                     .finally(() => this.loadingPasswordChange = false);
             },
@@ -86,6 +89,11 @@
                         this.phoneNumberValue.push(e.key);
                     }
                 }
+            },
+            clearPasswordForm() {
+                this.newPassword = '';
+                this.oldPassword = '';
+                this.confirmPassword = '';
             }
         },
         watch: {

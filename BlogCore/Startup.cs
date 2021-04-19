@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Amazon.S3;
 using BlogCore.Common;
+using BlogCore.Common.ReCaptcha;
 using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
 using Microsoft.AspNet.OData.Builder;
@@ -13,7 +12,6 @@ using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -124,8 +122,13 @@ namespace BlogCore
 
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
+
             services.AddSingleton(Configuration);
+
             SixLabors.ImageSharp.Configuration.Default.MemoryAllocator = ArrayPoolMemoryAllocator.CreateWithModeratePooling();
+
+            services.AddOptions<CaptchaSettings>().Bind(Configuration.GetSection("Captcha"));
+            services.AddTransient<CaptchaVerificationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

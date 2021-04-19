@@ -9,6 +9,8 @@ using NETCore.MailKit.Core;
 using Microsoft.AspNetCore.Hosting;
 using BlogCore.Common;
 using BlogCore.Models.Common;
+using BlogCore.Common.ReCaptcha;
+using Microsoft.Extensions.Configuration;
 
 namespace BlogCore.Controllers
 {
@@ -16,11 +18,13 @@ namespace BlogCore.Controllers
     {
         private readonly IEmailService _emailService;
         private readonly DatabaseContext _context;
+        private readonly IConfiguration _config;
 
-        public HomeController(DatabaseContext context, IEmailService emailService)
+        public HomeController(DatabaseContext context, IEmailService emailService, IConfiguration config)
         {
             _context = context;
             _emailService = emailService;
+            _config = config;
         }
         public IActionResult Index()
         {
@@ -34,12 +38,15 @@ namespace BlogCore.Controllers
                 Bio = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
             };
 
-            HomeViewModel model = new HomeViewModel();
-            model.User = _context.Users.DefaultIfEmpty(defaultUser).First();
-            model.Achievements = _context.Achievements.ToList();
-            model.Education = _context.Education.ToList();
-            model.Jobs = _context.Jobs.ToList();
-            model.Skills = _context.Skills.ToList();
+            HomeViewModel model = new HomeViewModel
+            {
+                User = _context.Users.DefaultIfEmpty(defaultUser).First(),
+                Achievements = _context.Achievements.ToList(),
+                Education = _context.Education.ToList(),
+                Jobs = _context.Jobs.ToList(),
+                Skills = _context.Skills.ToList(),
+                CaptchaClientKey = _config["captcha:SiteKey"]
+            };
 
             return View(model);
         }
