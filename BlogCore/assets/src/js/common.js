@@ -12,6 +12,10 @@
     }
 });
 
+if (window.VueToast !== undefined) {
+    Vue.use(window.VueToast);
+}
+
 const common = {
     delete: (url) => {
         return new Promise((resolve, reject) => {

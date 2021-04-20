@@ -1,7 +1,28 @@
 ﻿.third-party-header{
-    display:flex;
     align-items:center;
-    >.badge{
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+
+    >.title{
+        background-color:$white;
+        color:$primary;
         margin-left:1rem;
+        padding:0 .5rem;
+        z-index:1;
+    }
+
+    >.version{
+        z-index:1;
+    }
+
+    .line{
+        border-bottom:0.2rem dotted $secondary;
+        height:1rem;
+        margin-top:.2rem;
+        position:absolute;
+        top:0;
+        width:100%;
+        z-index:0;
     }
 }
