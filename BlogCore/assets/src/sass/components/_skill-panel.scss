@@ -1,0 +1,33 @@
+﻿.skill-panel {
+    padding: 1rem;
+    width: 100%;
+
+    > .content {
+        align-items: center;
+        background-color: $background;
+        border-radius: 10px;
+        box-shadow: 1px 2px 5px -2px #555;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+    }
+
+    .title {
+        color: $primary;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .body {
+        color: $primaryVariant;
+    }
+
+    @media(min-width:$screen-sm-min) {
+        width: 30%;
+    }
+
+    @media(min-width:$screen-md-min) {
+        width: 25%;
+    }
+}

@@ -1,49 +1,73 @@
 ﻿@model HomeViewModel
 @{
     ViewData["Controller"] = "Home Page";
+    ViewData["Title"] = "Home";
+    string profile = String.IsNullOrWhiteSpace(Model.User.Link) ?
+        "/assets/dist/images/default_profile_pic.png"
+        : Model.User.Link;
 }
-<nav class="bc-nav">
-    <div class="content">
-        <div class="item">
-            <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
-        </div>
 
-        @if (!User.Identity.IsAuthenticated)
-        {
-            <div class="item">
-                <a asp-area="" asp-controller="Account" asp-action="Login" class="link" title="Sign in"><i class="fad fa-sign-in fa-fw"></i></a>
-            </div>
-        }
-        else
-        { <div class="d-flex">
-                <div class="item">
-                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="link" title="Home"><i class="fad fa-home fa-fw"></i></a>
-                </div>
-                <div class="item">
+<section id="landing-section" class="page-landing">
+    <nav class="navbar navbar-expand-lg bc-nav">
+        <a class="navbar-brand brand" href="/">
+            <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
+        </a>
+        <ul class="navbar-nav">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link" title="Sign in"><i class="fad fa-sign-in fa-fw"></i></a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="nav-link" title="Home"><i class="fad fa-home fa-fw"></i></a>
+                </li>
+                <li class="nav-item">
                     <form method="post" asp-action="Logout" asp-controller="Account">
-                        <button class="bc-nav-button" title="Sign out">
+                        <button class="nav-link" title="Sign out">
                             <i class="fad fa-sign-out fa-fw"></i>
                         </button>
                     </form>
-                </div>
+                </li>
+            }
+
+        </ul>
+    </nav>
+    <div class="content">
+        <div class="body">
+            <div class="profile-picture-container">
+                <div class="profile-picture" style="background-image:url(@profile);"></div>
             </div>
-        }
-    </div>
-</nav>
-<section class="page-landing">
-    <h1 class="title">
-        @Model.User.FirstName @Model.User.LastName
-    </h1>
-    <div class="subtitle">
-        @Model.User.Title
+            <h1 class="title">
+                @Model.User.FirstName @Model.User.LastName
+            </h1>
+            <div class="subtitle">
+                @Model.User.Title
+            </div>
+            @if (Model.Home != null)
+            {
+                <div class="links">
+                    @if (!String.IsNullOrWhiteSpace(Model.Home.GithubLink))
+                    {
+                        <a href="@Model.Home.GithubLink" class="link" title="Github"><i class="fab fa-github fa-fw fa-2x"></i></a>
+                    }
+                    @if (!String.IsNullOrWhiteSpace(Model.Home.LinkedInLink))
+                    {
+                        <a href="@Model.Home.LinkedInLink" class="link" title="Linked In"><i class="fab fa-linkedin fa-fw fa-2x"></i></a>
+                    }
+                </div>
+            }
+        </div>
     </div>
 </section>
-<section class="about-me">
-    <div class="bc-header">
+<section id="about-me-section" class="about-me">
+    <div class="bc-header header">
         <h2 class="title">About Me</h2>
         <div class="underline"></div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid body">
         <div class="row">
             <div class="col">
                 <h5>Name:</h5>
@@ -58,7 +82,7 @@
             </div>
             @if (!String.IsNullOrEmpty(Model.User.Bio))
             {
-                <div class="col">
+                <div class="col bio">
                     <h5>Bio</h5>
                     <p>@Model.User.Bio</p>
                 </div>
@@ -66,20 +90,22 @@
         </div>
     </div>
 </section>
-<section class="my-skills">
-    <div class="bc-header">
+<section id="skills-section" class="skills">
+    <div class="bc-header header">
         <h2 class="title">Skills</h2>
         <div class="underline"></div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid body">
         @foreach (SkillModel item in Model.Skills)
         {
             <div class="skill-panel">
-                <div class="title">
-                    @item.Name
-                </div>
                 <div class="content">
-                    @item.Proficiency
+                    <div class="title">
+                        @item.Name
+                    </div>
+                    <div class="body">
+                        @item.Proficiency
+                    </div>
                 </div>
             </div>
         }
@@ -197,10 +223,10 @@
     <script src="https://www.google.com/recaptcha/enterprise.js"></script>
 }
 
-@section  Scripts{
+@section Scripts{
     <script src="~/assets/dist/lib/vue-toast-notification/index.min.js"></script>
 }
 
-@section Styles{ 
-    <link rel="stylesheet" href="~/assets/dist/lib/vue-toast-notification/theme-sugar.css"/>
+@section Styles{
+    <link rel="stylesheet" href="~/assets/dist/lib/vue-toast-notification/theme-sugar.css" />
 }

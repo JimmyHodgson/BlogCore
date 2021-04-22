@@ -1,17 +1,22 @@
 ﻿.bc-nav {
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding: 10px 20px;
-    position:absolute;
-    width:100%;
+    display: flex;
+    justify-content: space-between;
 
-    >.content {
-        display:flex;
+    .brand {
         color: $white;
-        justify-content:space-between;
+        font-weight: bold;
     }
 
-    .item a {
+    .nav-link {
+        background: none;
+        border: none;
         color: $white;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .navbar-nav {
+        align-items: center;
+        flex-direction:row;
     }
 }

@@ -1,25 +1,40 @@
 ﻿.page-landing {
-    align-content: center;
-    align-items: center;
     background-image: url(/assets/dist/images/coding.jpg);
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     min-height: 100vh;
 
-    > .title {
-        color: $white;
-        font-size: 3rem;
-        font-weight: bold;
-    }
+    > .content {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
 
-    > .subtitle {
-        color: $primary;
-        font-size: 1.5rem;
-        font-weight:bold;
-        text-transform:uppercase;
+        > .body {
+            text-align: center;
+            > .title {
+                color: $white;
+                font-size: 3rem;
+                font-weight: bold;
+                margin-top:60px;
+            }
+
+            > .subtitle {
+                color: $secondary;
+                font-size: 1.5rem;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            > .links {
+                > .link {
+                    color: $white;
+                }
+            }
+        }
     }
 }

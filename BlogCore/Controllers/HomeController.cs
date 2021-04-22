@@ -45,7 +45,8 @@ namespace BlogCore.Controllers
                 Education = _context.Education.ToList(),
                 Jobs = _context.Jobs.ToList(),
                 Skills = _context.Skills.ToList(),
-                CaptchaClientKey = _config["captcha:SiteKey"]
+                CaptchaClientKey = _config["captcha:SiteKey"],
+                Home = _context.Home.FirstOrDefault()
             };
 
             return View(model);

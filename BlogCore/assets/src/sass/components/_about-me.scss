@@ -1,3 +1,41 @@
-﻿.about-me{
-    padding:20px;
+﻿.about-me {
+    > .header {
+        padding: 40px 60px 0;
+    }
+
+    > .body {
+        padding: 0 60px 60px;
+    }
+
+    .bio {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+    }
+
+    @media(min-width:$screen-md-min) {
+        .bio {
+            &::after {
+                background-color: #d35400;
+                border: .5rem solid #ecf0f1;
+                border-radius: 50%;
+                content: "";
+                height: 2rem;
+                left: 0;
+                margin-left: -2rem;
+                position: absolute;
+                top: calc(50% - 1rem);
+                width: 2rem;
+            }
+
+            &::before {
+                content: "";
+                border-left: 2px solid #d35400;
+                height: 100%;
+                margin-left: -2rem;
+                position: absolute;
+            }
+        }
+    }
 }

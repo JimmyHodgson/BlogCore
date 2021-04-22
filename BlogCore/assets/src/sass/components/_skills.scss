@@ -1,0 +1,19 @@
+﻿.skills {
+    background-image: url(/assets/dist/images/coding2.jpg);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    > .header {
+        padding: 40px 60px 0;
+    }
+
+    > .body {
+        display: flex;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        padding-bottom:60px;
+    }
+
+    @extend %section-background-base;
+}

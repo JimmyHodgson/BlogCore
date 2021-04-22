@@ -10,7 +10,7 @@
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/light.scss';
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/regular.scss';
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/solid.scss';
-
+@import '../../../node_modules/@fortawesome/fontawesome-pro/scss/brands.scss';
 //Import .scss files here
 @import '_fonts';
 @import '_mixins';
@@ -38,10 +38,8 @@
 @import 'components/_contact-me.scss';
 @import 'components/_contact-form.scss';
 @import 'components/_content-panel.scss';
-@import 'components/_my-skills.scss';
 @import 'components/_main-layout.scss';
 @import 'components/_side-bar.scss';
-@import 'components/_bc-nav-button.scss';
 @import 'components/_menu-link.scss';
 @import 'components/_loading-panel.scss';
 @import 'components/_bc-table.scss';
@@ -88,6 +86,8 @@
 @import 'components/_section-component.scss';
 @import 'components/_profile-picture-container.scss';
 @import 'components/_profile-picture.scss';
+@import 'components/_skills.scss';
+@import'components/_skill-panel.scss';
 
 //Import transitions here
 @import 'components/transitions/_modal-fade.scss';

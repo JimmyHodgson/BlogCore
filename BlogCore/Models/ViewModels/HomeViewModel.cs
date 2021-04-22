@@ -25,6 +25,7 @@ namespace BlogCore.Models.ViewModels
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
         public string CaptchaClientKey { get; set; }
+        public HomeModel Home { get; set; }
 
     }
 }
