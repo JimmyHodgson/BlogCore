@@ -1,0 +1,45 @@
+﻿.education-panel {
+    align-items: center;
+    display: flex;
+    flex-direction:column;
+    padding: 20px;
+    width: 100%;
+
+    > .img {
+        min-width: 128px;
+        width: 128px;
+    }
+
+    > .body {
+        margin-top:20px;
+        padding: 0 20px;
+        text-align:center;
+
+        >.title{
+            color:$primary;
+            font-weight:bold;
+        }
+
+        >.subtitle{
+            color:$primaryVariant;
+        }
+
+        >.year{
+            color:$secondary;
+        }
+    }
+
+    transition: all .3s ease-in-out;
+
+    &:hover {
+        box-shadow: -6px 6px 10px 6px $border;
+    }
+
+    @media(min-width:$screen-md-min){
+        flex-direction:row;
+
+        >.body{
+            text-align:left;
+        }
+    }
+}

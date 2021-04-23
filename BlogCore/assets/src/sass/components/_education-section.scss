@@ -1,0 +1,24 @@
+﻿#education-section {
+    display: flex;
+    flex-direction: column;
+
+    > .header {
+        padding: 40px 60px 0;
+    }
+
+    > .body {
+        display: flex;
+        flex-wrap: wrap;
+        flex-grow: 1;
+        padding-bottom: 60px;
+
+        > .item {
+            display: flex;
+            width: 100%;
+
+            @media(min-width:$screen-md-min) {
+                width: calc(100% / 2);
+            }
+        }
+    }
+}

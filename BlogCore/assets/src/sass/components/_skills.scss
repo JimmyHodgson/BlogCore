@@ -2,18 +2,36 @@
     background-image: url(/assets/dist/images/coding2.jpg);
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 
     > .header {
         padding: 40px 60px 0;
     }
 
-    > .body {
+    >.body {
         display: flex;
         flex-wrap: wrap;
         flex-grow: 1;
-        padding-bottom:60px;
+        padding-bottom: 60px;
+        text-align:center;
+
+        &.-sm{
+            @media(min-width:$screen-sm-min){
+                display:none;
+            }
+        }
+
+        &.-md{
+            @media(max-width:$screen-sm-min){
+                display:none;
+            }
+        }
     }
+
+
+    @media(min-width:$screen-md-min) {
+        min-height: 100vh;
+    }
+
 
     @extend %section-background-base;
 }

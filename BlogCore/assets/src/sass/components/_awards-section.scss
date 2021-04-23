@@ -1,0 +1,25 @@
+﻿#awards-section {
+    background-color: $primaryVariant;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+
+    > .header {
+        padding: 40px 60px 0;
+    }
+
+    > .body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding-bottom: 60px;
+    }
+
+    @media(min-width:$screen-sm-min) {
+        > .body {
+            flex-direction: row;
+        }
+    }
+}

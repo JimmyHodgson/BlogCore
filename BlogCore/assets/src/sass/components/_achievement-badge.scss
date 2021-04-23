@@ -1,0 +1,28 @@
+﻿.achievement-badge {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+
+    > .title {
+        align-items: center;
+        background-color: $primary;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        height: 150px;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+        width: 150px;
+    }
+
+    > .body {
+        display: flex;
+        flex-direction: column;
+        font-weight: bold;
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
