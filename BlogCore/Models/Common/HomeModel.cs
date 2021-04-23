@@ -13,5 +13,6 @@ namespace BlogCore.Models.Common
         public string ContactImage { get; set; }
         public string GithubLink { get; set; }
         public string LinkedInLink { get; set; }
+        public string CVLink { get; set; }
     }
 }

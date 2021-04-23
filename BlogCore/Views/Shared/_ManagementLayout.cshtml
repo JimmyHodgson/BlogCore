@@ -27,7 +27,7 @@
                 @await Html.PartialAsync("_MenuPartial")
             </div>
         </nav>
-        <nav class="navbar bg-light">
+        <nav class="navbar bg-light bc-nav -dark">
             <div class="container-fluid">
                 <i id="sidebar-toggle-widget" class="fal fa-bars fa-fw d-none d-lg-block clickable" v-on:click="toggleSideBar"></i>
                 <ul class="bread-crumb">
@@ -49,7 +49,7 @@
                 </ul>
                 <div class="d-flex">
                     <form method="post" asp-action="Logout" asp-controller="Account">
-                        <button class="bc-nav-button" title="Sign out">
+                        <button class="nav-link" title="Sign out">
                             <i class="fad fa-sign-out fa-fw"></i>
                         </button>
                     </form>

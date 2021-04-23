@@ -2,6 +2,14 @@
     display: flex;
     justify-content: space-between;
 
+    &.-light {
+        color: $white;
+    }
+
+    &.-dark{
+        color:$black;
+    }
+
     .brand {
         color: $white;
         font-weight: bold;
@@ -10,13 +18,13 @@
     .nav-link {
         background: none;
         border: none;
-        color: $white;
+        color: inherit;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
 
     .navbar-nav {
         align-items: center;
-        flex-direction:row;
+        flex-direction: row;
     }
 }

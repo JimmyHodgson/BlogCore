@@ -1,5 +1,44 @@
-﻿.job-panel{
-    background-color:$background;
-    margin:20px;
-    padding:1rem 3rem;
+﻿.job-panel {
+    align-items: center;
+    background-color: $background;
+    display: flex;
+    flex-grow:1;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+
+    > .company {
+        align-items: center;
+        background: linear-gradient(darken($background,5%),darken($background,10%));
+        border-radius: 5px;
+        color: $primary;
+        display: flex;
+        flex-direction: column;
+        height: 150px;
+        justify-content: center;
+        padding: 1rem;
+        text-align: center;
+        width:100%;
+    }
+
+    > .position {
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 1rem;
+        text-align:center;
+        width:100%;
+    }
+
+    @media(min-width:$screen-md-min) {
+        > .company {
+            width: 30%;
+        }
+
+        > .position {
+            text-align:left;
+            width: 70%;
+        }
+    }
 }

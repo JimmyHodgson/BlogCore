@@ -8,6 +8,7 @@
 
             this.bio = this.$el.querySelector('#Account_Bio').value;
             this.contactImage = this.$el.querySelector('#Configuration_ContactImage').value;
+            this.cvLink = this.$el.querySelector('#Configuration_CVLink').value;
             this.email = this.$el.querySelector('#Account_Email').value;
             this.firstName = this.$el.querySelector('#Account_FirstName').value;
             this.githubLink = this.$el.querySelector('#Configuration_GithubLink').value;
@@ -26,6 +27,7 @@
             return {
                 bio:'',
                 contactImage: '',
+                cvLink:'',
                 email:'',
                 endpoint: '/api/MediaLink?$expand=Group',
                 firstName: '',
@@ -75,7 +77,7 @@
             },
             submitSiteConfiguration() {
                 this.loadingSiteConfig = true;
-                common.post(this.configUrl, { LandingImage: this.landingImage, SkillImage: this.skillsImage, ContactImage: this.contactImage, GithubLink: this.githubLink, LinkedInLink: this.linkedInLink })
+                common.post(this.configUrl, { LandingImage: this.landingImage, SkillImage: this.skillsImage, ContactImage: this.contactImage, GithubLink: this.githubLink, LinkedInLink: this.linkedInLink, CVLink: this.cvLink })
                     .then(response=>console.log(response))
                     .catch(response => console.error(response))
                     .finally(() => this.loadingSiteConfig = false);

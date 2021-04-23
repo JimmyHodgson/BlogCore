@@ -127,6 +127,10 @@
                                 <input asp-for="Configuration.LinkedInLink" v-model="linkedInLink" class="form-control" />
                             </div>
                             <div class="mb-3">
+                                <label asp-for="Configuration.CVLink"></label>
+                                <input asp-for="Configuration.CVLink" v-model="cvLink" class="form-control" />
+                            </div>
+                            <div class="mb-3">
                                 <button class="btn btn-primary bc-button">Save</button>
                                 <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loadingSiteConfig}"></i>
                             </div>

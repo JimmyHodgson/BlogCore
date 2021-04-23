@@ -84,6 +84,7 @@ namespace BlogCore.Controllers.API
                 exists.ContactImage = model.ContactImage;
                 exists.LinkedInLink = model.LinkedInLink;
                 exists.GithubLink = model.GithubLink;
+                exists.CVLink = model.CVLink;
 
                 _context.Home.Update(exists);
             }
