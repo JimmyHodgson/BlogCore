@@ -7,7 +7,7 @@
         : Model.User.Link;
 }
 
-<section id="landing-section" class="page-landing">
+<section id="landing-section" class="page-landing" style="background-image:url(@Model.Home.LandingImage)">
     <nav class="navbar navbar-expand-lg bc-nav -light">
         <a class="navbar-brand brand" href="/">
             <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
@@ -90,7 +90,7 @@
         </div>
     </div>
 </section>
-<section id="skills-section" class="skills">
+<section id="skills-section" class="skills" style="background-image:url(@Model.Home.SkillImage)">
     <div class="bc-header header">
         <h2 class="title">Skills</h2>
         <div class="underline"></div>
@@ -213,7 +213,7 @@
         }
     </div>
 </section>
-<section id="contact-section" class="contact-me">
+<section id="contact-section" class="contact-me" style="background-image:url(@Model.Home.ContactImage)">
     <div class="bc-header">
         <h2 class="title">Contact me</h2>
         <div class="underline"></div>
