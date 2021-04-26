@@ -10,7 +10,7 @@
 <section id="landing-section" class="page-landing" style="background-image:url(@Model.Home.LandingImage)">
     <nav class="navbar navbar-expand-lg bc-nav -light">
         <a class="navbar-brand brand" href="/">
-            <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
+            <img src="~/assets/dist/images/blogcore_logo_white_42x42.png"  alt="blogcore logo"/> BlogCore
         </a>
         <ul class="navbar-nav">
             @if (!User.Identity.IsAuthenticated)
@@ -51,11 +51,11 @@
                 <div class="links">
                     @if (!String.IsNullOrWhiteSpace(Model.Home.GithubLink))
                     {
-                        <a href="@Model.Home.GithubLink" class="link" title="Github"><i class="fab fa-github fa-fw fa-2x"></i></a>
+                        <a href="@Model.Home.GithubLink" class="link" title="Github"><i class="fab fa-github fa-fw fa-2x" aria-hidden="true"></i></a>
                     }
                     @if (!String.IsNullOrWhiteSpace(Model.Home.LinkedInLink))
                     {
-                        <a href="@Model.Home.LinkedInLink" class="link" title="Linked In"><i class="fab fa-linkedin fa-fw fa-2x"></i></a>
+                        <a href="@Model.Home.LinkedInLink" class="link" title="Linked In"><i class="fab fa-linkedin fa-fw fa-2x" aria-hidden="true"></i></a>
                     }
                 </div>
             }
@@ -154,7 +154,7 @@
             <a href="@item.Link" class="item" target="_blank">
                 <div class="education-panel">
                     <div class="img">
-                        <img src="@item.ImageUrl" />
+                        <img src="@item.ImageUrl" alt="@item.School image" />
                     </div>
                     <div class="body">
                         <h3 class="title">@item.School</h3>
@@ -253,7 +253,7 @@
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary bc-button" title="Submit">Submit</button>
-                            <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
+                            <i class="fas fa-spinner fa-pulse fa-fw" aria-hidden="true" v-bind:class="{'d-none':!loading}"></i>
                         </div>
                     </form>
                 </div>

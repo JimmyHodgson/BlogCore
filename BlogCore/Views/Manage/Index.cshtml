@@ -59,7 +59,7 @@
                             </div>
                             <div class="mb-3">
                                 <button class="btn btn-primary bc-button">Save</button>
-                                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loadingUserInfo}"></i>
+                                <i class="fas fa-spinner fa-pulse fa-fw" aria-hidden="true" v-bind:class="{'d-none':!loadingUserInfo}"></i>
                             </div>
                         </form>
                     </div>
@@ -88,7 +88,7 @@
                             </div>
                             <div class="mb-3">
                                 <button class="btn btn-primary bc-button">Change Password</button>
-                                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loadingPasswordChange}"></i>
+                                <i class="fas fa-spinner fa-pulse fa-fw" aria-hidden="true" v-bind:class="{'d-none':!loadingPasswordChange}"></i>
                             </div>
                         </form>
                     </div>

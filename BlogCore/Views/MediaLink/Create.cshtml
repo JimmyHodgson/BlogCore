@@ -39,7 +39,7 @@
                     <button type="submit" class="btn btn-primary bc-button" title="Submit" v-bind:disabled="loading">
                         Submit
                     </button>
-                    <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
+                    <i class="fas fa-spinner fa-pulse fa-fw" aria-hidden="true" v-bind:class="{'d-none':!loading}"></i>
                 </div>
                 <div v-if="errors.result" class="mb-3 alert alert-danger -mar">
                     <i class="fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i> {{errors.result}}

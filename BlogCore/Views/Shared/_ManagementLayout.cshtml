@@ -7,7 +7,7 @@
     <div id="side-bar" class="side-bar">
         <a class="header" href="/">
             <div>
-                <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
+                <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" alt="blogcore logo" /> BlogCore
             </div>
         </a>
         @await Html.PartialAsync("_MenuPartial")
@@ -18,10 +18,10 @@
     <div class="body">
         <nav aria-label="Mobile menu" class="navbar bg-primary mobile-nav">
             <div class="navbar-brand">
-                <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
+                <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" alt="blogcore logo" /> BlogCore
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="far fa-bars fa-fw"></i>
+                <i class="far fa-bars fa-fw" aria-hidden="true"></i>
             </button>
             <div class="menu-component collapse" id="navbar">
                 @await Html.PartialAsync("_MenuPartial")
@@ -50,7 +50,7 @@
                 <div class="d-flex">
                     <form method="post" asp-action="Logout" asp-controller="Account">
                         <button class="nav-link" title="Sign out">
-                            <i class="fad fa-sign-out fa-fw"></i>
+                            <i class="fad fa-sign-out fa-fw" aria-hidden="true"></i>
                         </button>
                     </form>
                 </div>

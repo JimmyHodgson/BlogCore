@@ -17,7 +17,7 @@
             Are you sure you want to delete this image?
         </div>
         <div class="mb-3">
-            <img src="@Html.DisplayFor(model=>model.Url)" />
+            <img src="@Html.DisplayFor(model=>model.Url)" alt="media image"/>
         </div>
         <div class="mb-3">
             <dl class="dl-horizontal">
@@ -45,7 +45,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="mb-3">
                 <input type="submit" value="Delete" class="btn btn-danger" />
-                <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
+                <i class="fas fa-spinner fa-pulse fa-fw" aria-hidden="true" v-bind:class="{'d-none':!loading}"></i>
             </div>
             <div class="mb-3">
                 <div v-if="errors.result" class="mb-3 alert alert-danger -mar">
