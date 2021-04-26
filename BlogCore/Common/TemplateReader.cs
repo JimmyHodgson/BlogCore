@@ -1,9 +1,5 @@
-﻿using MimeKit;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlogCore.Common
 {
@@ -13,7 +9,7 @@ namespace BlogCore.Common
         {
             string message = "";
             string templatePath = Path.Combine("templates", template);
-            using (StreamReader SourceReader = System.IO.File.OpenText(templatePath))
+            using (StreamReader SourceReader = File.OpenText(templatePath))
             {
                 message = SourceReader.ReadToEnd();
             }

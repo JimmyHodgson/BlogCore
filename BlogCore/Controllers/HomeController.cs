@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BlogCore.Models.ViewModels;
-using NETCore.MailKit.Core;
-using Microsoft.AspNetCore.Hosting;
-using BlogCore.Common;
 using BlogCore.Models.Common;
-using BlogCore.Common.ReCaptcha;
 using Microsoft.Extensions.Configuration;
 
 namespace BlogCore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IEmailService _emailService;
         private readonly DatabaseContext _context;
         private readonly IConfiguration _config;
 
-        public HomeController(DatabaseContext context, IEmailService emailService, IConfiguration config)
+        public HomeController(DatabaseContext context, IConfiguration config)
         {
             _context = context;
-            _emailService = emailService;
             _config = config;
         }
         public IActionResult Index()

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BlogCore.Models.Catalogues;
 using BlogCore.Models.Common;
 using Microsoft.AspNetCore.Authorization;
 
@@ -32,19 +28,7 @@ namespace BlogCore.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var jobModel = await _context.Jobs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (jobModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(jobModel);
+            return await GetModelInfo(id);
         }
 
         // GET: Job/Create
@@ -58,23 +42,18 @@ namespace BlogCore.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var jobModel = await _context.Jobs.FindAsync(id);
-            if (jobModel == null)
-            {
-                return NotFound();
-            }
-            return View(jobModel);
+            return await GetModelInfo(id);
         }
 
 
         // GET: Job/Delete/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Delete(Guid? id)
+        {
+            return await GetModelInfo(id);
+        }
+
+        private async Task<IActionResult> GetModelInfo(Guid? id)
         {
             if (id == null)
             {

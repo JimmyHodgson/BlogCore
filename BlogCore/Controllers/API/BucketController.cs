@@ -2,13 +2,11 @@
 using Amazon.S3.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogCore.Common;
 using BlogCore.Models.Common;
-using BlogCore.Models.Catalogues;
 using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -49,7 +47,7 @@ namespace BlogCore.Controllers.API
 
                 var response = await _s3Client.ListObjectsV2Async(request);
                 var size = response.S3Objects.Sum(x => x.Size);
-                var count = response.S3Objects.Count();
+                var count = response.S3Objects.Count;
 
                 result.Add(new GroupInfoModel(){ Name = prefix, Size = size, Count = count });
 

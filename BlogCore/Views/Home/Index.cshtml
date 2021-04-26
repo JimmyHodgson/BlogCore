@@ -16,18 +16,18 @@
             @if (!User.Identity.IsAuthenticated)
             {
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link" title="Sign in"><i class="fad fa-sign-in fa-fw"></i></a>
+                    <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link" title="Sign in"><i class="fad fa-sign-in fa-fw" aria-hidden="true"></i></a>
                 </li>
             }
             else
             {
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="nav-link" title="Home"><i class="fad fa-home fa-fw"></i></a>
+                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="nav-link" title="Home"><i class="fad fa-home fa-fw" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
                     <form method="post" asp-action="Logout" asp-controller="Account">
                         <button class="nav-link" title="Sign out">
-                            <i class="fad fa-sign-out fa-fw"></i>
+                            <i class="fad fa-sign-out fa-fw" aria-hidden="true"></i>
                         </button>
                     </form>
                 </li>
@@ -71,14 +71,14 @@
         <div class="row">
             <div class="col-md">
                 <h5>Name:</h5>
-                <p><i class="fa fa-user-circle fa-fw"></i> @Model.User.FirstName @Model.User.LastName</p>
+                <p><i class="fa fa-user-circle fa-fw" aria-hidden="true"></i> @Model.User.FirstName @Model.User.LastName</p>
                 @if (!String.IsNullOrEmpty(Model.User.PhoneNumber))
                 {
                     <h5>Phone:</h5>
-                    <p><i class="fa fa-phone fa-fw"></i> @Model.User.PhoneNumber</p>
+                    <p><i class="fa fa-phone fa-fw" aria-hidden="true"></i> @Model.User.PhoneNumber</p>
                 }
                 <h5>Email:</h5>
-                <p><i class="fa fa-envelope fa-fw"></i> @Model.User.Email</p>
+                <p><i class="fa fa-envelope fa-fw" aria-hidden="true"></i> @Model.User.Email</p>
             </div>
             @if (!String.IsNullOrEmpty(Model.User.Bio))
             {
@@ -203,7 +203,7 @@
         {
             <div class="achievement-badge">
                 <div class="title">
-                    <i class="fas @(award.Type == "Award"?"fa-trophy":"fa-award") fa-2x"></i>
+                    <i class="fas @(award.Type == "Award"?"fa-trophy":"fa-award") fa-2x" aria-hidden="true"></i>
                     @award.Title
                 </div>
                 <div class="body">
@@ -223,7 +223,7 @@
             <div class="col-md">
                 <a href="@Model.Home.CVLink" target="_self">
                     <div class="content-panel">
-                        <i class="fad fa-download fa-4x"></i>
+                        <i class="fad fa-download fa-4x" aria-hidden="true"></i>
                         <h3>Download my full CV</h3>
                         <p>Click Here</p>
                     </div>
@@ -263,10 +263,10 @@
 </section>
 <footer class="page-footer">
     <div class="item">
-        <i class="fal fa-copyright fa-fw"></i> @Model.User.FirstName @Model.User.LastName @DateTime.Now.Year
+        <i class="fal fa-copyright fa-fw" aria-hidden="true"></i> @Model.User.FirstName @Model.User.LastName @DateTime.Now.Year
     </div>
     <div class="item">
-        Powered by <a class="link" href="https://github.com/JimmyHodgson/BlogCore" target="_blank" title="Blogcore's Github">BlogCore <i class="fab fa-github fa-fw"></i></a>
+        Powered by <a class="link" href="https://github.com/JimmyHodgson/BlogCore" target="_blank" title="Blogcore's Github" rel="noopener noreferrer">BlogCore <i class="fab fa-github fa-fw" aria-hidden="true"></i></a>
     </div>
 </footer>
 

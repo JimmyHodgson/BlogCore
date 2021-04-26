@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
@@ -9,7 +8,7 @@ namespace BlogCore.Common.ReCaptcha
 {
     public class CaptchaVerificationService
     {
-        private CaptchaSettings _captchaSettings;
+        private readonly CaptchaSettings _captchaSettings;
         public CaptchaVerificationService(IOptions<CaptchaSettings> captchaSettings)
         {
             _captchaSettings = captchaSettings.Value;

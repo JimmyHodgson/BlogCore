@@ -22,10 +22,10 @@
         methods: {
             fillStorageBar(data) {
                 this.max = data.maxValue;
-                this.used = data.groups.reduce((total, current) => total += current.size, 0);
+                this.used = data.groups.reduce((_total, current) => _total += current.size, 0);
             },
             fillDisplay(data) {
-                this.imagesCount = data.groups.reduce((total, current) => total += current.count, 0);
+                this.imagesCount = data.groups.reduce((_total, current) => _total += current.count, 0);
                 this.groupsCount = data.groups.length;
             },
             fillChart(data) {

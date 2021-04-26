@@ -88,7 +88,6 @@ namespace BlogCore.Controllers.API
         [HttpPost]
         public async Task<ActionResult<MediaLinkModel>> Post([FromForm]CreateMediaLinkViewModel model)
         {
-            //TODO
             MediaLinkModel exists = await _context.MediaLinks.FirstOrDefaultAsync(x => x.Name == model.Name);
             MediaGroupModel group = await _context.MediaGroups.FirstOrDefaultAsync(x => x.Id == model.Group);
 

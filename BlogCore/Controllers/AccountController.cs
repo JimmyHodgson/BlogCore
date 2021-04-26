@@ -2,7 +2,6 @@
 using BlogCore.Models.ViewModels;
 using BlogCore.Models.Common;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.MailKit.Core;

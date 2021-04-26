@@ -147,8 +147,6 @@ namespace BlogCore.Controllers.API
                 {
                     return BadRequest($"Media Group with Name {model.Name} already exists.");
                 }
-                //TODO
-                //Move all the images to the updated mediagroup
 
                 _context.MediaGroups.Update(model);
                 await _context.SaveChangesAsync();

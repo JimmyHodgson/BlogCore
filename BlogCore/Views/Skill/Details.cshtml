@@ -10,7 +10,7 @@
 
 <section id="skill-details" class="form-component">
     <div class="header">
-        <h2><i class="fas fa-sparkles fa-fw"></i> Details</h2>
+        <h2><i class="fas fa-sparkles fa-fw" aria-hidden="true"></i> Details</h2>
     </div>
     <div class="body">
         <div class="mb-3">
@@ -28,8 +28,8 @@
                     @Html.DisplayFor(model => model.Proficiency)
                 </dd>
             </dl>
-            <a asp-action="Index"><i class="fal fa-arrow-left fa-fw"></i> Back to List</a> |
-            <a asp-action="Edit" asp-route-id="@Model.Id"><i class="fal fa-edit fa-fw"></i> Edit</a>
+            <a asp-action="Index"><i class="fal fa-arrow-left fa-fw" aria-hidden="true"></i> Back to List</a> |
+            <a asp-action="Edit" asp-route-id="@Model.Id"><i class="fal fa-edit fa-fw" aria-hidden="true"></i> Edit</a>
         </div>
     </div>
 </section>

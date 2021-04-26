@@ -10,7 +10,7 @@
 <section id="medialink-create-form">
     <div class="form-component medialink-form">
         <div class="header">
-            <h2><i class="fas fa-image fa-fw"></i> Media</h2>
+            <h2><i class="fas fa-image fa-fw" aria-hidden="true"></i> Media</h2>
         </div>
         <div class="body">
             <form method="post" v-on:submit.prevent="submit">
@@ -42,10 +42,10 @@
                     <i class="fas fa-spinner fa-pulse fa-fw" v-bind:class="{'d-none':!loading}"></i>
                 </div>
                 <div v-if="errors.result" class="mb-3 alert alert-danger -mar">
-                    <i class="fas fa-exclamation-triangle fa-fw"></i> {{errors.result}}
+                    <i class="fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i> {{errors.result}}
                 </div>
             </form>
-            <a asp-action="Index" class="-pad"><i class="fal fa-arrow-left fa-fw"></i> Back to List</a>
+            <a asp-action="Index" class="-pad"><i class="fal fa-arrow-left fa-fw" aria-hidden="true"></i> Back to List</a>
         </div>
     </div>
 </section>

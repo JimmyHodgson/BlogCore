@@ -16,7 +16,7 @@
         </footer>
     </div>
     <div class="body">
-        <nav class="navbar bg-primary mobile-nav">
+        <nav aria-label="Mobile menu" class="navbar bg-primary mobile-nav">
             <div class="navbar-brand">
                 <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" /> BlogCore
             </div>
@@ -27,12 +27,12 @@
                 @await Html.PartialAsync("_MenuPartial")
             </div>
         </nav>
-        <nav class="navbar bg-light bc-nav -dark">
+        <nav aria-label="Breadcrumbs" class="navbar bg-light bc-nav -dark">
             <div class="container-fluid">
-                <i id="sidebar-toggle-widget" class="fal fa-bars fa-fw d-none d-lg-block clickable" v-on:click="toggleSideBar"></i>
+                <i id="sidebar-toggle-widget" class="fal fa-bars fa-fw d-none d-lg-block clickable" aria-hidden="true" v-on:click="toggleSideBar"></i>
                 <ul class="bread-crumb">
                     <li class="item">
-                        <i class="@ViewData["Icon"]"></i> @ViewData["Controller"]
+                        <i class="@ViewData["Icon"]" aria-hidden="true"></i> @ViewData["Controller"]
                     </li>
                     @if (ViewData["Child"] != null)
                     {
