@@ -7,7 +7,7 @@
         data: function () {
             return {
                 options: {
-                    endpoint: 'https://localhost:44396/api/Skill',
+                    endpoint: '/api/Skill',
                     dataset: {
                         actions: {
                             details: { enabled: true, url: 'Details' },

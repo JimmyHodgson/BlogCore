@@ -7,7 +7,7 @@
         data: function () {
             return {
                 options: {
-                    endpoint: 'https://localhost:44396/api/Job',
+                    endpoint: '/api/Job',
                     dataset: {
                         actions: {
                             details: { enabled: true, url: 'Details' },

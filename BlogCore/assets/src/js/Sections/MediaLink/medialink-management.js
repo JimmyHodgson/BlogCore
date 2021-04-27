@@ -7,7 +7,7 @@
         data: function () {
             return {
                 options: {
-                    endpoint: 'https://localhost:44396/api/MediaLink',
+                    endpoint: '/api/MediaLink',
                     grouping: {
                         enabled: true,
                         entity: 'Group'

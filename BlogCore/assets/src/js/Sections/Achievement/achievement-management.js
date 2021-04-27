@@ -7,7 +7,7 @@
         data: function () {
             return {
                 options: {
-                    endpoint: 'https://localhost:44396/api/Achievement',
+                    endpoint: '/api/Achievement',
                     dataset: {
                         actions: {
                             details: { enabled: true, url: 'Details' },
