@@ -68,7 +68,17 @@
                     </div>
                 </div>
                 <div class="gallery-picker" :class="{'-open':show,'-hide':!show}">
-                    <div v-for="(value,key) in data" class="gallery-picker-group" :class="{'-selected':selected===key}">
+                    <div v-if="Object.keys(data).length === 0" class="gallery-picker-empty">
+                        <div class="header">
+                                <div>Gallery</div>
+                                <div v-on:click="toggleOpen"><i class="fal fa-times fa-fw clickable"></i></div>
+                        </div>
+                        <div class="body">
+                            <i class="fas fa-exclamation-circle fa-2x"></i>
+                            <p>No items to display</p>
+                        </div>
+                    </div>
+                    <div v-else v-for="(value,key) in data" class="gallery-picker-group" :class="{'-selected':selected===key}">
                         <div class="header clickable" v-on:click="selectGroup(key)">
                             {{key}}
                         </div>

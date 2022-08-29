@@ -90,129 +90,143 @@
         </div>
     </div>
 </section>
-<section id="skills-section" class="skills" style="background-image:url(@Model.Home.SkillImage)">
-    <div class="bc-header header">
-        <h2 class="title">Skills</h2>
-        <div class="underline"></div>
-    </div>
-    <div class="container-fluid body -md">
-        @foreach (SkillModel item in Model.Skills)
-        {
-            <div class="skill-panel">
-                <div class="content">
-                    <div class="title">
-                        @item.Name
-                    </div>
-                    <div class="body">
-                        @item.Proficiency
+@if (Model.Skills.Count != 0)
+{
+    <section id="skills-section" class="skills" style="background-image:url(@Model.Home.SkillImage)">
+        <div class="bc-header header">
+            <h2 class="title">Skills</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="container-fluid body -md">
+            @foreach (SkillModel item in Model.Skills)
+            {
+                <div class="skill-panel">
+                    <div class="content">
+                        <div class="title">
+                            @item.Name
+                        </div>
+                        <div class="body">
+                            @item.Proficiency
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
-    <div class="container-fluid body -sm">
-        <div id="skills-carousel" class="carousel slide" data-interval="false" data-ride="carousel">
-            <div class="carousel-inner">
-                @{int i = 0;}
-                @foreach (SkillModel item in Model.Skills)
-                {
-                    <div class="@(i == 0 ? "carousel-item active" : "carousel-item") ">
-                        <div class="skill-panel">
-                            <div class="content">
-                                <div class="title">
-                                    @item.Name
-                                </div>
-                                <div class="body">
-                                    @item.Proficiency
+            }
+        </div>
+        <div class="container-fluid body -sm">
+            <div id="skills-carousel" class="carousel slide" data-interval="false" data-ride="carousel">
+                <div class="carousel-inner">
+                    @{
+                        int i = 0;
+                    }
+                    @foreach (SkillModel item in Model.Skills)
+                    {
+                        <div class="@(i == 0 ? "carousel-item active" : "carousel-item") ">
+                            <div class="skill-panel">
+                                <div class="content">
+                                    <div class="title">
+                                        @item.Name
+                                    </div>
+                                    <div class="body">
+                                        @item.Proficiency
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    i++;
+                        i++;
 
-                }
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#skills-carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#skills-carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <a class="carousel-control-prev" href="#skills-carousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#skills-carousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
-    </div>
-</section>
-<section id="education-section">
-    <div class="header bc-header">
-        <h2 class="title">Education</h2>
-        <div class="underline"></div>
-    </div>
-    <div class="container-fluid body">
-        @foreach (EducationModel item in Model.Education.OrderBy(x => Convert.ToInt16(x.Year)))
-        {
-            <a href="@item.Link" class="item" target="_blank">
-                <div class="education-panel">
-                    <div class="img">
-                        <img src="@item.ImageUrl" alt="@item.School image" />
+    </section>
+}
+@if (Model.Education.Count != 0)
+{
+    <section id="education-section">
+        <div class="header bc-header">
+            <h2 class="title">Education</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="container-fluid body">
+            @foreach (EducationModel item in Model.Education.OrderBy(x => Convert.ToInt16(x.Year)))
+            {
+                <a href="@item.Link" class="item" target="_blank">
+                    <div class="education-panel">
+                        <div class="img">
+                            <img src="@item.ImageUrl" alt="@item.School image" />
+                        </div>
+                        <div class="body">
+                            <h3 class="title">@item.School</h3>
+                            <h4 class="subtitle">@item.Title</h4>
+                            <h5 class="year">@item.Year</h5>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </section>
+}
+
+@if(Model.Jobs.Count != 0)
+{   
+    <section id="experience-section">
+        <div class="header bc-header">
+            <h2 class="title">Experience</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="container-fluid body">
+            @foreach (JobModel item in Model.Jobs.OrderBy(x => x.JobStart))
+            {
+                <div class="job-panel">
+                    <div class="company">
+                        <h3>@item.Company</h3>
+                        <div class="time">
+                            <strong>@item.JobStart.ToString("MMM yyyy") - @(item.JobEnd == null ? "Present" : ((DateTime)item.JobEnd).ToString("MMM yyyy"))</strong>
+                        </div>
+                    </div>
+                    <div class="position">
+                        <h3>@item.Title</h3>
+                        <div>
+                            @item.Description
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </section>
+}
+@if (Model.Achievements.Count != 0)
+{
+    <section id="awards-section">
+        <div class="header bc-header">
+            <h2 class="title">Achievements</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="container-fluid body">
+            @foreach (AchievementModel award in Model.Achievements.OrderBy(x => Convert.ToInt16(x.Year)))
+            {
+                <div class="achievement-badge">
+                    <div class="title">
+                        <i class="fas @(award.Type == "Award"?"fa-trophy":"fa-award") fa-2x" aria-hidden="true"></i>
+                        @award.Title
                     </div>
                     <div class="body">
-                        <h3 class="title">@item.School</h3>
-                        <h4 class="subtitle">@item.Title</h4>
-                        <h5 class="year">@item.Year</h5>
+                        @award.Year
                     </div>
                 </div>
-            </a>
-        }
-    </div>
-</section>
-
-<section id="experience-section">
-    <div class="header bc-header">
-        <h2 class="title">Experience</h2>
-        <div class="underline"></div>
-    </div>
-    <div class="container-fluid body">
-        @foreach (JobModel item in Model.Jobs.OrderBy(x => x.JobStart))
-        {
-            <div class="job-panel">
-                <div class="company">
-                    <h3>@item.Company</h3>
-                    <div class="time">
-                        <strong>@item.JobStart.ToString("MMM yyyy") - @(item.JobEnd == null ? "Present" : ((DateTime)item.JobEnd).ToString("MMM yyyy"))</strong>
-                    </div>
-                </div>
-                <div class="position">
-                    <h3>@item.Title</h3>
-                    <div>
-                        @item.Description
-                    </div>
-                </div>
-            </div>
-        }
-
-    </div>
-</section>
-<section id="awards-section">
-    <div class="header bc-header">
-        <h2 class="title">Achievements</h2>
-        <div class="underline"></div>
-    </div>
-    <div class="container-fluid body">
-        @foreach (AchievementModel award in Model.Achievements.OrderBy(x => Convert.ToInt16(x.Year)))
-        {
-            <div class="achievement-badge">
-                <div class="title">
-                    <i class="fas @(award.Type == "Award"?"fa-trophy":"fa-award") fa-2x" aria-hidden="true"></i>
-                    @award.Title
-                </div>
-                <div class="body">
-                    @award.Year
-                </div>
-            </div>
-        }
-    </div>
-</section>
+            }
+        </div>
+    </section>
+}
 <section id="contact-section" class="contact-me" style="background-image:url(@Model.Home.ContactImage)">
     <div class="bc-header">
         <h2 class="title">Contact me</h2>
@@ -220,15 +234,18 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md">
-                <a href="@Model.Home.CVLink" target="_self">
-                    <div class="content-panel">
-                        <i class="fad fa-download fa-4x" aria-hidden="true"></i>
-                        <h3>Download my full CV</h3>
-                        <p>Click Here</p>
-                    </div>
-                </a>
-            </div>
+            @if (!String.IsNullOrEmpty(Model.Home.CVLink))
+            {
+                <div class="col-md">
+                        <a href="@Model.Home.CVLink" target="_self">
+                            <div class="content-panel">
+                                <i class="fad fa-download fa-4x" aria-hidden="true"></i>
+                                <h3>Download my full CV</h3>
+                                <p>Click Here</p>
+                            </div>
+                        </a>
+                </div>
+            } 
             <div class="col-md">
                 <div class="contact-form">
                     <form v-on:submit.prevent="submit" class="body">

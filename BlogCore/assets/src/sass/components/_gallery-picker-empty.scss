@@ -1,0 +1,33 @@
+﻿.gallery-picker-empty {
+    background-color: $white;
+    border: 1px solid $primary;
+    border-radius: 5px;
+    width: 256px;
+
+    > .header {
+        background-color: $primary;
+        color: $white;
+        display:flex;
+        font-weight: bold;
+        justify-content:space-between;
+        padding: 5px;
+        user-select: none;
+    }
+
+    > .body {
+        color:$primary;
+        padding: 2rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    @media(min-width:$screen-md-min) {
+        width: 384px;
+    }
+
+    @keyframes delay-overflow {
+        from {
+            overflow: hidden
+        }
+    }
+}
