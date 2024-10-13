@@ -18,27 +18,49 @@
     @RenderSection("Styles", false)
 
     @*jQuery has to stay at the top for now so it's accessible by js init code that's placed within partials*@
-    <script src="~/assets/dist/lib/jquery.min.js"></script>
+    <script src="~/assets/dist/lib/jquery/jquery.min.js"></script>
     @RenderSection("HeadScripts", required: false)
 </head>
 <body>
     @RenderBody()
     @RenderSection("Scripts", required: false)
     <environment include="Development">
-        <script src="~/assets/dist/lib/vue.js"></script>
-        <script src="~/assets/dist/js/common.js" asp-append-version="true"></script>
-        <script src="~/assets/dist/js/components.js" asp-append-version="true"></script>
-        <script src="~/assets/dist/js/project.js" asp-append-version="true"></script>
+        <script type="importmap">
+            {
+                "imports":{
+                    "@@popperjs/core": "/assets/dist/lib/popperjs/popperjs.min.js",
+                    "bootstrap": "/assets/dist/lib/bootstrap/bootstrap.esm.min.js",
+                    "vue": "/assets/dist/lib/vue/vue.esm-browser.js",
+                    "vue3-apexcharts": "/assets/dist/lib/vue3-apexcharts/vue3-apexcharts.js",
+                    "apexcharts": "/assets/dist/lib/apexcharts/apexcharts.esm.js",
+                    "vue3-toastify": "/assets/dist/lib/vue3-toastify/index.mjs",
+                    "@@vuepic/vue-datepicker": "/assets/dist/lib/vue-datepicker/vue-datepicker.js",
+                    "date-fns": "/assets/dist/lib/date-fns/date-fns.min.js",
+                    "common": "/assets/dist/js/common.min.js",
+                    "components":"/assets/dist/js/components.combined.js"
+                }
+            }
+        </script>
+        <script src="~/assets/dist/js/project.combined.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="~/assets/dist/lib/vue.min.js"></script>
-        <script src="~/assets/dist/js/common.min.js" asp-append-version="true"></script>
-        <script src="~/assets/dist/js/components.min.js" asp-append-version="true"></script>
+        <script type="importmap">
+            {
+                "imports":{
+                    "@@popperjs/core": "/assets/dist/lib/popperjs/popperjs.min.js",
+                    "bootstrap": "/assets/dist/lib/bootstrap/bootstrap.esm.min.js",
+                    "vue": "/assets/dist/lib/vue/vue.esm-browser.js",
+                    "vue3-apexcharts": "/assets/dist/lib/vue3-apexcharts/vue3-apexcharts.js",
+                    "apexcharts": "/assets/dist/lib/apexcharts/apexcharts.esm.js",
+                    "vue3-toastify": "/assets/dist/lib/vue3-toastify/index.mjs",
+                    "@@vuepic/vue-datepicker": "/assets/dist/lib/vue-datepicker/vue-datepicker.js",
+                    "date-fns": "/assets/dist/lib/date-fns/date-fns.min.js",
+                    "common": "/assets/dist/js/common.min.js",
+                    "components":"/assets/dist/js/components.min.js"
+                }
+            }
+        </script>
         <script src="~/assets/dist/js/project.min.js" asp-append-version="true"></script>
     </environment>
-
-    <script src="~/assets/dist/lib/popper.min.js"></script>
-    <script src="~/assets/dist/lib/bootstrap.min.js"></script>
-
 </body>
 </html>

@@ -1,4 +1,5 @@
-﻿const storageBarComponent = Vue.component('storage-bar-component', {
+﻿// storage-bar-component
+export const storageBarComponent = defineComponent({
     methods: {
         format(value) {
             const length = String(value).length;

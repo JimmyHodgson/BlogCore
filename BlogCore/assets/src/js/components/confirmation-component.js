@@ -1,4 +1,5 @@
-﻿const confirmationComponent = Vue.component('confirmation-component', {
+﻿// confirmation-component
+export const confirmationComponent = defineComponent({
     methods: {
         cancel() {
             this.$emit('cancel');

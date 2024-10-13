@@ -2,7 +2,7 @@
 {
     public static class Constants
     {
-        private const short BCMajor = 1;
+        private const short BCMajor = 2;
         private const short BCMinor = 0;
         private const short BCPatch = 0;
 
@@ -13,7 +13,10 @@
         public static readonly string ThumbnailGroup = "__thumbnails";
         public struct Configuration
         {
+            public const string DatabaseName = "database:dbName";
             public const string DatabaseSecret = "database:secret";
+            public const string DatabaseServer = "database:server";
+            public const string DatabaseUser = "database:user";
             public const string MailServer = "mail:server";
             public const string MailPort = "mail:port";
             public const string MailSenderAccount = "mail:senderaccount";

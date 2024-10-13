@@ -1,4 +1,5 @@
-﻿const tableComponent = Vue.component('table-component', {
+﻿// table-components
+export const tableComponent = defineComponent({
     data: function () {
         return {
             count: 0,
@@ -191,7 +192,9 @@
                         </thead>
                         <tbody class="body">
                             <tr v-for="row in data">
-                                <td v-if="table_options.dataset.hide.indexOf(name) === -1" v-for="(value,name) in row">{{value}}</td>
+                                <template v-for="(value,name) in row">
+                                    <td v-if="table_options.dataset.hide.indexOf(name) === -1">{{value}}</td>
+                                </template>
                                 <td v-if="table_options.dataset.actions.edit.enabled" class="button">
                                     <a :href="table_options.dataset.actions.edit.url+'/'+row[table_options.key]">
                                         <i class="fas fa-edit fa-fw"></i>

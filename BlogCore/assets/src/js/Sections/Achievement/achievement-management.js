@@ -1,35 +1,41 @@
 ﻿if (document.getElementById('achievement-management') !== null) {
-    new Vue({
-        el: '#achievement-management',
-        components: {
-            tableComponent
-        },
-        data: function () {
-            return {
-                options: {
-                    endpoint: '/api/Achievement',
-                    dataset: {
-                        actions: {
-                            details: { enabled: true, url: 'Details' },
-                            edit: { enabled: true, url: 'Edit' },
-                            remove: { enabled: true, url: 'Delete' }
+    Promise.all([
+        import("vue"),
+        import("components")
+    ]).then(([{ createApp }, { tableComponent }]) => {
+        createApp({
+            components: {
+                tableComponent
+            },
+            data: function () {
+                return {
+                    options: {
+                        endpoint: '/api/Achievement',
+                        dataset: {
+                            actions: {
+                                details: { enabled: true, url: 'Details' },
+                                edit: { enabled: true, url: 'Edit' },
+                                remove: { enabled: true, url: 'Delete' }
+                            },
+                            hide: ['Id']
                         },
-                        hide:['Id']
-                    },
-                    key: 'Id',
-                    ribbon: [{
-                        url: 'Create',
-                        icon: 'far fa-plus'
-                    }]
+                        key: 'Id',
+                        ribbon: [{
+                            url: 'Create',
+                            icon: 'far fa-plus'
+                        }]
+                    }
+                };
+            },
+            mounted: function () {
+            },
+            methods: {
+                isEmpty() {
+                    return !this.data.length > 0;
                 }
-            };
-        },
-        mounted: function () {
-        },
-        methods: {
-            isEmpty() {
-                return !this.data.length > 0;
             }
-        }
-    });
+        }).mount('#achievement-management');
+    }).catch(error => {
+        console.error("Failed to load module: ", error);
+    })
 }

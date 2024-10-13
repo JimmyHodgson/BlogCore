@@ -1,10 +1,14 @@
-﻿const galleryPickerComponent = Vue.component('gallery-picker-component', {
+﻿// gallery-picker-component
+export const galleryPickerComponent = defineComponent({
     data: function () {
         return {
             data: {},
             selected: null,
             show: false
         };
+    },
+    directives: {
+        'click-outside': clickOutsideDirective
     },
     methods: {
         close() {
@@ -37,9 +41,12 @@
             this.show = !this.show;
         },
         update(val) {
-            val = val === undefined ? this.$refs.galleryInput.value : val;
-
-            this.$emit('input', val);
+            if ( val === undefined ) {
+                val = this.$refs.galleryInput.modelValue;
+            }
+            else {
+                this.$emit('update:modelValue', val);
+            }
         }
     },
     props: {
@@ -47,24 +54,21 @@
             required: true,
             type: Array
         },
-        value: {
+        modelValue: {
             required: true,
             type: String
         }
     },
+    emits: ['update:modelValue'],
     template:
         `   <div class="gallery-picker-component" v-click-outside="close">
                 <div class="input-group clickable" >
-                    <div class="input-group-prepend" v-on:click="toggleOpen">
-                        <span class="input-group-text -primary">
-                            <i class="fas fa-image fa-fw"></i>
-                        </span>
+                    <div class="input-group-text -primary" v-on:click="toggleOpen">
+                        <i class="fas fa-image fa-fw"></i>
                     </div>
-                    <input type="text" ref="galleryInput" class="form-control" :value="value" v-on:input="update()"  disabled/>
-                    <div v-if="value.length !== 0" class="input-group-append" v-on:click="removeSelection">
-                        <span class="input-group-text -danger">
-                            <i class="fal fa-times fa-fw"></i>
-                        </span>
+                    <input type="text" ref="galleryInput" class="form-control" :value="modelValue" v-on:input="update()"  disabled/>
+                    <div v-if="modelValue.length !== 0" class="input-group-text -danger" v-on:click="removeSelection">
+                        <i class="fal fa-times fa-fw"></i>
                     </div>
                 </div>
                 <div class="gallery-picker" :class="{'-open':show,'-hide':!show}">

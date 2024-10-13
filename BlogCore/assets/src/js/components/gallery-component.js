@@ -1,4 +1,5 @@
-﻿const galleryComponent = Vue.component('gallery-component', {
+﻿// gallery-component
+export const galleryComponent = defineComponent({
     created() {
         this.parseOptions();
         common.get(this.getUrl())

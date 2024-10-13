@@ -6,11 +6,18 @@
 
 //Import FontAwesome from npm
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/fontawesome.scss';
+// duotone
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/duotone.scss';
+@import '../../../node_modules/@fortawesome/fontawesome-pro/scss/_duotone-icons.scss';
+// light
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/light.scss';
+// regular
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/regular.scss';
+// solid
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/solid.scss';
+// brands
 @import '../../../node_modules/@fortawesome/fontawesome-pro/scss/brands.scss';
+
 //Import .scss files here
 @import '_fonts';
 @import '_mixins';

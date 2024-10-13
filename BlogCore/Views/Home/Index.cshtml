@@ -8,7 +8,7 @@
 }
 
 <section id="landing-section" class="page-landing" style="background-image:url(@Model.Home.LandingImage)">
-    <nav class="navbar navbar-expand-lg bc-nav -light">
+    <nav class="navbar navbar-expand-lg bc-nav -light px-3">
         <a class="navbar-brand brand" href="/">
             <img src="~/assets/dist/images/blogcore_logo_white_42x42.png"  alt="blogcore logo"/> BlogCore
         </a>
@@ -22,10 +22,10 @@
             else
             {
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="nav-link" title="Home"><i class="fad fa-home fa-fw" aria-hidden="true"></i></a>
+                    <a asp-area="" asp-controller="Manage" asp-action="Index" class="nav-link" title="Home"><i class="fa-duotone fa-house fa-fw" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
-                    <form method="post" asp-action="Logout" asp-controller="Account">
+                    <form method="post" asp-action="Logout" asp-controller="Account" class="d-flex">
                         <button class="nav-link" title="Sign out">
                             <i class="fad fa-sign-out fa-fw" aria-hidden="true"></i>
                         </button>
@@ -265,7 +265,7 @@
                             <span v-if="errors.message" class="text-danger">{{errors.message}}</span>
                         </div>
                         <div class="mb-3">
-                            <div class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey"></div>
+                            <div ref="grecaptcha" class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey"></div>
                             <span v-if="errors.token" class="text-danger">{{errors.token}}</span>
                         </div>
                         <div class="mb-3">
@@ -291,10 +291,6 @@
     <script src="https://www.google.com/recaptcha/enterprise.js"></script>
 }
 
-@section Scripts{
-    <script src="~/assets/dist/lib/vue-toast-notification/index.min.js"></script>
-}
-
 @section Styles{
-    <link rel="stylesheet" href="~/assets/dist/lib/vue-toast-notification/theme-sugar.css" />
+    <link rel="stylesheet" href="~/assets/dist/lib/vue3-toastify/index.css" />
 }

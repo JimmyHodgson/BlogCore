@@ -5,6 +5,7 @@ using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,10 +17,12 @@ namespace BlogCore.Controllers.API
     public class AchievementController : ODataController
     {
         private readonly DatabaseContext _context;
+        private readonly ILogger<AchievementController> _logger;
 
-        public AchievementController(DatabaseContext context)
+        public AchievementController(DatabaseContext context, ILogger<AchievementController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -34,6 +37,7 @@ namespace BlogCore.Controllers.API
         [ODataRoute("({Id})")]
         public SingleResult<AchievementModel> Get(Guid id)
         {
+            _logger.LogInformation("ID is {id}", id);
             return SingleResult.Create(_context.Achievements.Where(x => x.Id == id));
         }
 

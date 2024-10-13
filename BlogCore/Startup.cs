@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using Amazon.S3;
@@ -14,19 +13,21 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OData.Edm;
 using NETCore.MailKit.Extensions;
 using NETCore.MailKit.Infrastructure.Internal;
-using SixLabors.ImageSharp.Memory;
 
 namespace BlogCore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
         }
@@ -41,7 +42,10 @@ namespace BlogCore
                 mailSenderAccount,
                 mailSenderName,
                 mailServer,
-                databaseSecret;
+                databaseSecret,
+                databaseServer,
+                databaseName,
+                databaseUser;
             short mailPort;
             bool mailTLS;
 
@@ -53,6 +57,10 @@ namespace BlogCore
             mailSenderName = Configuration[Constants.Configuration.MailSenderName];
             mailServer = Configuration[Constants.Configuration.MailServer];
             databaseSecret = Configuration[Constants.Configuration.DatabaseSecret];
+            databaseServer = Configuration[Constants.Configuration.DatabaseServer];
+            databaseName = Configuration[Constants.Configuration.DatabaseName];
+            databaseUser = Configuration[Constants.Configuration.DatabaseUser];
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -61,7 +69,12 @@ namespace BlogCore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("default"))
+            var builder = new SqlConnectionStringBuilder(
+                Configuration.GetConnectionString("default")
+                .Replace($"<{Constants.Configuration.DatabaseServer}>", databaseServer)
+                .Replace($"<{Constants.Configuration.DatabaseName}>",databaseName)
+                .Replace($"<{Constants.Configuration.DatabaseUser}>",databaseUser)
+                )
             {
                 Password = databaseSecret
             };
@@ -72,7 +85,7 @@ namespace BlogCore
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromDays(1);
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
                 // If the LoginPath isn't set, ASP.NET Core defaults 
                 // the path to /Account/Login.
                 options.LoginPath = "/Account/Login";
@@ -101,7 +114,7 @@ namespace BlogCore
             services.Configure<EmailConfirmationTokenProviderOptions>(opt =>
                 opt.TokenLifespan = TimeSpan.FromDays(3));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddOData();
 
             services.AddMailKit(optionBuilder =>
@@ -123,14 +136,12 @@ namespace BlogCore
 
             services.AddSingleton(Configuration);
 
-            SixLabors.ImageSharp.Configuration.Default.MemoryAllocator = ArrayPoolMemoryAllocator.CreateWithModeratePooling();
-
             services.AddOptions<CaptchaSettings>().Bind(Configuration.GetSection("Captcha"));
             services.AddTransient<CaptchaVerificationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -144,16 +155,16 @@ namespace BlogCore
 
             app.UseHttpsRedirection();
 
+            // Apply the status code pages conditionally
             app.Use(async (context, next) =>
             {
                 await next();
-                if(context.Response.StatusCode == 404 && !context.Request.Path.Value.Contains("/api/"))
+                if (context.Response.StatusCode == 404 && !context.Request.Path.Value.Contains("/api/"))
                 {
                     context.Request.Path = "/Home/ContentNotFound";
                     await next();
                 }
             });
-
 
             app.UseStaticFiles(new StaticFileOptions()
             {
@@ -162,6 +173,8 @@ namespace BlogCore
             });
             app.UseAuthentication();
             app.UseCookiePolicy();
+
+            app.UseAuthorization();
 
             var builder = new ODataConventionModelBuilder(app.ApplicationServices);
             builder.EntitySet<JobModel>("Job");
@@ -175,10 +188,12 @@ namespace BlogCore
             {
                 routes.Select().Expand().Filter().OrderBy().MaxTop(null).Count();
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name:"default",
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
                 routes.MapODataServiceRoute("ODataRoute", "api", builder.GetEdmModel());
             });
+
         }
     }
 }

@@ -141,12 +141,11 @@ namespace BlogCore.Controllers.API
             {
                 file.CopyTo(stream);
                 stream.Position = 0;
-                using (Image image = Image.Load(stream, out IImageFormat format))
-                using (Image clone = image.Clone(x => x.Resize(300, 0)))
-                {
-                    clone.Save(outStream, format);
-                    return outStream;
-                }
+                using Image image = Image.Load(stream);
+                image.Mutate(x => x.Resize(300, 0));
+                image.Save(outStream, image.Metadata.DecodedImageFormat);
+                outStream.Position = 0;
+                return outStream;
             }
         }
 

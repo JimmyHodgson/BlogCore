@@ -41,13 +41,13 @@ namespace BlogCore.Controllers
 
             HomeViewModel model = new HomeViewModel
             {
-                User = _context.Users.DefaultIfEmpty(defaultUser).First(),
+                User = _context.Users.AsEnumerable().DefaultIfEmpty(defaultUser).First(),
                 Achievements = _context.Achievements.ToList(),
                 Education = _context.Education.ToList(),
                 Jobs = _context.Jobs.ToList(),
                 Skills = _context.Skills.ToList(),
                 CaptchaClientKey = _config["captcha:SiteKey"],
-                Home = _context.Home.DefaultIfEmpty(defaultHome).First()
+                Home = _context.Home.AsEnumerable().DefaultIfEmpty(defaultHome).First()
             };
 
             return View(model);

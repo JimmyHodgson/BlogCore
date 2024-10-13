@@ -28,25 +28,21 @@
             <div class="mb-3">
                 <label asp-for="JobStart" class="control-label"></label>
                 <input asp-for="JobStart" asp-format="{0:dd\/MM\/yyyy}" type="hidden" class="form-control" />
-                <vuejs-datepicker v-model="jobStart"
-                                  :wrapper-class="'datepicker-component'"
-                                  :format="dateFormat" :clear-button="true"
-                                  :clear-button-icon="'fal fa-times'"
-                                  :calendar-button="true"
-                                  :calendar-button-icon="'fal fa-calendar'">
-                </vuejs-datepicker>
+                <vue-date-picker v-model="jobStart"
+                                 :enable-time-picker="false"
+                                 :format="dateFormat"
+                                 auto-apply>
+                </vue-date-picker>
                 <span v-if="errors.jobStart" class="text-danger">{{errors.jobStart}}</span>
             </div>
             <div class="mb-3">
                 <label asp-for="JobEnd" class="control-label"></label>
                 <input asp-for="JobEnd" asp-format="{0:dd\/MM\/yyyy}" type="hidden" class="form-control" />
-                <vuejs-datepicker v-model="jobEnd"
-                                  :wrapper-class="'datepicker-component'"
-                                  :format="dateFormat" :clear-button="true"
-                                  :clear-button-icon="'fal fa-times'"
-                                  :calendar-button="true"
-                                  :calendar-button-icon="'fal fa-calendar'">
-                </vuejs-datepicker>
+                <vue-date-picker v-model="jobEnd"
+                                 :format="dateFormat"
+                                 :enable-time-picker="false"
+                                 auto-apply>
+                </vue-date-picker>
                 <span v-if="errors.jobEnd" class="text-danger">{{errors.jobEnd}}</span>
             </div>
             <div class="mb-3">
@@ -65,6 +61,6 @@
     </div>
 </section>
 
-@section PageScripts {
-    <script src="~/assets/dist/lib/vuejs-datepicker.min.js"></script>
+@section Styles {
+    <link rel="stylesheet" href="~/assets/dist/lib/vue-datepicker/main.css" asp-append-version="true" />
 }

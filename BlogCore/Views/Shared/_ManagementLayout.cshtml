@@ -20,16 +20,18 @@
             <div class="navbar-brand">
                 <img src="~/assets/dist/images/blogcore_logo_white_42x42.png" alt="blogcore logo" /> BlogCore
             </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="far fa-bars fa-fw" aria-hidden="true"></i>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="far fa-bars fa-fw"></i>
             </button>
             <div class="menu-component collapse" id="navbar">
                 @await Html.PartialAsync("_MenuPartial")
             </div>
         </nav>
-        <nav aria-label="Breadcrumbs" class="navbar bg-light bc-nav -dark">
+        <nav aria-label="Breadcrumbs" class="navbar bg-light bc-nav -dark px-3">
             <div class="container-fluid">
-                <i id="sidebar-toggle-widget" class="fal fa-bars fa-fw d-none d-lg-block clickable" aria-hidden="true" v-on:click="toggleSideBar"></i>
+                <div id="sidebar-toggle-widget">
+                    <i class="fal fa-bars fa-fw d-none d-lg-block clickable" aria-hidden="true" v-on:click="toggleSideBar"></i>
+                </div>
                 <ul class="bread-crumb">
                     <li class="item">
                         <i class="@ViewData["Icon"]" aria-hidden="true"></i> @ViewData["Controller"]
@@ -64,3 +66,5 @@
 @section Scripts{
     @RenderSection("PageScripts", required: false)
 }
+
+@RenderSection("Styles", false)

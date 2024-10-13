@@ -1,6 +1,7 @@
-﻿const apexBarChart = Vue.component('apex-bar-chart', {
+﻿// apex-bar-chart
+export const apexBarChart = defineComponent({
     components: {
-        apexchart: window.VueApexCharts
+        apexchart: VueApexCharts
     },
     data: function () {
         return {

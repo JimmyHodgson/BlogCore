@@ -1,4 +1,5 @@
-﻿const uploadComponent = Vue.component('upload-component', {
+﻿// upload-component
+export const uploadComponent = defineComponent({
     data: function () {
         return {
             url: null,
@@ -13,11 +14,11 @@
             }
         },
         clear() {
-            this.$emit('input', null);
+            this.$emit('update:modelValue', null);
         },
         handleFile(file) {
             this.url = URL.createObjectURL(file);
-            this.$emit('input', file);
+            this.$emit('update:modelValue', file);
         },
         handleFileChange(e) {
             const file = e.target.files[0];
@@ -28,11 +29,12 @@
         }
     },
     props: {
-        value: File
+        modelValue: File
     },
+    emits: ['update:modelValue'],
     template: `
         <label class="file-upload" v-on:drop.prevent="addFile" v-on:dragover.prevent>
-            <div v-if="value" class="file-preview-window">   
+            <div v-if="modelValue" class="file-preview-window">
                 <div class="thumbnail">
                     <img v-bind:src="url"/>
                 </div>
@@ -52,9 +54,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{value.name}}</td>
-                                    <td>{{value.type}}</td>
-                                    <td>{{toKb(value.size)}} kb</td>
+                                    <td>{{modelValue.name}}</td>
+                                    <td>{{modelValue.type}}</td>
+                                    <td>{{toKb(modelValue.size)}} kb</td>
                                     <td><i class="fas fa-trash-alt fa-fw clickable" v-on:click.prevent="clear" title="clear media"></i></td>
                                 </tr>
                             </tbody>

@@ -1,22 +1,20 @@
-﻿Vue.directive('click-outside', {
-    bind: function (el, binding, vnode) {
+﻿export const clickOutsideDirective = {
+    beforeMount(el, binding) {
         el.clickOutsideEvent = function (event) {
+            // Check if the click is outside the element
             if (!(el === event.target || el.contains(event.target))) {
-                vnode.context[binding.expression](event);
+                // Call the method provided in the binding value
+                binding.value(event);
             }
         };
         document.body.addEventListener('click', el.clickOutsideEvent);
     },
-    unbind: function (el) {
+    beforeUnmount(el) {
         document.body.removeEventListener('click', el.clickOutsideEvent);
     }
-});
+};
 
-if (window.VueToast !== undefined) {
-    Vue.use(window.VueToast);
-}
-
-const common = {
+export const common = {
     delete: (url) => {
         return new Promise((resolve, reject) => {
             fetch(url, {
