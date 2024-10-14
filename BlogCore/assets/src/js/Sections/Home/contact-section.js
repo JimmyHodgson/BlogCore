@@ -1,5 +1,9 @@
 ﻿if (document.getElementById('contact-section') !== null) {
-    import('vue').then(({ createApp }) => {
+    Promise.all([
+        import('vue'),
+        import('common'),
+        import('vue3-toastify')
+    ]).then(([{ createApp }, { common }, { toast:ToastPlugin }]) => {
         createApp({
             data: function () {
                 return {
@@ -36,7 +40,7 @@
                     this.name = '';
                     this.message = '';
                     this.token = '';
-                    grecaptcha.enterprise.reset();
+                    grecaptcha.reset();
                 },
                 submit() {
                     if (this.checkForm()) {
@@ -45,9 +49,12 @@
                             .then(response => {
                                 this.resetForm();
                                 this.clearErrors();
-                                Vue.$toast.success("Message Sent!");
+                                ToastPlugin.success("Message Sent!", { "theme": "colored" });
                             })
-                            .catch(response => console.error(response))
+                            .catch(response => {
+                                console.error(response);
+                                ToastPlugin.error(response.message, { "theme": "colored" });
+                            })
                             .finally(() => this.loading = false);
                     }
                 },

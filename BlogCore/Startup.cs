@@ -12,14 +12,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OData.Edm;
+using Microsoft.Extensions.Logging;
 using NETCore.MailKit.Extensions;
 using NETCore.MailKit.Infrastructure.Internal;
 
@@ -27,9 +26,11 @@ namespace BlogCore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        private readonly ILogger<Startup> _logger;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             Configuration = configuration;
+            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -173,8 +174,6 @@ namespace BlogCore
             });
             app.UseAuthentication();
             app.UseCookiePolicy();
-
-            app.UseAuthorization();
 
             var builder = new ODataConventionModelBuilder(app.ApplicationServices);
             builder.EntitySet<JobModel>("Job");

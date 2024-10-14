@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace BlogCore.Common.ReCaptcha
@@ -9,45 +10,40 @@ namespace BlogCore.Common.ReCaptcha
     public class CaptchaVerificationService
     {
         private readonly CaptchaSettings _captchaSettings;
-        public CaptchaVerificationService(IOptions<CaptchaSettings> captchaSettings)
+        private readonly ILogger<CaptchaVerificationService> _logger;
+        public CaptchaVerificationService(IOptions<CaptchaSettings> captchaSettings, ILogger<CaptchaVerificationService> logger)
         {
             _captchaSettings = captchaSettings.Value;
+            _logger = logger;
         }
 
         public async Task<bool> IsCaptchaValid(string token)
         {
-            bool result = false;
-
-            var request = new CaptchaVerificationRequest();
-            var gEvent = new GoogleEvent
+            var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
-                ExpectedAction = Constants.CaptchaUserActions.WebsiteMessage,
-                SiteKey = _captchaSettings.SiteKey,
-                Token = token
-            };
+                {"secret", _captchaSettings.APIKey },
+                {"response", token }
+            });
 
-            request.Event = gEvent;
-
-            JsonSerializerSettings settings = new JsonSerializerSettings
+            using (HttpClient client = new())
             {
-                NullValueHandling = NullValueHandling.Ignore
-            };
+                HttpResponseMessage response = await client.PostAsync(_captchaSettings.GoogleVerificationUrl,content);
 
-            var json = JsonConvert.SerializeObject(request,settings);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.PostAsync($"{_captchaSettings.GoogleVerificationUrl}/{_captchaSettings.ProjectId}/assessments?key={_captchaSettings.APIKey}",data);
-                string jsonString = await response.Content.ReadAsStringAsync();
-                CaptchaVerificationResponse captchaVerfication = JsonConvert.DeserializeObject<CaptchaVerificationResponse>(jsonString);
-                if(captchaVerfication.Score > 0.7)
+                string responseContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
                 {
-                    result = true;
+                    var result = await response.Content.ReadFromJsonAsync<reCaptchaResponse>();
+                    return result.Success;
                 }
             }
 
-            return result;
+            return false;
         }
+    }
+
+    public class reCaptchaResponse
+    {
+        public bool Success { get; set; }
+        public string[] ErrorCodes { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace BlogCore.Controllers.API
         {
             var user = _context.Users.FirstOrDefault();
             if(user == null) {
-                return BadRequest("No user is registered.");
+                return BadRequest(new { message = "No user is registered." });
             }
 
             var requestIsValid = await _verificationService.IsCaptchaValid(model.Token);
@@ -47,7 +47,7 @@ namespace BlogCore.Controllers.API
                 _emailService.Send(user.Email, "Blogcore Message", message, true);
                 return Ok(model);
             }
-            return BadRequest("Request did not pass validation");
+            return BadRequest(new { message = "Request did not pass validation", model });
             
         }
     }
