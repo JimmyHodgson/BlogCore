@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 // File paths
-const srcDir = 'assets/src/images/**/*.{jpg,jpeg,png}';
+const srcDir = 'assets/src/images/**/*.{jpg,jpeg,png,ico,svg,webmanifest}';
 const destDir = 'assets/dist/images';
 
 // Ensure destination directory exists
@@ -36,6 +36,21 @@ function processImages(pattern, outputOptions, extension) {
   });
 }
 
+// Function to copy files without processing
+function copyFiles(pattern) {
+  glob(pattern, { ignore: excludePatterns.map((dir) => path.join('assets/src/images', dir)) }, (err, files) => {
+    if (err) throw err;
+
+    files.forEach((file) => {
+      const outputFile = path.join(destDir, path.basename(file));
+      fs.copyFile(file, outputFile, (err) => {
+        if (err) console.error(`Error copying ${file}:`, err);
+        else console.log(`Copied: ${file} -> ${outputFile}`);
+      });
+    });
+  });
+}
+
 // JPEG Optimization
 processImages(
   'assets/src/images/**/*.{jpg,jpeg}',
@@ -56,3 +71,6 @@ processImages(
   { format: 'webp', options: { quality: 80 } },
   'webp'
 );
+
+// Copy .ico, .svg, and .webmanifest files
+copyFiles('assets/src/images/**/*.{ico,svg,webmanifest}');
